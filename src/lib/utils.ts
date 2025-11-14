@@ -7,6 +7,22 @@ export const formatBytes = (bytes: number): string => {
   return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
 }
 
+/**
+ * Format date string to human-readable format (e.g., "Jan 15, 2024")
+ */
+export const formatDate = (dateString: string | undefined): string => {
+  if (!dateString) return 'N/A';
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+};
+
+/**
+ * Format number with thousands separator (e.g., 1,234,567)
+ */
+export const formatNumber = (num: number): string => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
 export const calculatePagination = (
   total: number,
   limit: number,
@@ -24,4 +40,4 @@ export const calculatePagination = (
     current_page: currentPage,
     total_pages: totalPages,
   };
-}
+};

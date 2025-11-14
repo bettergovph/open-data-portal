@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { Layout } from '../components/Layout';
-import { Icons } from '../src/utils/icons';
+import { LoadingSkeleton } from '../components/LoadingSkeleton';
 import { html } from 'hono/html';
 
 const app = new Hono();
@@ -108,7 +108,7 @@ app.get('/', async (c) => {
                               disabled
                               class="px-4 py-2 border border-neutral-300 rounded-md text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                          Previous
+                          Prev
                       </button>
                       <span id="page-info" class="text-sm text-neutral-600">Loading...</span>
                       <button
@@ -142,18 +142,7 @@ app.get('/', async (c) => {
           <!-- Datasets List -->
           <div id="datasets-container" class="space-y-4">
               <!-- Loading skeletons -->
-              ${Array(5).fill(0).map(() => html`
-                  <div class="bg-white rounded-lg shadow-sm p-6 animate-pulse">
-                      <div class="h-6 bg-gray-200 rounded w-3/4 mb-3"></div>
-                      <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
-                      <div class="h-4 bg-gray-200 rounded w-5/6 mb-4"></div>
-                      <div class="flex gap-2 mb-4">
-                          <div class="h-6 bg-gray-200 rounded w-20"></div>
-                          <div class="h-6 bg-gray-200 rounded w-24"></div>
-                      </div>
-                      <div class="h-4 bg-gray-200 rounded w-32"></div>
-                  </div>
-              `)}
+              ${LoadingSkeleton({ variant: 'dataset-card', count: 5 })}
           </div>
 
           <!-- Bottom Pagination Controls -->
@@ -311,9 +300,7 @@ app.get('/', async (c) => {
               class="inline-flex items-center gap-1 px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm hover:bg-primary-200 transition-colors"
             >
               \${chip.label}
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
+              <i data-lucide="x" class="w-4 h-4"></i>
             </button>
           \`).join('') + \`
             <button
@@ -400,9 +387,7 @@ app.get('/', async (c) => {
               if (datasets.length === 0) {
                   container.innerHTML = \`
             <div class="bg-white rounded-lg shadow-sm p-12 text-center">
-              <svg class="w-16 h-16 text-neutral-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
+              <i data-lucide="frown" class="w-16 h-16 text-neutral-400 mx-auto mb-4"></i>
               <h3 class="text-lg font-medium text-neutral-900 mb-2">No datasets found</h3>
               <p class="text-neutral-600 mb-4">Try adjusting your filters or search terms.</p>
               <button onclick="resetFilters()" class="text-primary-600 hover:text-primary-700 font-medium">
@@ -544,9 +529,7 @@ app.get('/', async (c) => {
             \${!hasPrevious ? 'disabled' : ''}
             class="relative inline-flex items-center rounded-l-md px-2 py-2 text-neutral-400 ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 focus:z-20 \${!hasPrevious ? 'cursor-not-allowed opacity-50' : ''}"
           >
-            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
-            </svg>
+            <i data-lucide="chevron-left" class="h-5 w-5"></i>
           </button>
         \`;
 
@@ -590,9 +573,7 @@ app.get('/', async (c) => {
             \${!hasNext ? 'disabled' : ''}
             class="relative inline-flex items-center rounded-r-md px-2 py-2 text-neutral-400 ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 focus:z-20 \${!hasNext ? 'cursor-not-allowed opacity-50' : ''}"
           >
-            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-            </svg>
+            <i data-lucide="chevron-right" class="h-5 w-5"></i>
           </button>
         \`;
 

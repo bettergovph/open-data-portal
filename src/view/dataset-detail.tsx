@@ -41,9 +41,7 @@ app.get('/:id', async (c) => {
                   <p id="resource-count" class="text-2xl font-bold text-gray-900">0</p>
                   <p class="text-sm text-gray-600">Resources</p>
                 </div>
-                <svg class="w-8 h-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
+                <i data-lucide="file-text" class="w-8 h-8 text-primary-500"></i>
               </div>
             </div>
 
@@ -53,9 +51,7 @@ app.get('/:id', async (c) => {
                   <p id="total-size" class="text-2xl font-bold text-gray-900">0 B</p>
                   <p class="text-sm text-gray-600">Total Size</p>
                 </div>
-                <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
-                </svg>
+                <i data-lucide="database" class="w-8 h-8 text-green-500"></i>
               </div>
             </div>
 
@@ -65,9 +61,7 @@ app.get('/:id', async (c) => {
                   <p id="version-date" class="text-2xl font-bold text-gray-900">N/A</p>
                   <p class="text-sm text-gray-600">Latest Version</p>
                 </div>
-                <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                </svg>
+                <i data-lucide="calendar" class="w-8 h-8 text-yellow-500"></i>
               </div>
             </div>
           </div>
@@ -78,7 +72,7 @@ app.get('/:id', async (c) => {
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Resources</h2>
 
           <!-- Results Summary and Items Per Page -->
-          <div class="mb-4 flex items-center justify-between">
+          <div class="mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div id="resource-results-summary" class="text-sm text-neutral-600">
               Loading resources...
             </div>
@@ -100,33 +94,61 @@ app.get('/:id', async (c) => {
           </div>
 
           <!-- Pagination Controls -->
-          <div class="mt-6 flex items-center justify-start gap-3">
-            <button
-              id="prev-resource-page-btn"
-              onclick="goToPreviousResourcePage()"
-              disabled
-              class="px-4 py-2 border border-neutral-300 rounded-md text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Previous
-            </button>
-            <span id="resource-page-info" class="text-sm text-neutral-600">Loading...</span>
-            <button
-              id="next-resource-page-btn"
-              onclick="goToNextResourcePage()"
-              disabled
-              class="px-4 py-2 border border-neutral-300 rounded-md text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Next
-            </button>
+          <div class="mt-6">
+            <!-- Mobile view -->
+            <div class="flex sm:hidden flex-col gap-3">
+              <div class="flex justify-center">
+                <span id="resource-page-info-mobile" class="text-sm text-neutral-700">Loading...</span>
+              </div>
+              <div class="flex justify-between gap-2">
+                <button
+                  id="prev-resource-page-btn-mobile"
+                  onclick="goToPreviousResourcePage()"
+                  disabled
+                  class="flex-1 inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 hover:bg-primary-50 hover:text-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <i data-lucide="chevron-left" class="w-4 h-4 mr-1"></i>
+                  Prev
+                </button>
+                <button
+                  id="next-resource-page-btn-mobile"
+                  onclick="goToNextResourcePage()"
+                  disabled
+                  class="flex-1 inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 hover:bg-primary-50 hover:text-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Next
+                  <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Desktop view -->
+            <div class="hidden sm:flex items-center justify-start gap-3">
+              <button
+                id="prev-resource-page-btn"
+                onclick="goToPreviousResourcePage()"
+                disabled
+                class="px-4 py-2 border border-neutral-300 rounded-md text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Prev
+              </button>
+              <span id="resource-page-info" class="text-sm text-neutral-600">Loading...</span>
+              <button
+                id="next-resource-page-btn"
+                onclick="goToNextResourcePage()"
+                disabled
+                class="px-4 py-2 border border-neutral-300 rounded-md text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Error State -->
       <div id="error" class="hidden text-center py-12">
-        <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
+        <i data-lucide="frown" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
         <h2 class="text-2xl font-bold text-gray-900 mb-2">Dataset Not Found</h2>
         <p class="text-gray-600 mb-6">The dataset you're looking for doesn't exist or has been removed.</p>
         <a href="/datasets" class="text-primary-600 hover:text-primary-700 font-medium">
@@ -238,10 +260,16 @@ app.get('/:id', async (c) => {
         const currentPage = Math.floor(resourcesPagination.offset / resourcesPagination.limit) + 1;
         const totalPages = Math.ceil(resourcesPagination.total / resourcesPagination.limit);
 
-        // Update page info
+        // Update page info (desktop)
         const pageInfo = document.getElementById('resource-page-info');
         if (pageInfo) {
           pageInfo.textContent = resourcesPagination.total === 0 ? 'No pages' : \`Page \${currentPage} of \${totalPages.toLocaleString()}\`;
+        }
+
+        // Update page info (mobile)
+        const pageInfoMobile = document.getElementById('resource-page-info-mobile');
+        if (pageInfoMobile) {
+          pageInfoMobile.textContent = resourcesPagination.total === 0 ? 'No pages' : \`Page \${currentPage} of \${totalPages.toLocaleString()}\`;
         }
 
         // Update results summary
@@ -256,7 +284,7 @@ app.get('/:id', async (c) => {
           }
         }
 
-        // Update button states
+        // Update button states (desktop)
         const prevBtn = document.getElementById('prev-resource-page-btn');
         const nextBtn = document.getElementById('next-resource-page-btn');
 
@@ -266,6 +294,18 @@ app.get('/:id', async (c) => {
 
         if (nextBtn) {
           nextBtn.disabled = !resourcesPagination.has_more || resourcesPagination.total === 0;
+        }
+
+        // Update button states (mobile)
+        const prevBtnMobile = document.getElementById('prev-resource-page-btn-mobile');
+        const nextBtnMobile = document.getElementById('next-resource-page-btn-mobile');
+
+        if (prevBtnMobile) {
+          prevBtnMobile.disabled = resourcesPagination.offset === 0 || resourcesPagination.total === 0;
+        }
+
+        if (nextBtnMobile) {
+          nextBtnMobile.disabled = !resourcesPagination.has_more || resourcesPagination.total === 0;
         }
       }
 
@@ -353,7 +393,6 @@ app.get('/:id', async (c) => {
 
         metadataContainer.innerHTML = metadataParts.join('');
 
-
         // Set statistics
         const resourceCount = resourcesPagination ? resourcesPagination.total : (resources ? resources.length : 0);
         document.getElementById('resource-count').textContent = resourceCount;
@@ -397,9 +436,7 @@ app.get('/:id', async (c) => {
             \${!hasPrevious ? 'disabled' : ''}
             class="relative inline-flex items-center rounded-l-md px-2 py-2 text-neutral-400 ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 focus:z-20 \${!hasPrevious ? 'cursor-not-allowed opacity-50' : ''}"
           >
-            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
-            </svg>
+            <i data-lucide="chevron-left" class="h-5 w-5"></i>
           </button>
         \`;
 
@@ -443,9 +480,7 @@ app.get('/:id', async (c) => {
             \${!hasNext ? 'disabled' : ''}
             class="relative inline-flex items-center rounded-r-md px-2 py-2 text-neutral-400 ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 focus:z-20 \${!hasNext ? 'cursor-not-allowed opacity-50' : ''}"
           >
-            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-            </svg>
+            <i data-lucide="chevron-right" class="h-5 w-5"></i>
           </button>
         \`;
 
@@ -500,9 +535,7 @@ app.get('/:id', async (c) => {
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <a href="\${resource.download_url}" target="_blank" class="text-primary-600 hover:text-primary-900">
-                      <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                      </svg>
+                      <i data-lucide="download" class="w-5 h-5 inline"></i>
                     </a>
                   </td>
                 </tr>

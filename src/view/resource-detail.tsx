@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { Layout } from '../components/Layout';
+import { EmptyState } from '../components/EmptyState';
 import { html } from 'hono/html';
 
 const app = new Hono();

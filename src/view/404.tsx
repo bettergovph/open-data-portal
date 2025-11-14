@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { PageLayout } from "@/components/Layout.tsx";
+import { Layout } from "@/components/Layout.tsx";
 import { html } from "hono/html";
 
 export const notFoundRouter = new Hono();
@@ -10,10 +10,7 @@ notFoundRouter.notFound((c) => {
           <div class="max-w-2xl mx-auto text-center">
               <!-- 404 Illustration -->
               <div class="mb-8">
-                  <svg class="w-64 h-64 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
+                  <i data-lucide="frown" class="w-64 h-64 mx-auto text-gray-300"></i>
               </div>
 
               <!-- Error Message -->
@@ -61,5 +58,5 @@ notFoundRouter.notFound((c) => {
       </div>
   `;
 
-  return c.html(PageLayout({ title: "404 Not Found - Open Congress API", children: content }));
+  return c.html(Layout({ title: "404 Not Found - Open Congress API", children: content }));
 });
