@@ -31,7 +31,7 @@ CREATE TABLE datasets (
     latest_version_date TEXT,
     created_ts INTEGER NOT NULL DEFAULT (unixepoch() * 1000),
     last_mod_ts INTEGER NOT NULL DEFAULT (unixepoch() * 1000),
-    FOREIGN KEY (publisher_id) REFERENCES publishers(id) ON DELETE CASCADE,
+    FOREIGN KEY (publisher_id) REFERENCES publishers(id) ON DELETE RESTRICT,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE RESTRICT
 );
 
@@ -46,7 +46,7 @@ CREATE TABLE resources (
     download_url TEXT NOT NULL,
     created_ts INTEGER NOT NULL DEFAULT (unixepoch() * 1000),
     last_mod_ts INTEGER NOT NULL DEFAULT (unixepoch() * 1000),
-    FOREIGN KEY (dataset_id) REFERENCES datasets(id) ON DELETE CASCADE
+    FOREIGN KEY (dataset_id) REFERENCES datasets(id) ON DELETE RESTRICT
 );
 
 -- Create indexes for publishers
