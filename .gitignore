@@ -22,7 +22,7 @@ dist/
 Thumbs.db
 
 # Generated files
-scripts/seed-generated.sql
+scripts/init.sql
 public/styles.css
 
 # Logs

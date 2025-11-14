@@ -47,15 +47,14 @@ A community-run portal (and API) for exploring publicly available datasets.
    pnpx wrangler d1 execute open-data-db --local --file=./scripts/init.sql
    ```
 
-## Development
+6. Start the local development server:
+   ```bash
+   pnpm run dev
+   ```
 
-Start the local development server:
+## API
 
-```bash
-pnpm run dev
-```
-
-## API Endpoints
+### API Endpoints
 
 - `GET /api/datasets` - List datasets with search and filters
 - `GET /api/datasets/:id` - Get dataset details
@@ -64,12 +63,12 @@ pnpm run dev
 - `GET /api/stats` - Platform statistics
 - `GET /api/ping` - Health check
 
-## API Documentation
+### API Documentation
 
 - **OpenAPI Schema:** `/openapi.json`
 - **Swagger UI:** `/docs`
 - **Scalar Reference:** `/reference`
 
-# License
+## License
 
 This project is released under the [Creative Commons CC0](https://creativecommons.org/publicdomain/zero/1.0/) dedication. This means the work is dedicated to the public domain and can be freely used by anyone for any purpose without restriction under copyright law.
