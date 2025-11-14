@@ -1,0 +1,36 @@
+{
+  "name": "open-data-api",
+  "version": "1.0.0",
+  "description": "Open dataset API and website powered by Cloudflare Workers and D1",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm run css:build && vite",
+    "css:build": "npx tailwindcss -i ./src/styles/main.css -o public/styles.css",
+    "css:build:prod": "npx tailwindcss -i ./src/styles/main.css -o public/styles.css --minify",
+    "css:watch": "npx tailwindcss -i ./src/styles/main.css -o public/styles.css --watch",
+    "deploy": "pnpm run css:build:prod && wrangler deploy",
+    "migrate": "wrangler d1 migrations apply open-data-db",
+    "migrate:local": "wrangler d1 migrations apply open-data-db --local",
+    "seed": "npx tsx scripts/seed.ts",
+    "db:reset:local": "npx wrangler d1 execute open-data-db --local --file=./scripts/reset.sql && npx wrangler d1 execute open-data-db --local --file=./migrations/0001_create_tables.sql && npx wrangler d1 execute open-data-db --local --file=./migrations/0002_create_indexes.sql && npm run seed && npx wrangler d1 execute open-data-db --local --file=./scripts/seed-generated.sql",
+    "db:reset": "npx wrangler d1 execute open-data-db --file=./scripts/reset.sql && npx wrangler d1 execute open-data-db --file=./migrations/0001_create_tables.sql && npx wrangler d1 execute open-data-db --file=./migrations/0002_create_indexes.sql && npm run seed && npx wrangler d1 execute open-data-db --file=./scripts/seed-generated.sql"
+  },
+  "dependencies": {
+    "@hono/swagger-ui": "^0.5.2",
+    "@hono/zod-openapi": "^0.18.4",
+    "hono": "^4.10.5",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@hono/vite-build": "^1.2.0",
+    "@hono/vite-dev-server": "^0.18.2",
+    "@types/node": "^22.9.3",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18",
+    "tsx": "^4.7.0",
+    "typescript": "^5.6.0",
+    "vite": "^6.3.5",
+    "wrangler": "^4.45.4"
+  }
+}
