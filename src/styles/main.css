@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  body {
+    @apply font-sans text-neutral-900 antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-neutral-900;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+
+  h6 {
+    @apply text-base md:text-lg;
+  }
+
+  p {
+    @apply text-base text-neutral-700 leading-relaxed;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  /* Button variants */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+  }
+
+  .btn-secondary {
+    @apply btn bg-neutral-200 text-neutral-900 hover:bg-neutral-300 focus:ring-neutral-500;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent-600 text-white hover:bg-accent-700 focus:ring-accent-500;
+  }
+
+  .btn-civictech {
+    @apply btn bg-civictech-600 text-white hover:bg-civictech-700 focus:ring-civictech-500;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-primary-600 text-primary-600 hover:bg-primary-50 focus:ring-primary-500;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-lg;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden transition-shadow hover:shadow-lg;
+  }
+
+  .card-header {
+    @apply p-4 md:p-6 border-b border-neutral-200;
+  }
+
+  .card-body {
+    @apply p-4 md:p-6;
+  }
+
+  .card-footer {
+    @apply p-4 md:p-6 border-t border-neutral-200 bg-neutral-50;
+  }
+
+  /* Input styles */
+  .input {
+    @apply w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all;
+  }
+
+  .input-error {
+    @apply border-accent-500 focus:ring-accent-500;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply bg-primary-100 text-primary-800;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+
+  .badge-error {
+    @apply bg-accent-100 text-accent-800;
+  }
+
+  .badge-neutral {
+    @apply bg-neutral-100 text-neutral-800;
+  }
+
+  /* Table styles */
+  .table {
+    @apply w-full text-left border-collapse;
+  }
+
+  .table thead {
+    @apply bg-neutral-100 border-b-2 border-neutral-300;
+  }
+
+  .table th {
+    @apply px-4 py-3 text-sm font-semibold text-neutral-700 uppercase tracking-wider;
+  }
+
+  .table td {
+    @apply px-4 py-3 text-sm text-neutral-900 border-b border-neutral-200;
+  }
+
+  .table tbody tr:hover {
+    @apply bg-neutral-50;
+  }
+
+  /* Container styles */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* CivicTech banner styles */
+  .civictech-banner {
+    @apply bg-gradient-to-r from-civictech-500 to-accent-500 text-white;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .transition-all-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

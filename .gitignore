@@ -23,6 +23,7 @@ Thumbs.db
 
 # Generated files
 scripts/seed-generated.sql
+public/styles.css
 
 # Logs
 *.log

@@ -12,6 +12,12 @@ import resourcesRoutes from './routes/resources';
 import statsRoutes from './routes/stats';
 import pingRoutes from './routes/ping';
 
+// Import view routes
+import viewIndexRoute from './view';
+import viewDatasetsRoute from './view/datasets';
+import viewDatasetDetailRoute from './view/dataset-detail';
+import viewResourceDetailRoute from './view/resource-detail';
+
 const app = new OpenAPIHono<{ Bindings: Bindings }>();
 
 // Middleware
@@ -22,6 +28,13 @@ app.use('/*', async (c, next) => {
   initDB(c.env.DB);
   await next();
 });
+
+// View routes (mount before API routes to give them priority)
+// Mount nested resource routes under datasets (must come before dataset detail route)
+app.route('/datasets/:datasetId/resources', viewResourceDetailRoute);
+app.route('/datasets', viewDatasetDetailRoute);
+app.route('/datasets', viewDatasetsRoute);
+app.route('/', viewIndexRoute);
 
 // API routes
 app.route('/api/datasets', datasetsRoutes);
