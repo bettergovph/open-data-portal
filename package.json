@@ -13,9 +13,8 @@
     "db:migrate:remote": "wrangler d1 migrations apply open-data-db",
     "db:migrate:local": "wrangler d1 migrations apply open-data-db --local",
     "db:init": "tsx scripts/init-db.ts",
-    "db:init:local": "wrangler d1 execute open-data-db --local --file=./scripts/init.sql",
-    "db:init:remote": "wrangler d1 execute open-data-db --remote --file=./scripts/init.sql",
-    "db:reset:local": "pnpm run db:init && pnpm run db:migrate:local && pnpm run db:init:local",
+    "db:init:local": "pnpm run db:init && wrangler d1 execute open-data-db --local --file=./scripts/init.sql",
+    "db:init:remote": "pnpm run db:init && wrangler d1 execute open-data-db --remote --file=./scripts/init.sql",
     "prepare": "husky"
   },
   "dependencies": {

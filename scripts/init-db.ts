@@ -2,11 +2,6 @@
  * Seed script for D1 database
  *
  * This script reads init-db-data.json and generates SQL statements to seed the database.
- *
- * Usage:
- * 1. Run this script: pnpm tsx scripts/init-db.ts
- * 2. Execute the generated SQL:
- *    - Local: npx wrangler d1 execute open-data-db --local --file=./scripts/init.sql
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -174,9 +169,3 @@ const sql = statements.join("\n");
 writeFileSync(join(__dirname, "init.sql"), sql);
 
 console.log("✅ Generated init.sql");
-console.log("");
-console.log("To seed your database, run:");
-console.log("");
-console.log(
-  "  pnpx wrangler d1 execute open-data-db --local --file=./scripts/init.sql",
-);

@@ -38,13 +38,12 @@ A community-run portal (and API) for exploring publicly available datasets.
 
 4. **Run migrations (local):**
    ```bash
-   pnpm run migrate:local
+   pnpm run db:migrate:local
    ```
 
-5. **Initialize the database (optional):**
+5. **Initialize the database (local):**
    ```bash
-   pnpm tsx scripts/init-db.ts
-   pnpx wrangler d1 execute open-data-db --local --file=./scripts/init.sql
+   pnpx run db:init:local
    ```
 
 6. Start the local development server:
