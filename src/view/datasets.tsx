@@ -405,30 +405,43 @@ app.get("/", async (c) => {
               // Render dataset cards
               container.innerHTML = datasets.map(dataset => \`
           <a href="/datasets/\${dataset.id}"
-             class="block bg-white rounded-lg shadow-sm p-6 hover:shadow-md border border-neutral-200 hover:border-primary-500 transition-all">
-            <h3 class="text-lg font-semibold text-neutral-900 mb-2">\${dataset.name}</h3>
-            \${dataset.description ? \`<p class="text-sm text-neutral-600 mb-4 line-clamp-2">\${dataset.description}</p>\` : ''}
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700">
-                \${dataset.publisher?.name || 'Unknown Publisher'}
+             class="block bg-white rounded-lg shadow-sm border border-neutral-200 hover:shadow-md hover:border-primary-500 transition-all p-6 group flex flex-col h-full">
+            <!-- Fixed height title section (1 line only) -->
+            <div class="flex items-start justify-between mb-2 h-7">
+              <h3 class="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors flex-1 truncate pr-2">\${dataset.name}</h3>
+              <i data-lucide="chevron-right" class="w-5 h-5 text-neutral-400 group-hover:text-primary-600 transition-colors flex-shrink-0"></i>
+            </div>
+
+            <!-- Fixed height description section (exactly 2 lines = 2.5rem) -->
+            <div class="mb-4 h-10">
+              <p class="text-sm text-neutral-600 line-clamp-2 leading-5">\${dataset.description || ''}</p>
+            </div>
+
+            <!-- Fixed height tags section (exactly 1 line = 1.75rem) -->
+            <div class="flex gap-2 mb-4 h-7">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700 truncate max-w-[50%]">
+                <i data-lucide="building-2" class="w-3 h-3 mr-1 flex-shrink-0"></i>
+                <span class="truncate">\${dataset.publisher?.name || 'Unknown Publisher'}</span>
               </span>
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                \${dataset.category?.name || 'Unknown Category'}
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-success-100 text-success-700 truncate max-w-[50%]">
+                <i data-lucide="tag" class="w-3 h-3 mr-1 flex-shrink-0"></i>
+                <span class="truncate">\${dataset.category?.name || 'Unknown Category'}</span>
               </span>
             </div>
-            <div class="flex items-center space-x-4 text-xs text-neutral-500">
-              <span class="flex items-center">
-                <i data-lucide="file-text" class="w-4 h-4 mr-1"></i>
-                \${dataset.resource_count || 0} resource\${dataset.resource_count !== 1 ? 's' : ''}
-              </span>
-              <span class="flex items-center">
-                <i data-lucide="package" class="w-4 h-4 mr-1"></i>
-                \${formatBytes(dataset.size_bytes || 0)}
-              </span>
-              \${dataset.latest_version_date ? \`<span class="flex items-center">
-                <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
-                \${formatDate(dataset.latest_version_date)}
-              </span>\` : ''}
+
+            <!-- Spacer to push footer to bottom -->
+            <div class="flex-grow"></div>
+
+            <!-- Fixed position footer -->
+            <div class="flex items-center justify-between text-xs text-neutral-500 pt-4 border-t border-neutral-100 mt-auto">
+              <div class="flex items-center space-x-4">
+                <span class="flex items-center font-medium whitespace-nowrap">
+                  <i data-lucide="file-text" class="w-4 h-4 mr-1.5 text-primary-500"></i>
+                  \${dataset.resource_count || 0} resource\${dataset.resource_count !== 1 ? 's' : ''}
+                </span>
+                <span class="font-medium whitespace-nowrap">\${formatBytes(dataset.size_bytes || 0)}</span>
+              </div>
+              \${dataset.latest_version_date ? \`<span class="text-neutral-600 whitespace-nowrap">Published \${formatDate(dataset.latest_version_date)}</span>\` : ''}
             </div>
           </a>
         \`).join('');
