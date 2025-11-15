@@ -37,7 +37,8 @@ interface SampleData {
     resources: Array<{
       name: string;
       description: string;
-      url: string;
+      download_url: string;
+      source_url?: string;
       size: number;
       mime_type: string;
     }>;
@@ -154,11 +155,12 @@ for (const dataset of data.datasets) {
       resource.description ? `'${escapeSql(resource.description)}'` : "NULL",
       `'${escapeSql(resource.mime_type)}'`,
       resource.size.toString(),
-      `'${escapeSql(resource.url)}'`,
+      `'${escapeSql(resource.download_url)}'`,
+      resource.source_url ? `'${escapeSql(resource.source_url)}'` : "NULL",
     ];
 
     statements.push(
-      `INSERT INTO resources (id, dataset_id, name, description, mime_type, size_bytes, download_url) VALUES (${resourceValues.join(", ")});`,
+      `INSERT INTO resources (id, dataset_id, name, description, mime_type, size_bytes, download_url, source_url) VALUES (${resourceValues.join(", ")});`,
     );
 
     resourceId++;

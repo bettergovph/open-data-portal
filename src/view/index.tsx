@@ -69,6 +69,24 @@ app.get("/", async (c) => {
       </div>
     </div>
 
+    <!-- Data Accuracy Note -->
+    <div class="bg-neutral-50 py-12">
+      <div class="container-custom">
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+          <div class="flex items-start gap-3">
+            <i data-lucide="alert-triangle" class="w-6 h-6 text-yellow-800 flex-shrink-0 mt-0.5"></i>
+            <div>
+              <h3 class="text-yellow-900 font-bold text-base mb-2">Data Accuracy Note</h3>
+              <p class="text-yellow-800 text-sm leading-relaxed">
+                The data displayed in this portal is manually encoded and may contain inaccuracies. We strive for accuracy but human error is possible. If you discover incorrect information, please help improve the data by submitting corrections to the
+                <a href="https://github.com/bettergovph/open-data-portal" target="_blank" class="underline hover:text-yellow-900 font-medium">open-data-portal repository</a>. Your contributions help maintain data quality for everyone.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       // Utility functions (shared across client-side code)
       function formatBytes(bytes) {

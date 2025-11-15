@@ -24,6 +24,7 @@ export const ResourceSchema = z.object({
   mime_type: z.string().min(1),
   size_bytes: z.number().int().min(0),
   download_url: z.string().url(),
+  source_url: z.string().url().nullable(),
 });
 
 export const DatasetSchema = z.object({

@@ -35,7 +35,7 @@ app.get("/:resourceId", async (c) => {
           <!-- Metadata Grid -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div class="bg-gray-50 rounded-lg p-4">
-              <p class="text-sm text-gray-500 mb-1">Type</p>
+              <p class="text-sm text-gray-500 mb-1">Format</p>
               <p id="resource-type" class="text-lg font-semibold text-gray-900"></p>
             </div>
             <div class="bg-gray-50 rounded-lg p-4">
@@ -51,9 +51,20 @@ app.get("/:resourceId", async (c) => {
               href="#"
               target="_blank"
               class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors font-medium"
+              title="Download this resource"
             >
               <i data-lucide="download" class="w-5 h-5 mr-2"></i>
               Download Resource
+            </a>
+            <a
+              id="source-button"
+              href="#"
+              target="_blank"
+              class="hidden inline-flex items-center px-6 py-3 bg-neutral-100 text-neutral-700 border border-neutral-300 rounded-md hover:bg-neutral-200 transition-colors font-medium"
+              title="View the original source"
+            >
+              <i data-lucide="external-link" class="w-5 h-5 mr-2"></i>
+              View Source
             </a>
           </div>
         </div>
@@ -72,15 +83,6 @@ app.get("/:resourceId", async (c) => {
     <script>
       const datasetId = '${datasetId}';
       const resourceId = '${resourceId}';
-
-      function formatBytes(bytes) {
-        if (bytes === 0) return '0 B';
-        const k = 1024;
-        const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
-      }
-
 
       async function loadResource() {
         try {
@@ -119,9 +121,17 @@ app.get("/:resourceId", async (c) => {
 
         document.getElementById('resource-name').textContent = resource.name;
         document.getElementById('resource-description').textContent = resource.description || 'No description available';
-        document.getElementById('resource-type').textContent = resource.mime_type;
+        document.getElementById('resource-type').textContent = getMimeTypeDisplay(resource.mime_type);
+        document.getElementById('resource-type').title = resource.mime_type;
         document.getElementById('resource-size').textContent = formatBytes(resource.size_bytes);
         document.getElementById('download-button').href = resource.download_url;
+
+        // Show source button if source_url exists
+        const sourceButton = document.getElementById('source-button');
+        if (resource.source_url) {
+          sourceButton.href = resource.source_url;
+          sourceButton.classList.remove('hidden');
+        }
 
         const datasetLink = document.getElementById('dataset-link');
         datasetLink.textContent = dataset.name;

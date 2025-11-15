@@ -168,22 +168,6 @@ app.get("/:id", async (c) => {
         offset: 0
       };
 
-      // Format bytes
-      function formatBytes(bytes) {
-        if (bytes === 0) return '0 B';
-        const k = 1024;
-        const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
-      }
-
-      // Format date
-      function formatDate(dateString) {
-        if (!dateString) return 'N/A';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-      }
-
       // Update breadcrumbs dynamically
       function updateBreadcrumbs(categoryName, datasetName) {
         // This would require server-side rendering or a more complex client-side solution
@@ -510,7 +494,7 @@ app.get("/:id", async (c) => {
             <thead class="bg-gray-50">
               <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Format</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
                 <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -525,7 +509,7 @@ app.get("/:id", async (c) => {
                     </a>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-900">\${resource.mime_type.split('/').pop().toUpperCase()}</span>
+                    <span class="text-sm text-gray-900" title="\${resource.mime_type}">\${getMimeTypeDisplay(resource.mime_type)}</span>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     \${formatBytes(resource.size_bytes)}
@@ -534,15 +518,37 @@ app.get("/:id", async (c) => {
                     \${resource.description || 'N/A'}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="\${resource.download_url}" target="_blank" class="text-primary-600 hover:text-primary-900">
-                      <i data-lucide="download" class="w-5 h-5 inline"></i>
-                    </a>
+                    <div class="flex gap-3 justify-end">
+                      <a
+                        href="\${resource.download_url}"
+                        target="_blank"
+                        class="text-primary-600 hover:text-primary-900 transition-colors"
+                        title="Download resource"
+                      >
+                        <i data-lucide="download" class="w-6 h-6"></i>
+                      </a>
+                      \${resource.source_url ? \`
+                        <a
+                          href="\${resource.source_url}"
+                          target="_blank"
+                          class="text-primary-600 hover:text-primary-900 transition-colors"
+                          title="View source"
+                        >
+                          <i data-lucide="external-link" class="w-6 h-6"></i>
+                        </a>
+                      \` : ''}
+                    </div>
                   </td>
                 </tr>
               \`).join('')}
             </tbody>
           </table>
         \`;
+
+        // Initialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
       }
 
       // Show error

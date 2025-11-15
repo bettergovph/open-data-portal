@@ -44,6 +44,7 @@ CREATE TABLE resources (
     mime_type TEXT NOT NULL,
     size_bytes INTEGER NOT NULL,
     download_url TEXT NOT NULL,
+    source_url TEXT,
     created_ts INTEGER NOT NULL DEFAULT (unixepoch() * 1000),
     last_mod_ts INTEGER NOT NULL DEFAULT (unixepoch() * 1000),
     FOREIGN KEY (dataset_id) REFERENCES datasets(id) ON DELETE RESTRICT

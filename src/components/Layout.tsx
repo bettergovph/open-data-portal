@@ -27,6 +27,7 @@ export function Layout({
             rel="stylesheet">
       <link rel="stylesheet" href="/styles.css">
       <script src="https://unpkg.com/lucide@latest"></script>
+      <script src="/utils.js"></script>
   </head>
   <body class="bg-neutral-50 min-h-screen flex flex-col">
   <!-- Header -->

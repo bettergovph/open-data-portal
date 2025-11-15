@@ -51,6 +51,7 @@ export interface Resource {
   mime_type: string;
   size_bytes: number;
   download_url: string;
+  source_url: string | null;
 }
 
 export interface PaginationInfo {
