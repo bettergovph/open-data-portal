@@ -228,12 +228,44 @@
       "latest_version_date": "2025-11-13",
       "resources": [
         {
-          "name": "Open PhilGEPS Data",
-          "description": "Optimized Parquet files for high-performance analytics and search operations in the PhilGEPS Dashboard with the following aggregations and analytics: Geographic Areas, Business Categories, Contractors/Suppliers, Government Organizations along with complete contract and a search-optimized variant.",
-          "download_url": "https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fcsiiiv%2Fphilgeps-awards-dashboard%2Ftree%2F3babd28e92cbb465285af9c71b285921990e9796%2Fbackend%2Fdjango%2Fstatic_data&filename=open_philgeps",
-          "source_url": "https://github.com/csiiiv/philgeps-awards-dashboard/tree/3babd28e92cbb465285af9c71b285921990e9796/backend/django/static_data",
-          "size": 2040109465,
-          "mime_type": "application/zip"
+          "name": "PhilGEPS Complete Dataset",
+          "description": "Complete PhilGEPS procurement data with all contract awards and notices.",
+          "download_url": "https://huggingface.co/datasets/bettergovph/philgeps-data/resolve/main/philgeps.parquet?download=true",
+          "source_url": "https://huggingface.co/datasets/bettergovph/philgeps-data",
+          "size": 516874240,
+          "mime_type": "application/vnd.apache.parquet"
+        },
+        {
+          "name": "Awardees",
+          "description": "Contractor and supplier information from PhilGEPS awards.",
+          "download_url": "https://huggingface.co/datasets/bettergovph/philgeps-data/resolve/main/awardees.parquet?download=true",
+          "source_url": "https://huggingface.co/datasets/bettergovph/philgeps-data",
+          "size": 6396518,
+          "mime_type": "application/vnd.apache.parquet"
+        },
+        {
+          "name": "Organizations",
+          "description": "Government organizations and agencies in PhilGEPS.",
+          "download_url": "https://huggingface.co/datasets/bettergovph/philgeps-data/resolve/main/organizations.parquet?download=true",
+          "source_url": "https://huggingface.co/datasets/bettergovph/philgeps-data",
+          "size": 1363149,
+          "mime_type": "application/vnd.apache.parquet"
+        },
+        {
+          "name": "Business Categories",
+          "description": "Business and procurement category classifications.",
+          "download_url": "https://huggingface.co/datasets/bettergovph/philgeps-data/resolve/main/business_categories.parquet?download=true",
+          "source_url": "https://huggingface.co/datasets/bettergovph/philgeps-data",
+          "size": 10854,
+          "mime_type": "application/vnd.apache.parquet"
+        },
+        {
+          "name": "Area of Deliveries",
+          "description": "Geographic delivery locations for procurement contracts.",
+          "download_url": "https://huggingface.co/datasets/bettergovph/philgeps-data/resolve/main/area_of_deliveries.parquet?download=true",
+          "source_url": "https://huggingface.co/datasets/bettergovph/philgeps-data",
+          "size": 27750,
+          "mime_type": "application/vnd.apache.parquet"
         }
       ]
     },
@@ -246,7 +278,7 @@
       "latest_version_date": "2025-10-25",
       "resources": [
         {
-          "name": "persons",
+          "name": "Philippine politicians and public officials",
           "description": "45,424 person records of Philippine politicians and public officials with ID, first name, last name, name suffix (if applicable).",
           "download_url": "https://huggingface.co/datasets/bettergovph/raw-philippine-data/resolve/refs%2Fconvert%2Fparquet/persons/train/0000.parquet?download=true",
           "source_url": "https://huggingface.co/datasets/bettergovph/raw-philippine-data/viewer",
@@ -254,7 +286,7 @@
           "mime_type": "application/vnd.apache.parquet"
         },
         {
-          "name": "memberships",
+          "name": "Political party affiliations and positions",
           "description": "Political party affiliations and positions held by persons, including  ID, person ID, party, region, province, locality, position, year.",
           "download_url": "https://huggingface.co/datasets/bettergovph/raw-philippine-data/resolve/refs%2Fconvert%2Fparquet/memberships/train/0000.parquet?download=true",
           "source_url": "https://huggingface.co/datasets/bettergovph/raw-philippine-data/viewer",
