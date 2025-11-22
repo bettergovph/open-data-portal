@@ -136,7 +136,7 @@ export function Layout({
                   <ul class="space-y-2.5 text-sm">
                       <li><a href="https://github.com/bettergovph/open-data-portal" target="_blank"
                              class="hover:text-white transition-colors">Open Data Portal repository</a></li>
-                      <li><a href="https://open-data-portal.bettergov.ph/docs" target="_blank"
+                      <li><a href="https://data.bettergov.ph/docs" target="_blank"
                              class="hover:text-white transition-colors">Open Data API Explorer</a></li>
                   </ul>
               </div>
