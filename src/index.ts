@@ -14,6 +14,7 @@ import viewContributeRoute from "./view/contribute";
 import viewDatasetDetailRoute from "./view/dataset-detail";
 import viewDatasetsRoute from "./view/datasets";
 import viewResourceDetailRoute from "./view/resource-detail";
+import viewTermsOfServiceRoute from "./view/terms-of-service";
 
 const app = new OpenAPIHono<{ Bindings: Bindings }>();
 
@@ -34,6 +35,7 @@ app.route("/datasets", viewDatasetsRoute);
 app.route("/categories", viewCategoriesRoute);
 app.route("/about", viewAboutRoute);
 app.route("/contribute", viewContributeRoute);
+app.route("/terms-of-service", viewTermsOfServiceRoute);
 app.route("/", viewIndexRoute);
 
 // API routes

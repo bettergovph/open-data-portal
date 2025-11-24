@@ -23,7 +23,7 @@ export function Layout({
       <link rel="preload" href="/BetterGov_Icon-White.svg" as="image">
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap"
             rel="stylesheet">
       <link rel="stylesheet" href="/styles.css">
       <script src="https://unpkg.com/lucide@latest"></script>
@@ -37,7 +37,7 @@ export function Layout({
               <a href="/" class="flex items-center space-x-3 group">
                   <img src="/BetterGov_Icon-Primary.svg" alt="BetterGov Logo" class="w-12 h-12"/>
                   <div>
-                      <h1 class="text-xl font-bold text-neutral-900">Open Data Portal</h1>
+                      <h1 class="text-base font-bold text-neutral-900">Open Data Portal by BetterGov.ph</h1>
                       <p class="text-xs text-neutral-600">A community-run portal for exploring public datasets</p>
                   </div>
               </a>
@@ -145,8 +145,11 @@ export function Layout({
               <div class="flex flex-col md:flex-row justify-between items-center text-sm">
                   <p class="text-neutral-400 text-sm">${new Date().getFullYear()} BetterGov.ph - All content is public
                       domain unless otherwise specified.</p>
-                  <a href="https://github.com/bettergovph/open-data-portal"
-                     class="mt-2 md:mt-0 hover:text-white transition-colors">Contribute at GitHub</a>
+                  <div class="flex items-center gap-4 mt-2 md:mt-0">
+                      <a href="/terms-of-service" class="hover:text-white transition-colors">Terms of Service</a>
+                      <a href="https://github.com/bettergovph/open-data-portal"
+                         class="hover:text-white transition-colors">Contribute at GitHub</a>
+                  </div>
               </div>
           </div>
       </div>

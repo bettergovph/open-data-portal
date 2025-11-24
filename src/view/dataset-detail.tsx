@@ -67,6 +67,25 @@ app.get("/:id", async (c) => {
           </div>
         </div>
 
+        <!-- Public Domain Notice -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+          <div class="flex items-start gap-3">
+            <i data-lucide="info" class="w-6 h-6 text-blue-700 flex-shrink-0 mt-0.5"></i>
+            <div>
+              <h3 class="text-blue-900 font-bold text-base mb-2">Content Notice</h3>
+              <p class="text-blue-800 text-sm leading-relaxed mb-3">
+                This website and all its content are in the public domain and operated entirely by volunteers. All information, data, documents, and materials provided on this website are in the public domain unless otherwise noted. Public domain content may be freely used, copied, distributed, and modified without permission or attribution, though attribution is appreciated.
+              </p>
+              <p class="text-blue-800 text-sm leading-relaxed mb-3">
+                As a volunteer-operated resource, we encourage users to conduct their own independent research and verification of information.
+              </p>
+              <a href="/terms-of-service" class="text-blue-700 hover:text-blue-900 font-semibold text-sm underline">
+                View Terms of Service
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- Resources Section -->
         <div class="bg-white border border-neutral-200 rounded-lg shadow-sm p-6 mb-6">
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Resources</h2>

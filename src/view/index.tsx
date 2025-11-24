@@ -69,18 +69,23 @@ app.get("/", async (c) => {
       </div>
     </div>
 
-    <!-- Data Accuracy Note -->
+    <!-- Public Domain Notice -->
     <div class="bg-neutral-50 py-12">
       <div class="container-custom">
-        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
           <div class="flex items-start gap-3">
-            <i data-lucide="alert-triangle" class="w-6 h-6 text-yellow-800 flex-shrink-0 mt-0.5"></i>
+            <i data-lucide="info" class="w-6 h-6 text-blue-700 flex-shrink-0 mt-0.5"></i>
             <div>
-              <h3 class="text-yellow-900 font-bold text-base mb-2">Data Accuracy Note</h3>
-              <p class="text-yellow-800 text-sm leading-relaxed">
-                The data displayed in this portal is manually encoded and may contain inaccuracies. We strive for accuracy but human error is possible. If you discover incorrect information, please help improve the data by submitting corrections to the
-                <a href="https://github.com/bettergovph/open-data-portal" target="_blank" class="underline hover:text-yellow-900 font-medium">open-data-portal repository</a>. Your contributions help maintain data quality for everyone.
+              <h3 class="text-blue-900 font-bold text-base mb-2">Content Notice</h3>
+              <p class="text-blue-800 text-sm leading-relaxed mb-3">
+                This website and all its content are in the public domain and operated entirely by volunteers. All information, data, documents, and materials provided on this website are in the public domain unless otherwise noted. Public domain content may be freely used, copied, distributed, and modified without permission or attribution, though attribution is appreciated.
               </p>
+              <p class="text-blue-800 text-sm leading-relaxed mb-3">
+                As a volunteer-operated resource, we encourage users to conduct their own independent research and verification of information.
+              </p>
+              <a href="/terms-of-service" class="text-blue-700 hover:text-blue-900 font-semibold text-sm underline">
+                View Terms of Service
+              </a>
             </div>
           </div>
         </div>
