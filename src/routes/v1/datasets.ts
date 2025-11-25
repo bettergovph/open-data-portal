@@ -8,6 +8,7 @@ import {
   DatasetListQuerySchema,
   ErrorResponseSchema,
   PaginationInfoSchema,
+  parseAttribution,
 } from "../../lib/schemas";
 import type { DatasetDetail, DatasetListItem } from "../../lib/types";
 import { calculatePagination } from "../../lib/utils";
@@ -117,6 +118,9 @@ app.openapi(listDatasetsRoute, async (c: any) => {
         d.tags,
         d.size_bytes,
         d.latest_version_date,
+        d.attribution,
+        d.license,
+        d.license_url,
         p.id as publisher_id,
         p.name as publisher_name,
         c.id as category_id,
@@ -142,6 +146,9 @@ app.openapi(listDatasetsRoute, async (c: any) => {
       tags: row.tags,
       size_bytes: row.size_bytes,
       latest_version_date: row.latest_version_date,
+      attribution: parseAttribution(row.attribution),
+      license: row.license,
+      license_url: row.license_url,
       publisher: {
         id: row.publisher_id,
         name: row.publisher_name,
@@ -176,7 +183,7 @@ app.openapi(listDatasetsRoute, async (c: any) => {
 // Get dataset details route
 const getDatasetRoute = createRoute({
   method: "get",
-  path: "/:id",
+  path: "/{id}",
   tags: ["Datasets"],
   summary: "Get dataset details",
   description: "Get full details of a specific dataset",
@@ -250,6 +257,9 @@ app.openapi(getDatasetRoute, async (c: any) => {
       tags: dataset.tags,
       size_bytes: dataset.size_bytes,
       latest_version_date: dataset.latest_version_date,
+      attribution: parseAttribution(dataset.attribution),
+      license: dataset.license,
+      license_url: dataset.license_url,
       publisher: {
         id: dataset.publisher_id,
         name: dataset.publisher_name,

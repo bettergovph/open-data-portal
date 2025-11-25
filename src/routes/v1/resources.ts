@@ -116,7 +116,7 @@ app.openapi(listResourcesRoute, async (c: any) => {
 // Get resource details route
 const getResourceRoute = createRoute({
   method: "get",
-  path: "/:id",
+  path: "/{id}",
   tags: ["Resources"],
   summary: "Get resource details",
   description: "Get full details of a specific resource",

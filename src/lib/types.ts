@@ -1,3 +1,11 @@
+export interface AttributionAuthor {
+  author: string;
+  source_url: string | null;
+  attribution_text: string | null;
+  license: string | null;
+  license_url: string | null;
+}
+
 export interface Publisher {
   id: number;
   name: string;
@@ -23,6 +31,9 @@ export interface Dataset {
   tags: string | null;
   size_bytes: number;
   latest_version_date: string | null;
+  attribution: AttributionAuthor[] | null;
+  license: string | null;
+  license_url: string | null;
 }
 
 export interface DatasetListItem extends Dataset {

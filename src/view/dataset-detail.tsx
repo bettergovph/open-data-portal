@@ -30,7 +30,7 @@ app.get("/:id", async (c) => {
           <h1 id="dataset-name" class="text-3xl font-bold text-gray-900 mb-4"></h1>
           <p id="dataset-description" class="text-gray-700 mb-6"></p>
 
-          <!-- Metadata: Publisher, Category, Tags -->
+          <!-- Metadata: Publisher, Category, Tags, License -->
           <div id="metadata-container" class="flex flex-col gap-2 mb-6"></div>
 
           <!-- Statistics -->
@@ -63,25 +63,6 @@ app.get("/:id", async (c) => {
                 </div>
                 <i data-lucide="calendar" class="w-8 h-8 text-yellow-500"></i>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Public Domain Notice -->
-        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-          <div class="flex items-start gap-3">
-            <i data-lucide="info" class="w-6 h-6 text-blue-700 flex-shrink-0 mt-0.5"></i>
-            <div>
-              <h3 class="text-blue-900 font-bold text-base mb-2">Content Notice</h3>
-              <p class="text-blue-800 text-sm leading-relaxed mb-3">
-                This website and all its content are in the public domain and operated entirely by volunteers. All information, data, documents, and materials provided on this website are in the public domain unless otherwise noted. Public domain content may be freely used, copied, distributed, and modified without permission or attribution, though attribution is appreciated.
-              </p>
-              <p class="text-blue-800 text-sm leading-relaxed mb-3">
-                As a volunteer-operated resource, we encourage users to conduct their own independent research and verification of information.
-              </p>
-              <a href="/terms-of-service" class="text-blue-700 hover:text-blue-900 font-semibold text-sm underline">
-                View Terms of Service
-              </a>
             </div>
           </div>
         </div>
@@ -163,6 +144,37 @@ app.get("/:id", async (c) => {
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Attribution Section -->
+      <div id="attribution-section-wrapper" class="hidden bg-white border border-neutral-200 rounded-lg shadow-sm p-6 mb-6">
+          <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+              <i data-lucide="users" class="w-5 h-5"></i>
+              Attribution
+          </h2>
+
+          <div id="attribution-section">
+              <div class="text-gray-500 text-sm">Loading attribution information...</div>
+          </div>
+      </div>
+
+      <!-- Content Notice -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+          <div class="flex items-start gap-3">
+              <i data-lucide="info" class="w-6 h-6 text-blue-700 flex-shrink-0 mt-0.5"></i>
+              <div>
+                  <h3 class="text-blue-900 font-bold text-base mb-2">Content Notice</h3>
+                  <p class="text-blue-800 text-sm leading-relaxed mb-3">
+                      This website and all its content are in the public domain and operated entirely by volunteers. All information, data, documents, and materials provided on this website are in the public domain unless otherwise noted. Public domain content may be freely used, copied, distributed, and modified without permission or attribution, though attribution is appreciated.
+                  </p>
+                  <p class="text-blue-800 text-sm leading-relaxed mb-3">
+                      As a volunteer-operated resource, we encourage users to conduct their own independent research and verification of information.
+                  </p>
+                  <a href="/terms-of-service" class="text-blue-700 hover:text-blue-900 font-semibold text-sm underline">
+                      View Terms of Service
+                  </a>
+              </div>
+          </div>
       </div>
 
       <!-- Error State -->
@@ -401,19 +413,93 @@ app.get("/:id", async (c) => {
           \`);
         }
 
+        // License badge
+        if (dataset.license) {
+          const licenseContent = dataset.license_url
+            ? \`<a href="\${dataset.license_url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700 hover:bg-purple-200 transition-colors">
+                <i data-lucide="scale" class="w-3 h-3 mr-1"></i>
+                \${dataset.license}
+                <i data-lucide="external-link" class="w-3 h-3 ml-1"></i>
+              </a>\`
+            : \`<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
+                <i data-lucide="scale" class="w-3 h-3 mr-1"></i>
+                \${dataset.license}
+              </span>\`;
+
+          metadataParts.push(\`
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-gray-600 font-medium">License:</span>
+              \${licenseContent}
+            </div>
+          \`);
+        }
+
         metadataContainer.innerHTML = metadataParts.join('');
 
-        // Set statistics
         const resourceCount = resourcesPagination ? resourcesPagination.total : (resources ? resources.length : 0);
         document.getElementById('resource-count').textContent = resourceCount;
         document.getElementById('total-size').textContent = formatBytes(dataset.size_bytes || 0);
         document.getElementById('version-date').textContent = formatDate(dataset.latest_version_date);
 
-        // Render resources
+        renderAttribution(dataset);
         renderResources(resources || []);
       }
 
-      // Render resources pagination
+      function renderAttribution(dataset) {
+        const attribution = dataset.attribution || [];
+
+        if (attribution.length === 0) {
+          document.getElementById('attribution-section-wrapper').classList.add('hidden');
+          return;
+        }
+
+        document.getElementById('attribution-section-wrapper').classList.remove('hidden');
+
+        let attributionHTML = '';
+
+        if (attribution.length > 0) {
+          attributionHTML += \`
+            <div class="space-y-2">
+              <div class="font-semibold text-sm text-gray-700">
+                \${attribution.length === 1 ? 'Source' : 'Sources'} (\${attribution.length})
+              </div>
+              \${attribution.map(author => {
+                let licenseText = '';
+                if (author.license) {
+                  if (author.license_url) {
+                    licenseText = \` and is licensed under <a href="\${author.license_url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline inline-flex items-center gap-1">\${author.license}<i data-lucide="external-link" class="w-3 h-3 ml-0.5"></i></a>\`;
+                  } else {
+                    licenseText = \` and is licensed under \${author.license}\`;
+                  }
+                }
+
+                return \`
+                <div class="p-3 bg-gray-50 rounded border border-gray-200">
+                  <div class="flex flex-col gap-2">
+                    <!-- Standard attribution format -->
+                    <div class="text-sm text-gray-700">
+                      <strong>\${author.author}</strong>\${author.source_url ?
+                        \` data available at <a href="\${author.source_url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline inline-flex items-center gap-1">\${author.source_url}<i data-lucide="external-link" class="w-3 h-3 ml-0.5"></i></a>\` :
+                        ''
+                      }\${licenseText}.
+                    </div>
+
+                    <!-- Attribution text on separate line if present -->
+                    \${author.attribution_text ?
+                      \`<div class="text-sm text-gray-700 leading-relaxed whitespace-pre-line">\${author.attribution_text}</div>\` :
+                      ''
+                    }
+                  </div>
+                </div>
+              \`;
+              }).join('')}
+            </div>
+          \`;
+        }
+
+        document.getElementById('attribution-section').innerHTML = attributionHTML;
+      }
+
       function renderResourcesPagination() {
         const container = document.getElementById('resources-pagination');
 
@@ -427,7 +513,6 @@ app.get("/:id", async (c) => {
         const hasPrevious = resourcesPagination.offset > 0;
         const hasNext = resourcesPagination.has_more;
 
-        // Calculate page numbers to show
         const pages = [];
         const startPage = Math.max(1, currentPage - 2);
         const endPage = Math.min(totalPages, currentPage + 2);
@@ -483,7 +568,6 @@ app.get("/:id", async (c) => {
           html += \`<button onclick="goToResourcePage(\${totalPages})" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-neutral-900 ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50">\${totalPages}</button>\`;
         }
 
-        // Next button
         html += \`
           <button
             onclick="goToResourcePage(\${currentPage + 1})"
@@ -506,7 +590,6 @@ app.get("/:id", async (c) => {
         document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
-      // Render resources
       function renderResources(resources) {
         const container = document.getElementById('resources-container');
 
@@ -577,20 +660,17 @@ app.get("/:id", async (c) => {
         }
       }
 
-      // Show error
       function showError() {
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('error').classList.remove('hidden');
       }
 
-      // Resources per page change handler
       document.getElementById('resources-per-page-select')?.addEventListener('change', async (e) => {
         currentResourceFilters.limit = parseInt(e.target.value);
         currentResourceFilters.offset = 0; // Reset to first page
         await loadResourcesWithFilters();
       });
 
-      // Initialize and load on DOMContentLoaded
       document.addEventListener('DOMContentLoaded', () => {
         loadDataset();
       });
