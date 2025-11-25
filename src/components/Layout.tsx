@@ -39,6 +39,8 @@ export function Layout({
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>${title}</title>
       <meta name="description" content="A community-run portal for exploring public datasets">
+      <link rel="icon" type="image/svg+xml" href="/BetterGov_Emblem-Outline-Inversed.svg">
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
       <link rel="preload" href="/BetterGov_Icon-Primary.svg" as="image">
       <link rel="preload" href="/BetterGov_Icon-White.svg" as="image">
       <link rel="preconnect" href="https://fonts.googleapis.com">
