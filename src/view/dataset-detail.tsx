@@ -177,6 +177,13 @@ app.get("/:id", async (c) => {
     </div>
 
     <script>
+      function sanitize(text) {
+          if (text == null) return '';
+          const div = document.createElement('div');
+          div.textContent = text;
+          return div.innerHTML;
+      }
+
       const datasetId = '${id}';
       let allResources = [];
       let resourcesPagination = null;
@@ -335,7 +342,7 @@ app.get("/:id", async (c) => {
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('content').classList.remove('hidden');
 
-        // Set basic info
+        // Set basic info - textContent is XSS-safe
         document.getElementById('dataset-name').textContent = dataset.name;
         document.getElementById('dataset-description').textContent = dataset.description || 'No description available';
 
@@ -349,7 +356,7 @@ app.get("/:id", async (c) => {
             <div class="flex items-center gap-2">
               <span class="text-sm text-gray-600 font-medium">Publisher:</span>
               <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700">
-                \${dataset.publisher.name}
+                \${sanitize(dataset.publisher.name)}
               </span>
             </div>
           \`);
@@ -361,7 +368,7 @@ app.get("/:id", async (c) => {
             <div class="flex items-center gap-2">
               <span class="text-sm text-gray-600 font-medium">Category:</span>
               <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                \${dataset.category.name}
+                \${sanitize(dataset.category.name)}
               </span>
             </div>
           \`);
@@ -380,7 +387,7 @@ app.get("/:id", async (c) => {
         if (tags && tags.length > 0) {
           const tagBadges = tags.map(tag => \`
             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
-              \${tag}
+              \${sanitize(tag)}
             </span>
           \`).join('');
 
@@ -524,17 +531,17 @@ app.get("/:id", async (c) => {
                 <tr class="hover:bg-gray-50">
                   <td class="px-6 py-4 whitespace-nowrap">
                     <a href="/datasets/\${datasetId}/resources/\${resource.id}" class="text-sm font-medium text-primary-600 hover:text-primary-700">
-                      \${resource.name}
+                      \${sanitize(resource.name)}
                     </a>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-900" title="\${resource.mime_type}">\${getMimeTypeDisplay(resource.mime_type)}</span>
+                    <span class="text-sm text-gray-900" title="\${sanitize(resource.mime_type)}">\${sanitize(getMimeTypeDisplay(resource.mime_type))}</span>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     \${formatBytes(resource.size_bytes)}
                   </td>
                   <td class="px-6 py-4 text-sm text-gray-500 max-w-md truncate">
-                    \${resource.description || 'N/A'}
+                    \${sanitize(resource.description || 'N/A')}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div class="flex gap-3 justify-end">

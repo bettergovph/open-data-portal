@@ -165,6 +165,13 @@ app.get("/", async (c) => {
       </div>
 
       <script>
+          function sanitize(text) {
+              if (text == null) return '';
+              const div = document.createElement('div');
+              div.textContent = text;
+              return div.innerHTML;
+          }
+
           // State management
           let currentFilters = {
               search: '',
@@ -262,7 +269,7 @@ app.get("/", async (c) => {
               if (currentFilters.search) {
                   chips.push({
                       key: 'search',
-                      label: \`Search: "\${currentFilters.search}"\`,
+                      label: \`Search: "\${sanitize(currentFilters.search)}"\`,
                       value: currentFilters.search
                   });
               }
@@ -272,7 +279,7 @@ app.get("/", async (c) => {
                   if (cat) {
                       chips.push({
                           key: 'category_id',
-                          label: \`Category: \${cat.name}\`,
+                          label: \`Category: \${sanitize(cat.name)}\`,
                           value: currentFilters.category_id
                       });
                   }
@@ -283,7 +290,7 @@ app.get("/", async (c) => {
                   if (pub) {
                       chips.push({
                           key: 'publisher_id',
-                          label: \`Publisher: \${pub.name}\`,
+                          label: \`Publisher: \${sanitize(pub.name)}\`,
                           value: currentFilters.publisher_id
                       });
                   }
@@ -404,28 +411,28 @@ app.get("/", async (c) => {
 
               // Render dataset cards
               container.innerHTML = datasets.map(dataset => \`
-          <a href="/datasets/\${dataset.id}"
+          <a href="/datasets/\${sanitize(dataset.id)}"
              class="block bg-white rounded-lg shadow-sm border border-neutral-200 hover:shadow-md hover:border-primary-500 transition-all p-6 group flex flex-col h-full">
             <!-- Fixed height title section (1 line only) -->
             <div class="flex items-start justify-between mb-2 h-7">
-              <h3 class="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors flex-1 truncate pr-2">\${dataset.name}</h3>
+              <h3 class="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors flex-1 truncate pr-2">\${sanitize(dataset.name)}</h3>
               <i data-lucide="chevron-right" class="w-5 h-5 text-neutral-400 group-hover:text-primary-600 transition-colors flex-shrink-0"></i>
             </div>
 
             <!-- Fixed height description section (exactly 2 lines = 2.5rem) -->
             <div class="mb-4 h-10">
-              <p class="text-sm text-neutral-600 line-clamp-2 leading-5">\${dataset.description || ''}</p>
+              <p class="text-sm text-neutral-600 line-clamp-2 leading-5">\${sanitize(dataset.description || '')}</p>
             </div>
 
             <!-- Fixed height tags section (exactly 1 line = 1.75rem) -->
             <div class="flex gap-2 mb-4 h-7">
               <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700 truncate max-w-[50%]">
                 <i data-lucide="building-2" class="w-3 h-3 mr-1 flex-shrink-0"></i>
-                <span class="truncate">\${dataset.publisher?.name || 'Unknown Publisher'}</span>
+                <span class="truncate">\${sanitize(dataset.publisher?.name || 'Unknown Publisher')}</span>
               </span>
               <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-success-100 text-success-700 truncate max-w-[50%]">
                 <i data-lucide="tag" class="w-3 h-3 mr-1 flex-shrink-0"></i>
-                <span class="truncate">\${dataset.category?.name || 'Unknown Category'}</span>
+                <span class="truncate">\${sanitize(dataset.category?.name || 'Unknown Category')}</span>
               </span>
             </div>
 
@@ -604,7 +611,7 @@ app.get("/", async (c) => {
               const container = document.getElementById('datasets-container');
               container.innerHTML = \`
           <div class="bg-accent-50 border border-accent-200 rounded-lg p-4 text-center">
-            <p class="text-accent-700">\${message}</p>
+            <p class="text-accent-700">\${sanitize(message)}</p>
           </div>
         \`;
           }
