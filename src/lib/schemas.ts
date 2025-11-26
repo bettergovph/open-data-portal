@@ -91,12 +91,9 @@ z.object({
 export const DatasetApiSchema = z
   .object({
     id: z.number().int().positive().openapi({ example: 3 }),
-    name: z
-      .string()
-      .min(1)
-      .openapi({
-        example: "Ateneo Policy Center (APC) Political Dynasties Dataset",
-      }),
+    name: z.string().min(1).openapi({
+      example: "Ateneo Policy Center (APC) Political Dynasties Dataset",
+    }),
     description: z.string().nullable().openapi({
       example:
         "The Ateneo Policy Center Political Dynasties Dataset tracks leadership patterns at the local government level in the Philippines, tracing the presence and extent of political clans.",

@@ -2,4 +2,3 @@
   "src/**/*.{js,jsx,ts,tsx,css,scss,html}": "biome check --write"
 } 
 
-
