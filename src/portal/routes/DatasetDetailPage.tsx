@@ -424,65 +424,56 @@ export const DatasetDetailPage = () => {
               {attribution.length === 1 ? "Source" : "Sources"} (
               {attribution.length})
             </div>
-            {attribution.map((author, _) => {
-              let licenseText = ""
-              if (author.license) {
-                if (author.license_url) {
-                  licenseText = " and is licensed under "
-                } else {
-                  licenseText = ` and is licensed under ${author.license}`
-                }
-              }
-
-              return (
-                <div
-                  key={author.author}
-                  className="p-3 bg-gray-50 rounded border border-gray-200"
-                >
-                  <div className="flex flex-col gap-2">
-                    <div className="text-sm text-gray-700">
-                      <strong>{author.author}</strong>
-                      {author.source_url && (
-                        <>
-                          {" "}
-                          data available at{" "}
-                          <a
-                            href={author.source_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline inline-flex items-center gap-1"
-                          >
-                            {author.source_url}
-                            <ExternalLink className="w-3 h-3 ml-0.5" />
-                          </a>
-                        </>
+            {attribution.map((author, _) => (
+              <div
+                key={author.author}
+                className="p-3 bg-gray-50 rounded border border-gray-200"
+              >
+                <div className="text-sm text-gray-700">
+                  <span className="font-semibold">Author:</span> {author.author}
+                  {author.source_url && (
+                    <>
+                      <span className="mx-2 text-gray-400">•</span>
+                      <span className="font-semibold">Original source:</span>{" "}
+                      <a
+                        href={author.source_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline inline-flex items-center gap-1"
+                      >
+                        {author.source_url}
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </>
+                  )}
+                  {author.license && (
+                    <>
+                      <span className="mx-2 text-gray-400">•</span>
+                      <span className="font-semibold">License:</span>{" "}
+                      {author.license_url ? (
+                        <a
+                          href={author.license_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline inline-flex items-center gap-1"
+                        >
+                          {author.license}
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        author.license
                       )}
-                      {licenseText && author.license_url && (
-                        <>
-                          {licenseText}
-                          <a
-                            href={author.license_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline inline-flex items-center gap-1"
-                          >
-                            {author.license}
-                            <ExternalLink className="w-3 h-3 ml-0.5" />
-                          </a>
-                        </>
-                      )}
-                      {licenseText && !author.license_url && licenseText}.
-                    </div>
-
-                    {author.attribution_text && (
-                      <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-                        {author.attribution_text}
-                      </div>
-                    )}
-                  </div>
+                    </>
+                  )}
                 </div>
-              )
-            })}
+
+                {author.attribution_text && (
+                  <div className="mt-3 text-sm text-gray-700">
+                    {author.attribution_text}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       )}
