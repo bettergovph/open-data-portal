@@ -252,6 +252,22 @@ export const DatasetDetailPage = () => {
           </div>
         </div>
 
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+          <div className="flex items-start">
+            <Info className="w-5 h-5 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-blue-700">
+              New to these file formats?{" "}
+              <Link
+                to="/working-with-datasets"
+                className="font-medium underline hover:text-blue-800"
+              >
+                We have guides to help you get started
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+
         <div id="resources-container" className="overflow-x-auto relative">
           {resources.length === 0 && !resourcesLoading ? (
             <p className="text-gray-500 text-center py-8">

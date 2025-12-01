@@ -256,6 +256,14 @@ export const Layout = () => {
                     Open Data API Explorer
                   </a>
                 </li>
+                <li>
+                  <Link
+                    to="/working-with-datasets"
+                    className="hover:text-white transition-colors"
+                  >
+                    Working with Datasets
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

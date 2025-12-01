@@ -11,6 +11,7 @@ import { HomePage } from "./routes/HomePage.tsx"
 import { NotFoundPage } from "./routes/NotFoundPage.tsx"
 import { ResourceDetailPage } from "./routes/ResourceDetailPage.tsx"
 import { TermsOfServicePage } from "./routes/TermsOfServicePage.tsx"
+import { WorkingWithDatasetsPage } from "./routes/WorkingWithDatasetsPage.tsx"
 
 const API_BASE_URL = import.meta.env.DEV
   ? "http://localhost:5173/api/v1"
@@ -49,6 +50,10 @@ const App = () => {
             <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contribute" element={<ContributePage />} />
+            <Route
+              path="/working-with-datasets"
+              element={<WorkingWithDatasetsPage />}
+            />
             <Route path="/terms-of-service" element={<TermsOfServicePage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
