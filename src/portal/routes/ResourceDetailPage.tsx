@@ -56,7 +56,6 @@ export const ResourceDetailPage = () => {
 
   return (
     <div className="container-custom pt-4 pb-8">
-      {/* Resource Header */}
       <div className="bg-white border border-neutral-200 rounded-lg p-8 mb-6">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           {resource.name}
@@ -83,27 +82,21 @@ export const ResourceDetailPage = () => {
           {resource.description || "No description available"}
         </p>
 
-        {/* Metadata Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div className="bg-gray-50 rounded-lg p-4">
-            <p className="text-sm text-gray-500 mb-1">Format</p>
-            <p
-              className="text-lg font-semibold text-gray-900"
-              title={resource.mime_type}
-            >
-              {getMimeTypeDisplay(resource.mime_type)}
-            </p>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-4">
-            <p className="text-sm text-gray-500 mb-1">Size</p>
-            <p className="text-lg font-semibold text-gray-900">
-              {formatBytes(resource.size_bytes)}
-            </p>
-          </div>
+        <div className="flex items-center gap-2">
+          <span className="text-gray-600 font-medium">Format:</span>
+          <span className="inline-flex items-center">
+            {getMimeTypeDisplay(resource.mime_type)}
+          </span>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap gap-3">
+        <div className="flex items-center gap-2">
+          <span className="text-gray-600 font-medium">Total Size:</span>
+          <span className="inline-flex items-center">
+            {formatBytes(resource.size_bytes)}
+          </span>
+        </div>
+
+        <div className="flex flex-wrap gap-3 mt-6">
           <a
             href={resource.download_url}
             target="_blank"

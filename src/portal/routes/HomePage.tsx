@@ -31,7 +31,6 @@ export const HomePage = () => {
 
   return (
     <>
-      {/* Hero Section */}
       <div className="bg-primary-700">
         <div className="container-custom py-20 md:py-28 text-center relative z-10">
           <h1 className="text-neutral-50 text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-balance">
@@ -71,7 +70,6 @@ export const HomePage = () => {
         </div>
       </div>
 
-      {/* Statistics Section */}
       <div className="bg-neutral-50 py-12">
         <div className="container-custom">
           <h2 className="text-3xl font-bold text-neutral-900 text-center mb-8">
@@ -112,7 +110,6 @@ export const HomePage = () => {
         </div>
       </div>
 
-      {/* Recently Added Datasets Section */}
       <div className="bg-white py-16">
         <div className="container-custom">
           <div className="text-center mb-12">
@@ -158,7 +155,6 @@ export const HomePage = () => {
         </div>
       </div>
 
-      {/* Public Domain Notice */}
       <div className="bg-neutral-50 py-12">
         <div className="container-custom">
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">

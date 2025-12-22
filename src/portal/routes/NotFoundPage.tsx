@@ -5,12 +5,10 @@ export const NotFoundPage = () => {
   return (
     <div className="container-custom py-16">
       <div className="max-w-2xl mx-auto text-center">
-        {/* 404 Illustration */}
         <div className="mb-8">
           <SearchX className="w-32 h-32 mx-auto text-neutral-300" />
         </div>
 
-        {/* Error Message */}
         <h1 className="text-6xl font-bold text-neutral-900 mb-4">404</h1>
         <h2 className="text-3xl font-semibold text-neutral-800 mb-4">
           Page Not Found
@@ -19,7 +17,6 @@ export const NotFoundPage = () => {
           The page you're looking for doesn't exist or has been moved.
         </p>
 
-        {/* Quick Links */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Link
             to="/"

@@ -105,10 +105,8 @@ export const DatasetsPage = () => {
         Browse Datasets
       </h1>
 
-      {/* Search and Filters */}
       <div className="bg-white border border-neutral-200 rounded-lg shadow-sm p-6 mb-6">
         <form onSubmit={handleFilterSubmit} className="space-y-4">
-          {/* Search */}
           <div>
             <label
               htmlFor="search"
@@ -126,7 +124,6 @@ export const DatasetsPage = () => {
             />
           </div>
 
-          {/* Filters Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label
@@ -197,7 +194,6 @@ export const DatasetsPage = () => {
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex gap-2">
             <button
               type="submit"
@@ -215,7 +211,6 @@ export const DatasetsPage = () => {
           </div>
         </form>
 
-        {/* Pagination Controls */}
         <div className="mt-4 pt-4 border-t border-neutral-200 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
@@ -264,7 +259,6 @@ export const DatasetsPage = () => {
         </div>
       </div>
 
-      {/* Results Summary */}
       <div className="mb-4 text-sm text-neutral-600">
         {isLoading
           ? "Loading datasets..."
@@ -321,7 +315,6 @@ export const DatasetsPage = () => {
         )}
       </div>
 
-      {/* Bottom Pagination Controls */}
       {pagination && pagination.total > 0 && (
         <div className="mt-6 flex items-center justify-center gap-3">
           <button

@@ -12,7 +12,6 @@ export const ContributePage = () => {
     <div className="container-custom pt-4 pb-8">
       <h1 className="text-3xl font-bold text-neutral-900 mb-8">Contribute</h1>
 
-      {/* How to Contribute Section */}
       <div className="mb-12">
         <h2 className="text-2xl font-bold text-neutral-900 mb-6">
           How to Contribute Datasets
@@ -73,7 +72,6 @@ export const ContributePage = () => {
         </div>
       </div>
 
-      {/* Contact Channels Section */}
       <div className="mb-12">
         <h2 className="text-2xl font-bold text-neutral-900 mb-6">
           Get in Touch
@@ -105,7 +103,6 @@ export const ContributePage = () => {
               </div>
             </a>
 
-            {/* Email */}
             <a
               href="mailto:volunteers@bettergov.ph"
               className="group flex items-start space-x-4 p-4 rounded-lg hover:bg-neutral-50 transition-colors border border-transparent hover:border-neutral-200"
@@ -125,7 +122,6 @@ export const ContributePage = () => {
               </div>
             </a>
 
-            {/* Discord */}
             <a
               href="https://discord.gg/bettergovph"
               target="_blank"
@@ -147,7 +143,6 @@ export const ContributePage = () => {
               </div>
             </a>
 
-            {/* Facebook */}
             <a
               href="https://www.facebook.com/bettergovph"
               target="_blank"

@@ -9,13 +9,11 @@ import {
 export const TermsOfServicePage = () => {
   return (
     <div className="container-custom pt-8 pb-8">
-      {/* Main Content */}
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-neutral-900 mb-8">
           Terms of Service
         </h1>
         <div className="bg-white border border-neutral-200 rounded-lg shadow-sm p-6 md:p-8 space-y-6">
-          {/* Acceptance of Terms */}
           <section>
             <div className="flex items-center gap-3 mb-4">
               <FileText className="w-6 h-6 text-primary-600" />
@@ -29,7 +27,6 @@ export const TermsOfServicePage = () => {
             </p>
           </section>
 
-          {/* Public Domain Content */}
           <section>
             <div className="flex items-center gap-3 mb-4">
               <Shield className="w-6 h-6 text-primary-600" />
@@ -53,7 +50,6 @@ export const TermsOfServicePage = () => {
             </div>
           </section>
 
-          {/* "AS IS" Disclaimer */}
           <section>
             <div className="flex items-center gap-3 mb-4">
               <AlertTriangle className="w-6 h-6 text-amber-600" />
@@ -79,7 +75,6 @@ export const TermsOfServicePage = () => {
             </div>
           </section>
 
-          {/* Limitation of Liability */}
           <section>
             <h2 className="text-2xl font-bold text-neutral-900 mb-4">
               Limitation of Liability
@@ -109,7 +104,6 @@ export const TermsOfServicePage = () => {
             </div>
           </section>
 
-          {/* User Responsibilities */}
           <section>
             <h2 className="text-2xl font-bold text-neutral-900 mb-4">
               User Responsibilities and Research Guidelines
@@ -168,7 +162,6 @@ export const TermsOfServicePage = () => {
             </div>
           </section>
 
-          {/* No Professional Advice */}
           <section>
             <h2 className="text-2xl font-bold text-neutral-900 mb-4">
               No Professional Advice
@@ -181,7 +174,6 @@ export const TermsOfServicePage = () => {
             </p>
           </section>
 
-          {/* Source Links */}
           <section>
             <div className="flex items-center gap-3 mb-4">
               <ExternalLink className="w-6 h-6 text-primary-600" />
@@ -211,7 +203,6 @@ export const TermsOfServicePage = () => {
             </div>
           </section>
 
-          {/* Website Availability */}
           <section>
             <h2 className="text-2xl font-bold text-neutral-900 mb-4">
               Website Availability
@@ -227,7 +218,6 @@ export const TermsOfServicePage = () => {
             </div>
           </section>
 
-          {/* Indemnification */}
           <section>
             <h2 className="text-2xl font-bold text-neutral-900 mb-4">
               Indemnification
@@ -239,7 +229,6 @@ export const TermsOfServicePage = () => {
             </p>
           </section>
 
-          {/* Modifications */}
           <section>
             <h2 className="text-2xl font-bold text-neutral-900 mb-4">
               Modifications
@@ -250,7 +239,6 @@ export const TermsOfServicePage = () => {
             </p>
           </section>
 
-          {/* Governing Law */}
           <section>
             <h2 className="text-2xl font-bold text-neutral-900 mb-4">
               Governing Law
@@ -261,7 +249,6 @@ export const TermsOfServicePage = () => {
             </p>
           </section>
 
-          {/* Severability */}
           <section>
             <h2 className="text-2xl font-bold text-neutral-900 mb-4">
               Severability
@@ -272,7 +259,6 @@ export const TermsOfServicePage = () => {
             </p>
           </section>
 
-          {/* Content Concerns */}
           <section>
             <h2 className="text-2xl font-bold text-neutral-900 mb-4">
               Content Concerns and Takedown Requests
@@ -355,7 +341,6 @@ export const TermsOfServicePage = () => {
             </div>
           </section>
 
-          {/* Contact Information */}
           <section className="border-t border-neutral-200 pt-8">
             <div className="flex items-center gap-3 mb-4">
               <Mail className="w-6 h-6 text-primary-600" />

@@ -1,11 +1,8 @@
 import {
-  Calendar,
   ChevronLeft,
   ChevronRight,
-  Database,
   Download,
   ExternalLink,
-  FileText,
   Info,
   Scale,
   Users,
@@ -102,7 +99,6 @@ export const DatasetDetailPage = () => {
 
   return (
     <div className="container-custom pt-4 pb-8">
-      {/* Header */}
       <div className="bg-white border border-neutral-200 rounded-lg shadow-sm p-8 mb-6">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           {dataset.name}
@@ -111,14 +107,11 @@ export const DatasetDetailPage = () => {
           {dataset.description || "No description available"}
         </p>
 
-        {/* Metadata: Publisher, Category, Tags, License */}
         <div className="flex flex-col gap-2 mb-6">
           {dataset.publisher?.name && (
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600 font-medium">
-                Publisher:
-              </span>
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-700">
+              <span className="text-gray-600 font-medium">Publisher:</span>
+              <span className="inline-flex items-center font-medium">
                 {dataset.publisher.name}
               </span>
             </div>
@@ -126,18 +119,37 @@ export const DatasetDetailPage = () => {
 
           {dataset.category?.name && (
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600 font-medium">
-                Category:
-              </span>
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+              <span className="text-gray-600 font-medium">Category:</span>
+              <span className="inline-flex items-center font-medium">
                 {dataset.category.name}
               </span>
             </div>
           )}
 
+          <div className="flex items-center gap-2">
+            <span className="text-gray-600 font-medium">Resources:</span>
+            <span className="inline-flex items-center font-medium">
+              {resourcesPagination?.total || 0}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-gray-600 font-medium">Total Size:</span>
+            <span className="inline-flex items-center font-medium">
+              {formatBytes(dataset.size_bytes || 0)}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-gray-600 font-medium">Last Updated:</span>
+            <span className="inline-flex items-center font-medium">
+              {formatDate(dataset.latest_version_date || "")}
+            </span>
+          </div>
+
           {tags.length > 0 && (
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600 font-medium">Tags:</span>
+              <span className="text-gray-600 font-medium">Tags:</span>
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
                   <span
@@ -153,22 +165,20 @@ export const DatasetDetailPage = () => {
 
           {dataset.license && (
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600 font-medium">
-                License:
-              </span>
+              <span className="text-gray-600 font-medium">License:</span>
               {dataset.license_url ? (
                 <a
                   href={dataset.license_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700 hover:bg-purple-200 transition-colors"
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-700 hover:bg-purple-200 transition-colors"
                 >
                   <Scale className="w-3 h-3 mr-1" />
                   {dataset.license}
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </a>
               ) : (
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-700">
                   <Scale className="w-3 h-3 mr-1" />
                   {dataset.license}
                 </span>
@@ -176,52 +186,11 @@ export const DatasetDetailPage = () => {
             </div>
           )}
         </div>
-
-        {/* Statistics */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-gray-50 rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-gray-900">
-                  {resourcesPagination?.total || 0}
-                </p>
-                <p className="text-sm text-gray-600">Resources</p>
-              </div>
-              <FileText className="w-8 h-8 text-primary-500" />
-            </div>
-          </div>
-
-          <div className="bg-gray-50 rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-gray-900">
-                  {formatBytes(dataset.size_bytes || 0)}
-                </p>
-                <p className="text-sm text-gray-600">Total Size</p>
-              </div>
-              <Database className="w-8 h-8 text-green-500" />
-            </div>
-          </div>
-
-          <div className="bg-gray-50 rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-gray-900">
-                  {formatDate(dataset.latest_version_date || "")}
-                </p>
-                <p className="text-sm text-gray-600">Latest Version</p>
-              </div>
-              <Calendar className="w-8 h-8 text-yellow-500" />
-            </div>
-          </div>
-        </div>
       </div>
 
-      {/* Resources Section */}
       <div className="bg-white border border-neutral-200 rounded-lg shadow-sm p-6 mb-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Resources</h2>
 
-        {/* Results Summary and Items Per Page */}
         <div className="mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="text-sm text-neutral-600">
             {resourcesLoading
@@ -330,7 +299,10 @@ export const DatasetDetailPage = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {formatBytes(resource.size_bytes)}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-500 max-w-md truncate">
+                      <td
+                        className="px-6 py-4 text-sm text-gray-500 max-w-md truncate"
+                        title={resource.description || "N/A"}
+                      >
                         {resource.description || "N/A"}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -365,7 +337,6 @@ export const DatasetDetailPage = () => {
           )}
         </div>
 
-        {/* Pagination Controls */}
         {resourcesPagination && resourcesPagination.total > 0 && (
           <div className="mt-6">
             {/* Mobile view */}
@@ -427,7 +398,6 @@ export const DatasetDetailPage = () => {
         )}
       </div>
 
-      {/* Attribution Section */}
       {attribution.length > 0 && (
         <div className="bg-white border border-neutral-200 rounded-lg shadow-sm p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
@@ -494,7 +464,6 @@ export const DatasetDetailPage = () => {
         </div>
       )}
 
-      {/* Content Notice */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
         <div className="flex items-start gap-3">
           <Info className="w-6 h-6 text-blue-700 flex-shrink-0 mt-0.5" />

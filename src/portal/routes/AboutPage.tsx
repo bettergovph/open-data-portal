@@ -13,7 +13,6 @@ export const AboutPage = () => {
     <div className="container-custom pt-4 pb-8">
       <h1 className="text-3xl font-bold text-neutral-900 mb-8">About</h1>
 
-      {/* Mission & Vision Section */}
       <div className="max-w-4xl mx-auto mb-16">
         <div className="bg-white border border-neutral-200 rounded-lg p-8 md:p-12 shadow-sm">
           <h2 className="text-2xl font-bold text-neutral-900 mb-8 text-center">
@@ -33,7 +32,6 @@ export const AboutPage = () => {
         </div>
       </div>
 
-      {/* What We Do Section */}
       <div className="mb-16">
         <h2 className="text-2xl font-bold text-neutral-900 mb-8 text-center">
           What We Do
@@ -83,7 +81,6 @@ export const AboutPage = () => {
         </div>
       </div>
 
-      {/* Impact Section */}
       <div className="bg-primary-50 border border-primary-100 rounded-lg p-8 md:p-12 mb-16">
         <h2 className="text-2xl font-bold text-neutral-900 mb-6 text-center pb-8">
           Who Benefits?

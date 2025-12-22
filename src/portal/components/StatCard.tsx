@@ -12,7 +12,6 @@ import {
 } from "lucide-react"
 import { formatNumber } from "../lib/utils"
 
-// Icon mapping for static access (matches kebab-case names used in HomePage)
 const iconMap: Record<string, LucideIcon> = {
   activity: Activity,
   "bar-chart": BarChart,
