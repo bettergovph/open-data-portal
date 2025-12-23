@@ -1,4 +1,5 @@
-import { AlertCircle, Database, File } from "lucide-react"
+import { AlertCircle, Database, FileText } from "lucide-react"
+import { Link } from "react-router-dom"
 import { useCategories } from "../hooks/useCategories.ts"
 
 export const CategoriesPage = () => {
@@ -46,9 +47,10 @@ export const CategoriesPage = () => {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((category) => (
-          <div
+          <Link
             key={category.id}
-            className="bg-white border border-neutral-200 rounded-lg p-6 shadow-sm flex flex-col"
+            to={`/datasets?category_id=${category.id}`}
+            className="bg-white border border-neutral-200 rounded-lg p-6 shadow-sm flex flex-col hover:border-primary-300 hover:shadow-md transition-all"
           >
             <h3 className="text-xl font-bold text-neutral-900 mb-3">
               {category.name}
@@ -73,14 +75,14 @@ export const CategoriesPage = () => {
                 </span>
               </div>
               <div className="flex items-center space-x-1.5">
-                <File className="w-5 h-5 text-blue-600" />
+                <FileText className="w-5 h-5 text-blue-600" />
                 <span>
                   {category.resource_count} resource
                   {category.resource_count !== 1 ? "s" : ""}
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
