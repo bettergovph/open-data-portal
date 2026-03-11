@@ -74,6 +74,15 @@
       "publisher_name": "BetterGov.PH",
       "category_name": "Government",
       "latest_version_date": "2025-10-08",
+      "attribution": [
+        {
+          "author": "BetterGov.PH",
+          "source_url": "https://bettergov.ph",
+          "attribution_text": "Budget data compiled and maintained by BetterGov.PH volunteers from official DBM sources.",
+          "license": "Public Domain",
+          "license_url": null
+        }
+      ],
       "resources": [
         {
           "name": "NEP/GAA 2020",

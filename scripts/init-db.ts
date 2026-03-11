@@ -11,6 +11,14 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+interface AttributionAuthor {
+  author: string;
+  source_url?: string | null;
+  attribution_text?: string | null;
+  license?: string | null;
+  license_url?: string | null;
+}
+
 interface SampleData {
   publishers: Array<{
     name: string;
@@ -29,6 +37,9 @@ interface SampleData {
     publisher_name: string;
     category_name: string;
     latest_version_date?: string;
+    attribution?: AttributionAuthor[];
+    license?: string | null;
+    license_url?: string | null;
     resources: Array<{
       name: string;
       description: string;
@@ -135,10 +146,15 @@ for (const dataset of data.datasets) {
     dataset.latest_version_date
       ? `'${escapeSql(dataset.latest_version_date)}'`
       : "NULL",
+    dataset.attribution
+      ? `'${escapeSql(JSON.stringify(dataset.attribution))}'`
+      : "NULL",
+    dataset.license ? `'${escapeSql(dataset.license)}'` : "NULL",
+    dataset.license_url ? `'${escapeSql(dataset.license_url)}'` : "NULL",
   ];
 
   statements.push(
-    `INSERT INTO datasets (id, name, description, publisher_id, category_id, tags, size_bytes, latest_version_date) VALUES (${values.join(", ")});`,
+    `INSERT INTO datasets (id, name, description, publisher_id, category_id, tags, size_bytes, latest_version_date, attribution, license, license_url) VALUES (${values.join(", ")});`,
   );
 
   // Insert resources

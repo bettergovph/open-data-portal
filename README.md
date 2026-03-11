@@ -2,21 +2,6 @@
 
 A community-run portal (and API) for exploring publicly available datasets.
 
-## Tech Stack
-
-- **Platform:** Cloudflare Workers + D1 (SQLite)
-- **Framework:** Hono 4.x
-- **Database:** Cloudflare D1
-- **Validation:** Zod
-- **API Docs:** @hono/zod-openapi with Swagger UI
-- **Language:** TypeScript
-
-## Prerequisites
-
-- Node.js 22+
-- pnpm
-- Cloudflare account (free tier)
-
 ## Local Development
 
 1. **Install dependencies:**
