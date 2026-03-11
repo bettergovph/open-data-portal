@@ -212,7 +212,7 @@ export const DatasetDetailPage = () => {
                 setResourceLimit(parseInt(e.target.value, 10))
                 setResourceOffset(0)
               }}
-              className="px-3 py-2 border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+              className="px-3 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
             >
               <option value="10">10</option>
               <option value="20">20</option>

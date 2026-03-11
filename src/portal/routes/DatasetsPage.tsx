@@ -120,7 +120,7 @@ export const DatasetsPage = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by name, description, or tags..."
-              className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-4 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
 
@@ -136,7 +136,7 @@ export const DatasetsPage = () => {
                 id="category_id"
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-4 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
               >
                 <option value="">All Categories</option>
                 {categories.map((cat) => (
@@ -158,7 +158,7 @@ export const DatasetsPage = () => {
                 id="publisher_id"
                 value={publisherId}
                 onChange={(e) => setPublisherId(e.target.value)}
-                className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-4 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
               >
                 <option value="">All Publishers</option>
                 {publishers.map((pub) => (
@@ -180,7 +180,7 @@ export const DatasetsPage = () => {
                 id="sort"
                 value={sortValue}
                 onChange={(e) => setSortValue(e.target.value)}
-                className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-4 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
               >
                 <option value="name_asc">Name (A-Z)</option>
                 <option value="name_desc">Name (Z-A)</option>
@@ -249,7 +249,7 @@ export const DatasetsPage = () => {
                 newParams.set("offset", "0")
                 setSearchParams(newParams)
               }}
-              className="px-3 py-2 border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+              className="px-3 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
             >
               <option value="10">10</option>
               <option value="20">20</option>

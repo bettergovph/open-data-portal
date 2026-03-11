@@ -53,7 +53,7 @@ export const HomePage = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search datasets by name, description, or tags..."
-                  className="w-full pl-12 pr-6 py-4 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-4 focus:ring-primary-300/50 shadow-xl"
+                  className="w-full pl-12 pr-6 py-4 rounded-xl bg-white text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-4 focus:ring-primary-300/50 shadow-xl"
                 />
               </div>
               <button
