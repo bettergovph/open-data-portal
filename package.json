@@ -32,7 +32,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.5",
+    "@biomejs/biome": "2.4.6",
     "@cloudflare/vite-plugin": "^1.27.0",
     "@types/node": "^22.19.15",
     "@types/react": "^19.2.14",
@@ -52,6 +52,10 @@
     "wrangler": "4.72.0"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "sharp", "workerd"]
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "workerd"
+    ]
   }
 }
