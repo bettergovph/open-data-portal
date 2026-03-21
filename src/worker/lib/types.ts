@@ -52,7 +52,6 @@ export interface DatasetListItem extends Dataset {
 export interface DatasetDetail extends Dataset {
   publisher: Publisher
   category: Category
-  resources: Resource[]
 }
 
 export interface Resource {

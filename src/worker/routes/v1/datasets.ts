@@ -260,7 +260,7 @@ app.openapi(getDatasetRoute, async (c: any) => {
       )
     }
 
-    const result: Omit<DatasetDetail, "resources"> = {
+    const result: DatasetDetail = {
       id: dataset.id,
       name: dataset.name,
       description: dataset.description,

@@ -71,22 +71,6 @@ export const ResourceSchema = z
     }),
   })
   .openapi("Resource")
-z.object({
-  id: z.number().int().positive(),
-  name: z.string().min(1),
-  description: z.string().nullable(),
-  publisher_id: z.number().int().positive(),
-  category_id: z.number().int().positive(),
-  tags: z.string().nullable(),
-  size_bytes: z.number().int().min(0),
-  latest_version_date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/)
-    .nullable(),
-  attribution: z.string().nullable(),
-  license: z.string().nullable(),
-  license_url: z.string().nullable(),
-})
 
 export const DatasetApiSchema = z
   .object({
