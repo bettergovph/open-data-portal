@@ -28,7 +28,7 @@ A community-run portal (and API) for exploring publicly available datasets.
 
 5. **Initialize the database (local):**
    ```bash
-   pnpx run db:init:local
+   pnpm run db:init:local
    ```
 
 6. Start the local development server:
