@@ -8,6 +8,7 @@ import { ContributePage } from "./routes/ContributePage.tsx"
 import { DatasetDetailPage } from "./routes/DatasetDetailPage.tsx"
 import { DatasetsPage } from "./routes/DatasetsPage.tsx"
 import { HomePage } from "./routes/HomePage.tsx"
+import { McpPage } from "./routes/McpPage.tsx"
 import { NotFoundPage } from "./routes/NotFoundPage.tsx"
 import { ResourceDetailPage } from "./routes/ResourceDetailPage.tsx"
 import { TermsOfServicePage } from "./routes/TermsOfServicePage.tsx"
@@ -48,6 +49,7 @@ const App = () => {
               element={<ResourceDetailPage />}
             />
             <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/mcp" element={<McpPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contribute" element={<ContributePage />} />
             <Route

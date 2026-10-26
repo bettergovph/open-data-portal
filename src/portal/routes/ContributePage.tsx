@@ -9,8 +9,8 @@ import {
 
 export const ContributePage = () => {
   return (
-    <div className="container-custom pt-4 pb-8">
-      <h1 className="text-3xl font-bold text-neutral-900 mb-8">Contribute</h1>
+    <div className="container-custom pt-8 md:pt-10 pb-8">
+      <h1 className="page-title mb-8">Contribute</h1>
 
       <div className="mb-12">
         <h2 className="text-2xl font-bold text-neutral-900 mb-6">

@@ -1,65 +1,132 @@
 @import "tailwindcss";
 
+/*
+ * Visual language shared with the other BetterGov data sites (budget.bettergov.ph):
+ * white paper, cool ink, one blue, hairline rules, near-square corners.
+ * Figtree speaks, Inter works, JetBrains Mono labels.
+ */
 @theme {
-  /* Primary (Blue) */
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+  /* Paper & ink */
+  --color-paper: #ffffff;
+  --color-paper-2: #f4f7fc;
+  --color-rule: #d4d8e0;
+  --color-rule-soft: #e7eaef;
+  --color-ink: #11151c;
 
-  /* CivicTech (Orange) */
-  --color-civictech-50: #fff7ed;
-  --color-civictech-100: #ffedd5;
-  --color-civictech-200: #fed7aa;
-  --color-civictech-300: #fdba74;
-  --color-civictech-400: #fb923c;
-  --color-civictech-500: #f97316;
-  --color-civictech-600: #ea580c;
-  --color-civictech-700: #c2410c;
-  --color-civictech-800: #9a3412;
-  --color-civictech-900: #7c2d12;
+  /* Primary: BetterGov blue, 600 is the brand blue */
+  --color-primary-50: #f2f6ff;
+  --color-primary-100: #e8efff;
+  --color-primary-200: #cddcff;
+  --color-primary-300: #a3bdff;
+  --color-primary-400: #5f8cf0;
+  --color-primary-500: #2f68e3;
+  --color-primary-600: #0b4fd9;
+  --color-primary-700: #0a44bd;
+  --color-primary-800: #093796;
+  --color-primary-900: #0a2c75;
 
-  /* Accent (Pink) */
-  --color-accent-50: #fdf2f8;
-  --color-accent-100: #fce7f3;
-  --color-accent-200: #fbcfe8;
-  --color-accent-300: #f9a8d4;
-  --color-accent-400: #f472b6;
-  --color-accent-500: #ec4899;
-  --color-accent-600: #db2777;
-  --color-accent-700: #be185d;
-  --color-accent-800: #9d174d;
-  --color-accent-900: #831843;
+  /* Neutrals: cool ink scale. 50 = paper tint, 300 = rule, 600 = secondary text, 900 = ink */
+  --color-neutral-50: #f4f7fc;
+  --color-neutral-100: #eceef2;
+  --color-neutral-200: #e7eaef;
+  --color-neutral-300: #d4d8e0;
+  --color-neutral-400: #8a92a1;
+  --color-neutral-500: #6b7383;
+  --color-neutral-600: #5b6373;
+  --color-neutral-700: #2b3340;
+  --color-neutral-800: #1c232e;
+  --color-neutral-900: #11151c;
 
-  /* Neutral grays (pinned to v3 values) */
-  --color-neutral-50: #f9fafb;
-  --color-neutral-100: #f3f4f6;
-  --color-neutral-200: #e5e7eb;
-  --color-neutral-300: #d1d5db;
-  --color-neutral-400: #9ca3af;
-  --color-neutral-500: #6b7280;
-  --color-neutral-600: #4b5563;
-  --color-neutral-700: #374151;
-  --color-neutral-800: #1f2937;
-  --color-neutral-900: #111827;
+  /* Status */
+  --color-negative-50: #fdf1ef;
+  --color-negative-100: #f8e3df;
+  --color-negative-600: #b8341f;
+  --color-negative-700: #962b19;
+  --color-positive-100: #e3efe3;
+  --color-positive-700: #3a6b3a;
 
-  /* Font family */
+  /*
+   * Tailwind's stock blue, gray, red and green are remapped onto the palette
+   * above, so pages written with those names stay on-brand.
+   */
+  --color-blue-50: #f2f6ff;
+  --color-blue-100: #e8efff;
+  --color-blue-200: #cddcff;
+  --color-blue-300: #a3bdff;
+  --color-blue-400: #5f8cf0;
+  --color-blue-500: #2f68e3;
+  --color-blue-600: #0b4fd9;
+  --color-blue-700: #0a44bd;
+  --color-blue-800: #093796;
+  --color-blue-900: #0a2c75;
+
+  --color-gray-50: #f4f7fc;
+  --color-gray-100: #eceef2;
+  --color-gray-200: #e7eaef;
+  --color-gray-300: #d4d8e0;
+  --color-gray-400: #8a92a1;
+  --color-gray-500: #6b7383;
+  --color-gray-600: #5b6373;
+  --color-gray-700: #2b3340;
+  --color-gray-800: #1c232e;
+  --color-gray-900: #11151c;
+
+  --color-red-50: #fdf1ef;
+  --color-red-100: #f8e3df;
+  --color-red-200: #f1c6bf;
+  --color-red-300: #e49a8e;
+  --color-red-400: #d16a58;
+  --color-red-500: #c24a35;
+  --color-red-600: #b8341f;
+  --color-red-700: #962b19;
+  --color-red-800: #7a2315;
+  --color-red-900: #5f1b10;
+
+  --color-green-50: #f1f7f1;
+  --color-green-100: #e3efe3;
+  --color-green-200: #c7dfc7;
+  --color-green-300: #9cc59c;
+  --color-green-400: #6aa56a;
+  --color-green-500: #4c874c;
+  --color-green-600: #3a6b3a;
+  --color-green-700: #2f572f;
+  --color-green-800: #264626;
+  --color-green-900: #1d361d;
+
+  /* Type */
   --font-sans:
-    "Figtree", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
     sans-serif;
-  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-display:
+    "Figtree", "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:
+    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Near-square corners and no drop shadows, as on the sibling sites */
+  --radius-xs: 1px;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 3px;
+  --radius-xl: 3px;
+  --radius-2xl: 4px;
+  --shadow-sm: 0 0 0 0 transparent;
+  --shadow-md: 0 0 0 0 transparent;
+  --shadow-lg: 0 0 0 0 transparent;
+  --shadow-xl: 0 0 0 0 transparent;
+  --shadow-2xl: 0 0 0 0 transparent;
 }
 
-/* Custom base styles */
 @layer base {
+  html {
+    background: var(--color-paper);
+  }
+
   body {
-    @apply font-sans text-neutral-900 antialiased;
+    @apply font-sans text-ink antialiased;
+    font-size: 15px;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+    text-rendering: optimizeLegibility;
   }
 
   h1,
@@ -68,63 +135,87 @@
   h4,
   h5,
   h6 {
-    @apply font-semibold text-neutral-900;
+    @apply font-display font-bold text-ink;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl;
-  }
-
-  h2 {
     @apply text-3xl md:text-4xl;
   }
 
-  h3 {
+  h2 {
     @apply text-2xl md:text-3xl;
   }
 
-  h4 {
+  h3 {
     @apply text-xl md:text-2xl;
   }
 
-  h5 {
+  h4 {
     @apply text-lg md:text-xl;
   }
 
-  h6 {
+  h5 {
     @apply text-base md:text-lg;
+  }
+
+  h6 {
+    @apply text-sm md:text-base;
   }
 
   p {
     @apply text-base text-neutral-700 leading-relaxed;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--color-primary-100);
+  }
 }
 
-/* Custom component styles */
 @layer components {
-  /* Button variants */
-  .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  .container-custom {
+    @apply max-w-[1504px] mx-auto px-4 md:px-8;
+  }
+
+  /* ---------- Page heading: title, one-line dek, rule underneath ---------- */
+  .page-head {
+    @apply pb-5 mb-6;
+  }
+
+  .page-title {
+    @apply font-display font-bold text-3xl md:text-[38px] text-ink;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+  }
+
+  .page-dek {
+    @apply mt-2 text-[15px] text-neutral-600 max-w-[720px];
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-sm text-sm font-semibold transition-colors duration-100 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+    @apply bg-primary-600 text-white hover:bg-primary-700;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-neutral-200 text-neutral-900 hover:bg-neutral-300 focus:ring-neutral-500;
-  }
-
-  .btn-accent {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-accent-600 text-white hover:bg-accent-700 focus:ring-accent-500;
-  }
-
-  .btn-civictech {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-civictech-600 text-white hover:bg-civictech-700 focus:ring-civictech-500;
+    @apply bg-white text-ink border border-ink hover:bg-neutral-50;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed border-2 border-primary-600 text-primary-600 hover:bg-primary-50 focus:ring-primary-500;
+    @apply border border-primary-600 text-primary-600 hover:bg-primary-50;
   }
 
   .btn-sm {
@@ -132,16 +223,35 @@
   }
 
   .btn-lg {
-    @apply px-6 py-3 text-lg;
+    @apply px-6 py-3 text-base;
   }
 
-  /* Card styles */
+  /* ---------- Form fields ---------- */
+  .field-label {
+    @apply block text-sm font-semibold text-neutral-700 mb-1.5;
+  }
+
+  .field,
+  .input {
+    @apply w-full px-3 py-2 bg-white border border-neutral-300 rounded-sm text-ink placeholder:text-neutral-500 transition-colors hover:border-neutral-400 focus:border-ink;
+  }
+
+  .input-error {
+    @apply border-negative-600 focus:border-negative-600;
+  }
+
+  /* ---------- Metadata: mono, quiet, never a sentence ---------- */
+  .meta {
+    @apply font-mono text-xs text-neutral-500;
+  }
+
+  /* ---------- Surfaces ---------- */
   .card {
-    @apply bg-white rounded-lg shadow-md overflow-hidden transition-shadow hover:shadow-lg;
+    @apply bg-white border border-rule rounded-sm overflow-hidden;
   }
 
   .card-header {
-    @apply p-4 md:p-6 border-b border-neutral-200;
+    @apply p-4 md:p-6 border-b border-rule;
   }
 
   .card-body {
@@ -149,21 +259,12 @@
   }
 
   .card-footer {
-    @apply p-4 md:p-6 border-t border-neutral-200 bg-neutral-50;
+    @apply p-4 md:p-6 border-t border-rule bg-paper-2;
   }
 
-  /* Input styles */
-  .input {
-    @apply w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all;
-  }
-
-  .input-error {
-    @apply border-accent-500 focus:ring-accent-500;
-  }
-
-  /* Badge styles */
+  /* ---------- Tags ---------- */
   .badge {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-medium;
   }
 
   .badge-primary {
@@ -171,60 +272,60 @@
   }
 
   .badge-success {
-    @apply bg-green-100 text-green-800;
-  }
-
-  .badge-warning {
-    @apply bg-yellow-100 text-yellow-800;
+    @apply bg-positive-100 text-positive-700;
   }
 
   .badge-error {
-    @apply bg-accent-100 text-accent-800;
+    @apply bg-negative-100 text-negative-700;
   }
 
   .badge-neutral {
-    @apply bg-neutral-100 text-neutral-800;
+    @apply bg-neutral-100 text-neutral-700;
   }
 
-  /* Table styles */
+  /* ---------- Tables ---------- */
   .table {
-    @apply w-full text-left border-collapse;
+    @apply w-full text-left border-collapse text-sm;
   }
 
   .table thead {
-    @apply bg-neutral-100 border-b-2 border-neutral-300;
+    @apply border-b border-ink;
   }
 
   .table th {
-    @apply px-4 py-3 text-sm font-semibold text-neutral-700 uppercase tracking-wider;
+    @apply px-3 py-2 text-xs font-display font-bold text-neutral-600;
   }
 
   .table td {
-    @apply px-4 py-3 text-sm text-neutral-900 border-b border-neutral-200;
+    @apply px-3 py-2.5 text-sm text-ink border-b border-rule-soft;
   }
 
   .table tbody tr:hover {
-    @apply bg-neutral-50;
-  }
-
-  /* Container styles */
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  /* CivicTech banner styles */
-  .civictech-banner {
-    @apply bg-gradient-to-r from-civictech-500 to-accent-500 text-white;
+    @apply bg-paper-2;
   }
 }
 
-/* Custom utility classes */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 
   .transition-all-smooth {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.12s ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: must beat utility-class durations */
+    animation-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: must beat utility-class durations */
+    animation-iteration-count: 1 !important;
+    /* biome-ignore lint/complexity/noImportantStyles: must beat utility-class durations */
+    transition-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: must beat utility-class durations */
+    scroll-behavior: auto !important;
   }
 }

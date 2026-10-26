@@ -1,3 +1,5 @@
+import { statCellClass } from "./StatCard.tsx"
+
 export interface LoadingSkeletonProps {
   variant: "stat-card" | "dataset-card" | "generic" | "resource-row"
   count?: number
@@ -15,15 +17,11 @@ export const LoadingSkeleton = ({
         {skeletons.map((id) => (
           <div
             key={id}
-            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 animate-pulse"
+            className={`${statCellClass} animate-pulse`}
+            aria-hidden="true"
           >
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <div className="h-10 bg-neutral-200 rounded w-24 mb-3"></div>
-                <div className="h-4 bg-neutral-200 rounded w-32"></div>
-              </div>
-              <div className="bg-neutral-200 p-3 rounded-lg w-14 h-14"></div>
-            </div>
+            <div className="h-7 bg-neutral-200 rounded-sm w-10"></div>
+            <div className="h-4 bg-neutral-200 rounded-sm w-20"></div>
           </div>
         ))}
       </>
@@ -36,21 +34,12 @@ export const LoadingSkeleton = ({
         {skeletons.map((id) => (
           <div
             key={id}
-            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 animate-pulse"
+            className="py-5 border-b border-rule-soft animate-pulse"
+            aria-hidden="true"
           >
-            <div className="h-6 bg-neutral-200 rounded w-3/4 mb-4"></div>
-            <div className="space-y-2 mb-4">
-              <div className="h-4 bg-neutral-200 rounded w-full"></div>
-              <div className="h-4 bg-neutral-200 rounded w-2/3"></div>
-            </div>
-            <div className="flex gap-2 mb-4">
-              <div className="h-6 bg-neutral-200 rounded-full w-24"></div>
-              <div className="h-6 bg-neutral-200 rounded-full w-20"></div>
-            </div>
-            <div className="flex justify-between pt-4 border-t border-neutral-100">
-              <div className="h-4 bg-neutral-200 rounded w-32"></div>
-              <div className="h-4 bg-neutral-200 rounded w-24"></div>
-            </div>
+            <div className="h-6 bg-neutral-200 rounded-sm w-2/5 mb-3"></div>
+            <div className="h-4 bg-neutral-200 rounded-sm w-3/4 mb-2"></div>
+            <div className="h-4 bg-neutral-200 rounded-sm w-1/4"></div>
           </div>
         ))}
       </>
@@ -62,20 +51,20 @@ export const LoadingSkeleton = ({
       <>
         {skeletons.map((id) => (
           <tr key={id} className="animate-pulse">
-            <td className="px-6 py-4">
-              <div className="h-4 bg-neutral-200 rounded w-48"></div>
+            <td className="px-3 py-3">
+              <div className="h-4 bg-neutral-200 rounded-sm w-48"></div>
             </td>
-            <td className="px-6 py-4">
-              <div className="h-4 bg-neutral-200 rounded w-20"></div>
+            <td className="px-3 py-3">
+              <div className="h-4 bg-neutral-200 rounded-sm w-20"></div>
             </td>
-            <td className="px-6 py-4">
-              <div className="h-4 bg-neutral-200 rounded w-16"></div>
+            <td className="px-3 py-3">
+              <div className="h-4 bg-neutral-200 rounded-sm w-16"></div>
             </td>
-            <td className="px-6 py-4">
-              <div className="h-4 bg-neutral-200 rounded w-24"></div>
+            <td className="px-3 py-3">
+              <div className="h-4 bg-neutral-200 rounded-sm w-24"></div>
             </td>
-            <td className="px-6 py-4">
-              <div className="h-8 bg-neutral-200 rounded w-20"></div>
+            <td className="px-3 py-3">
+              <div className="h-8 bg-neutral-200 rounded-sm w-20"></div>
             </td>
           </tr>
         ))}
@@ -88,12 +77,13 @@ export const LoadingSkeleton = ({
       {skeletons.map((id) => (
         <div
           key={id}
-          className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 animate-pulse"
+          className="border border-rule rounded-sm p-6 animate-pulse"
+          aria-hidden="true"
         >
           <div className="space-y-4">
-            <div className="h-6 bg-neutral-200 rounded w-3/4"></div>
-            <div className="h-4 bg-neutral-200 rounded w-full"></div>
-            <div className="h-4 bg-neutral-200 rounded w-5/6"></div>
+            <div className="h-6 bg-neutral-200 rounded-sm w-3/4"></div>
+            <div className="h-4 bg-neutral-200 rounded-sm w-full"></div>
+            <div className="h-4 bg-neutral-200 rounded-sm w-5/6"></div>
           </div>
         </div>
       ))}

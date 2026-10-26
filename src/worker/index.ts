@@ -1,8 +1,15 @@
 import { swaggerUI } from "@hono/swagger-ui"
 import { OpenAPIHono } from "@hono/zod-openapi"
+import { cors } from "hono/cors"
+import { RATE_LIMIT_CONFIG } from "./lib/config/rate-limit.ts"
 import { initDB } from "./lib/db.ts"
+import { rateLimit } from "./lib/middleware/rate-limit.ts"
 import type { Bindings } from "./lib/types.ts"
+import { buildLlmsTxt } from "./llms.ts"
+import { handleMcp } from "./mcp.ts"
 import { apiV1Routes } from "./routes/v1"
+
+const LLMS_TXT = buildLlmsTxt()
 
 const app = new OpenAPIHono<{ Bindings: Bindings }>()
 
@@ -12,6 +19,26 @@ app.use("/*", async (c, next) => {
 })
 
 app.route("/api/v1", apiV1Routes)
+
+// Browsers get the setup guide (a route of the SPA); MCP clients, which never
+// ask for HTML, get the server below.
+app.get("/mcp", async (c, next) => {
+  if (c.req.header("accept")?.includes("text/html")) {
+    return c.env.ASSETS.fetch(new Request(new URL("/", c.req.url), c.req.raw))
+  }
+  await next()
+})
+
+app.use("/mcp", cors())
+app.use("/mcp", rateLimit({ config: RATE_LIMIT_CONFIG.mcp }))
+app.all("/mcp", (c) => handleMcp(c.req.raw))
+
+app.get("/llms.txt", (c) =>
+  c.text(LLMS_TXT, 200, {
+    "content-type": "text/plain; charset=utf-8",
+    "cache-control": "public, max-age=3600",
+  }),
+)
 
 app.doc("/openapi/v1.json", (c) => ({
   openapi: "3.1.0",

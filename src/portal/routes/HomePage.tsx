@@ -1,4 +1,4 @@
-import { ArrowRight, Info, Search } from "lucide-react"
+import { ArrowRight, Search } from "lucide-react"
 import { type FormEvent, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { DatasetCard } from "../components/DatasetCard.tsx"
@@ -31,190 +31,150 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className="bg-primary-700">
-        <div className="container-custom py-20 md:py-28 text-center relative z-10">
-          <h1 className="text-neutral-50 text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-balance">
-            Open Data Portal
+      <section>
+        <div className="container-custom pt-8 pb-6 md:pt-10 md:pb-8">
+          <h1 className="font-display font-bold text-4xl md:text-5xl text-ink max-w-[28ch] text-balance leading-[1.02] tracking-[-0.03em]">
+            Public data you can search, download and reuse
           </h1>
-          <p className="text-sm md:text-2xl text-white mb-10 max-w-3xl mx-auto text-pretty break-words">
-            Discover, explore, experiment with publicly available datasets
-          </p>
-          <div className="max-w-3xl mx-auto">
-            <form
-              onSubmit={handleSearchSubmit}
-              className="flex flex-col sm:flex-row gap-3"
+          <form
+            onSubmit={handleSearchSubmit}
+            aria-label="Search datasets"
+            className="mt-6 flex max-w-3xl border-[1.5px] border-ink rounded-sm bg-white focus-within:border-primary-600"
+          >
+            <label htmlFor="home-search" className="sr-only">
+              Search datasets
+            </label>
+            <div className="relative flex-1 min-w-0">
+              <Search
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500 pointer-events-none"
+                aria-hidden="true"
+              />
+              <input
+                id="home-search"
+                type="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search by name, description or tag"
+                className="w-full h-14 pl-12 pr-4 bg-transparent text-base md:text-lg text-ink placeholder:text-neutral-500 focus:outline-none"
+              />
+            </div>
+            <button
+              type="submit"
+              className="px-6 md:px-8 bg-primary-600 text-white font-display font-bold hover:bg-primary-700 transition-colors focus-visible:outline-offset-0"
             >
-              <div className="relative flex-1">
-                <div className="absolute left-5 top-1/2 transform -translate-y-1/2">
-                  <Search className="w-5 h-5 text-neutral-400" />
-                </div>
-                <input
-                  type="search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search datasets by name, description, or tags..."
-                  className="w-full pl-12 pr-6 py-4 rounded-xl bg-white text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-4 focus:ring-primary-300/50 shadow-xl"
-                />
-              </div>
-              <button
-                type="submit"
-                className="px-8 py-4 bg-white text-primary-700 rounded-xl font-semibold hover:bg-primary-50 transition-all-smooth shadow-xl hover:shadow-2xl hover:scale-105 whitespace-nowrap"
-              >
-                <span className="flex items-center justify-center">
-                  <Search className="w-5 h-5 mr-2" />
-                  Search
-                </span>
-              </button>
-            </form>
-          </div>
+              Search
+            </button>
+          </form>
         </div>
-      </div>
+      </section>
 
-      <div className="bg-neutral-50 py-12">
+      <section aria-label="Portal totals">
         <div className="container-custom">
-          <h2 className="text-3xl font-bold text-neutral-900 text-center mb-8">
-            Statistics
-          </h2>
-          <div className="flex flex-wrap justify-center gap-6">
-            {statsLoading ? (
-              <LoadingSkeleton variant="stat-card" count={4} />
-            ) : stats ? (
-              <>
-                <StatCard
-                  label="Datasets"
-                  value={stats.total_datasets || 0}
-                  icon="database"
-                  color="primary"
-                />
-                <StatCard
-                  label="Resources"
-                  value={stats.total_resources || 0}
-                  icon="file-text"
-                  color="success"
-                />
-                <StatCard
-                  label="Publishers"
-                  value={stats.total_publishers || 0}
-                  icon="building-2"
-                  color="warning"
-                />
-                <StatCard
-                  label="Total Size"
-                  value={formatBytes(stats.total_size_bytes || 0)}
-                  icon="hard-drive"
-                  color="neutral"
-                />
-              </>
-            ) : null}
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white py-16">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-neutral-900 text-center mb-8">
-              Recently added datasets
-            </h2>
-            <p className="text-lg text-neutral-600">
-              Explore the latest datasets added to our portal
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {datasetsLoading ? (
-              <LoadingSkeleton variant="dataset-card" count={9} />
-            ) : recentDatasets.length === 0 ? (
-              <p className="col-span-full text-center text-neutral-500">
-                No datasets available yet
-              </p>
-            ) : (
-              recentDatasets
-                .slice(0, Math.min(9, recentDatasets.length))
-                .map((dataset) => (
-                  <DatasetCard
-                    key={dataset.id}
-                    id={dataset.id}
-                    name={dataset.name}
-                    description={dataset.description || ""}
-                    publisher={dataset.publisher?.name || "Unknown"}
-                    category={dataset.category?.name || "Unknown"}
-                    resourceCount={dataset.resource_count}
-                    sizeBytes={dataset.size_bytes}
-                    latestVersionDate={dataset.latest_version_date || ""}
+          <div className="overflow-hidden">
+            <div className="flex flex-wrap -ml-5">
+              {statsLoading ? (
+                <LoadingSkeleton variant="stat-card" count={4} />
+              ) : stats ? (
+                <>
+                  <StatCard
+                    label="Datasets"
+                    value={stats.total_datasets || 0}
                   />
-                ))
-            )}
-          </div>
-          <div className="text-center mt-8">
-            <Link
-              to="/datasets"
-              className="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-lg hover:shadow-xl"
-            >
-              Browse All Datasets
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Link>
+                  <StatCard
+                    label="Downloadable files"
+                    value={stats.total_resources || 0}
+                  />
+                  <StatCard
+                    label="Publishers"
+                    value={stats.total_publishers || 0}
+                  />
+                  <StatCard
+                    label="Combined size"
+                    value={formatBytes(stats.total_size_bytes || 0)}
+                  />
+                </>
+              ) : null}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="bg-neutral-800 py-16">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Access Data Programmatically
-            </h2>
-            <p className="text-lg text-neutral-200 mb-8 max-w-2xl mx-auto">
-              Integrate directly with your applications, scripts, and workflows
-              through the Open Data Portal API.
+      <section className="container-custom pt-8">
+        <div className="flex items-end justify-between gap-4 border-b border-ink pb-3">
+          <div>
+            <h2 className="text-2xl md:text-3xl">Recently updated</h2>
+            <p className="mt-1 text-sm text-neutral-600">
+              The newest versions added to the portal
             </p>
-            <div className="flex justify-center">
-              <a
-                href="/docs"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-neutral-800 rounded-lg font-semibold hover:bg-neutral-100 transition-all-smooth shadow-lg hover:shadow-xl hover:scale-105"
-              >
-                View API Documentation
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </a>
-            </div>
           </div>
+          <Link
+            to="/datasets"
+            className="inline-flex items-center gap-1.5 shrink-0 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
+          >
+            Browse all datasets
+            <ArrowRight className="w-4 h-4" aria-hidden="true" />
+          </Link>
         </div>
-      </div>
 
-      <div className="bg-neutral-50 py-12">
-        <div className="container-custom">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <div className="flex items-start gap-3">
-              <Info className="w-6 h-6 text-blue-700 flex-shrink-0 mt-0.5" />
-              <div>
-                <h3 className="text-blue-900 font-bold text-base mb-2">
-                  Content Notice
-                </h3>
-                <p className="text-blue-800 text-sm leading-relaxed mb-3">
-                  This website and all its content are in the public domain and
-                  operated entirely by volunteers. All information, data,
-                  documents, and materials provided on this website are in the
-                  public domain unless otherwise noted. Public domain content
-                  may be freely used, copied, distributed, and modified without
-                  permission or attribution, though attribution is appreciated.
-                </p>
-                <p className="text-blue-800 text-sm leading-relaxed mb-3">
-                  As a volunteer-operated resource, we encourage users to
-                  conduct their own independent research and verification of
-                  information.
-                </p>
+        <div>
+          {datasetsLoading ? (
+            <LoadingSkeleton variant="dataset-card" count={6} />
+          ) : recentDatasets.length === 0 ? (
+            <div className="py-12">
+              <p className="font-display font-bold text-lg text-ink">
+                No datasets yet
+              </p>
+              <p className="mt-1 text-neutral-600">
+                Be the first to share one.{" "}
                 <Link
-                  to="/terms-of-service"
-                  className="text-blue-700 hover:text-blue-900 font-semibold text-sm underline"
+                  to="/contribute"
+                  className="font-semibold text-primary-600 hover:text-primary-700"
                 >
-                  View Terms of Service
+                  Learn how to contribute
                 </Link>
-              </div>
+              </p>
             </div>
-          </div>
+          ) : (
+            recentDatasets
+              .slice(0, 8)
+              .map((dataset) => (
+                <DatasetCard
+                  key={dataset.id}
+                  id={dataset.id}
+                  name={dataset.name}
+                  description={dataset.description || ""}
+                  publisher={dataset.publisher?.name || "Unknown publisher"}
+                  category={dataset.category?.name || "Uncategorized"}
+                  resourceCount={dataset.resource_count}
+                  sizeBytes={dataset.size_bytes}
+                  latestVersionDate={dataset.latest_version_date || ""}
+                />
+              ))
+          )}
         </div>
-      </div>
+      </section>
+
+      <section className="container-custom pt-12">
+        <div className="bg-paper-2 border border-rule rounded-sm p-6 md:p-8 max-w-4xl">
+          <h2 className="text-lg md:text-xl">About this content</h2>
+          <p className="mt-2 text-sm text-neutral-700 leading-relaxed">
+            This site is run entirely by volunteers. Content is in the public
+            domain unless a dataset page says otherwise, so you may copy,
+            distribute and modify it without permission. Attribution is
+            appreciated.
+          </p>
+          <p className="mt-2 text-sm text-neutral-700 leading-relaxed">
+            Please check figures against the original source before relying on
+            them.
+          </p>
+          <Link
+            to="/terms-of-service"
+            className="mt-3 inline-block text-sm font-semibold text-primary-600 hover:text-primary-700 border-b border-primary-600"
+          >
+            Read the terms of service
+          </Link>
+        </div>
+      </section>
     </>
   )
 }

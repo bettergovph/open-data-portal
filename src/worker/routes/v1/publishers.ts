@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: any is acceptable in Hono routes */
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi"
 import { RATE_LIMIT_CONFIG } from "../../lib/config/rate-limit.ts"
-import { query, queryOne } from "../../lib/db.ts"
+import { listPublishers } from "../../lib/data.ts"
 import { rateLimit } from "../../lib/middleware/rate-limit.ts"
 import {
   createApiResponseSchema,
@@ -10,8 +10,6 @@ import {
   PublisherSchema,
   RateLimitErrorResponseSchema,
 } from "../../lib/schemas.ts"
-import type { Publisher } from "../../lib/types.ts"
-import { calculatePagination } from "../../lib/utils.ts"
 
 const app = new OpenAPIHono()
 app.use("/", rateLimit({ config: RATE_LIMIT_CONFIG.list }))
@@ -49,40 +47,9 @@ const listPublishersRoute = createRoute({
 })
 
 app.openapi(listPublishersRoute, async (c: any) => {
-  const { search, limit, offset } = c.req.valid("query")
-
   try {
-    const params: any[] = []
-    let whereClause = "1=1"
-
-    if (search) {
-      whereClause = "p.name LIKE ?"
-      params.push(`%${search}%`)
-    }
-
-    const countSql = `SELECT COUNT(*) as total FROM publishers p WHERE ${whereClause}`
-    const countResult = await queryOne<{ total: number }>(countSql, params)
-    const total = countResult?.total || 0
-
-    const dataSql = `
-      SELECT p.*
-      FROM publishers p
-      WHERE ${whereClause}
-      ORDER BY p.name ASC
-      LIMIT ? OFFSET ?
-    `
-
-    const publishers = await query<Publisher>(dataSql, [
-      ...params,
-      limit,
-      offset,
-    ])
-
-    return c.json({
-      success: true,
-      data: publishers,
-      pagination: calculatePagination(total, limit, offset),
-    })
+    const { data, pagination } = await listPublishers(c.req.valid("query"))
+    return c.json({ success: true, data, pagination })
   } catch (error) {
     console.error("Error listing publishers:", error)
     return c.json(

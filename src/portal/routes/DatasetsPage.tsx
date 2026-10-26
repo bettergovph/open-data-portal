@@ -1,4 +1,3 @@
-import { Frown } from "lucide-react"
 import { type FormEvent, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import { DatasetCard } from "../components/DatasetCard.tsx"
@@ -99,19 +98,31 @@ export const DatasetsPage = () => {
     ? Math.ceil(pagination.total / pagination.limit)
     : 1
 
-  return (
-    <div className="container-custom pt-4 pb-8">
-      <h1 className="text-3xl font-bold text-neutral-900 mb-8">
-        Browse Datasets
-      </h1>
+  const resultSummary = isLoading
+    ? "Loading datasets"
+    : pagination
+      ? pagination.total === 0
+        ? "No datasets match these filters"
+        : `Showing ${pagination.offset + 1}–${Math.min(pagination.offset + pagination.limit, pagination.total)} of ${pagination.total.toLocaleString()} datasets`
+      : ""
 
-      <div className="bg-white border border-neutral-200 rounded-lg shadow-sm p-6 mb-6">
-        <form onSubmit={handleFilterSubmit} className="space-y-4">
+  return (
+    <div className="container-custom pt-8 md:pt-10">
+      <div className="page-head">
+        <h1 className="page-title">Browse datasets</h1>
+        <p className="page-dek">
+          Search by keyword, then narrow by category or publisher.
+        </p>
+      </div>
+
+      <form
+        onSubmit={handleFilterSubmit}
+        aria-label="Filter datasets"
+        className="bg-paper-2 border border-rule rounded-sm p-4 md:p-5"
+      >
+        <div className="grid gap-4 md:grid-cols-[minmax(0,2fr)_repeat(3,minmax(0,1fr))]">
           <div>
-            <label
-              htmlFor="search"
-              className="block text-sm font-medium text-neutral-700 mb-2"
-            >
+            <label htmlFor="search" className="field-label">
               Search
             </label>
             <input
@@ -119,224 +130,189 @@ export const DatasetsPage = () => {
               id="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by name, description, or tags..."
-              className="w-full px-4 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+              placeholder="Name, description or tag"
+              className="field"
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label
-                htmlFor="category_id"
-                className="block text-sm font-medium text-neutral-700 mb-2"
-              >
-                Category
-              </label>
-              <select
-                id="category_id"
-                value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full px-4 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
-              >
-                <option value="">All Categories</option>
-                {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label
-                htmlFor="publisher_id"
-                className="block text-sm font-medium text-neutral-700 mb-2"
-              >
-                Publisher
-              </label>
-              <select
-                id="publisher_id"
-                value={publisherId}
-                onChange={(e) => setPublisherId(e.target.value)}
-                className="w-full px-4 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
-              >
-                <option value="">All Publishers</option>
-                {publishers.map((pub) => (
-                  <option key={pub.id} value={pub.id}>
-                    {pub.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label
-                htmlFor="sort"
-                className="block text-sm font-medium text-neutral-700 mb-2"
-              >
-                Sort By
-              </label>
-              <select
-                id="sort"
-                value={sortValue}
-                onChange={(e) => setSortValue(e.target.value)}
-                className="w-full px-4 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
-              >
-                <option value="name_asc">Name (A-Z)</option>
-                <option value="name_desc">Name (Z-A)</option>
-                <option value="latest_version_date_desc">
-                  Recently Updated
-                </option>
-                <option value="latest_version_date_asc">Oldest First</option>
-                <option value="size_bytes_desc">Largest First</option>
-                <option value="size_bytes_asc">Smallest First</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            <button
-              type="submit"
-              className="px-6 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
-            >
-              Search
-            </button>
-            <button
-              type="button"
-              onClick={resetFilters}
-              className="px-6 py-2 bg-neutral-200 text-neutral-700 rounded-md hover:bg-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-colors"
-            >
-              Reset
-            </button>
-          </div>
-        </form>
-
-        <div className="mt-4 pt-4 border-t border-neutral-200 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => goToPage(currentPage - 1)}
-              disabled={!pagination || pagination.offset === 0}
-              className="px-4 py-2 border border-neutral-300 rounded-md text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
-              type={"button"}
-            >
-              Prev
-            </button>
-            <span className="text-sm text-neutral-600">
-              {pagination
-                ? pagination.total === 0
-                  ? "No pages"
-                  : `Page ${currentPage} of ${totalPages.toLocaleString()}`
-                : "Loading..."}
-            </span>
-            <button
-              onClick={() => goToPage(currentPage + 1)}
-              disabled={!pagination || !pagination.has_more}
-              className="px-4 py-2 border border-neutral-300 rounded-md text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
-              type={"button"}
-            >
-              Next
-            </button>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-neutral-600">Items per page:</span>
+          <div>
+            <label htmlFor="category_id" className="field-label">
+              Category
+            </label>
             <select
-              value={limit}
-              onChange={(e) => {
-                const newLimit = parseInt(e.target.value, 10)
-                setLimit(newLimit)
-                const newParams = new URLSearchParams(searchParams)
-                newParams.set("limit", String(newLimit))
-                newParams.set("offset", "0")
-                setSearchParams(newParams)
-              }}
-              className="px-3 py-2 bg-white border border-neutral-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+              id="category_id"
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              className="field"
             >
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
+              <option value="">All categories</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="publisher_id" className="field-label">
+              Publisher
+            </label>
+            <select
+              id="publisher_id"
+              value={publisherId}
+              onChange={(e) => setPublisherId(e.target.value)}
+              className="field"
+            >
+              <option value="">All publishers</option>
+              {publishers.map((pub) => (
+                <option key={pub.id} value={pub.id}>
+                  {pub.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="sort" className="field-label">
+              Sort by
+            </label>
+            <select
+              id="sort"
+              value={sortValue}
+              onChange={(e) => setSortValue(e.target.value)}
+              className="field"
+            >
+              <option value="name_asc">Name (A–Z)</option>
+              <option value="name_desc">Name (Z–A)</option>
+              <option value="latest_version_date_desc">Recently updated</option>
+              <option value="latest_version_date_asc">Oldest first</option>
+              <option value="size_bytes_desc">Largest first</option>
+              <option value="size_bytes_asc">Smallest first</option>
             </select>
           </div>
         </div>
+
+        <div className="mt-4 flex gap-2">
+          <button type="submit" className="btn-primary">
+            Apply filters
+          </button>
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="btn-secondary"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-b border-ink pb-3">
+        <output className="text-sm font-semibold text-ink">
+          {resultSummary}
+        </output>
+        <div className="flex items-center gap-2">
+          <label htmlFor="per-page" className="text-sm text-neutral-600">
+            Per page
+          </label>
+          <select
+            id="per-page"
+            value={limit}
+            onChange={(e) => {
+              const newLimit = parseInt(e.target.value, 10)
+              setLimit(newLimit)
+              const newParams = new URLSearchParams(searchParams)
+              newParams.set("limit", String(newLimit))
+              newParams.set("offset", "0")
+              setSearchParams(newParams)
+            }}
+            className="field !w-auto !py-1.5"
+          >
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+          </select>
+        </div>
       </div>
 
-      <div className="mb-4 text-sm text-neutral-600">
-        {isLoading
-          ? "Loading datasets..."
-          : pagination
-            ? pagination.total === 0
-              ? "No results found"
-              : `Showing ${pagination.offset + 1}-${Math.min(pagination.offset + pagination.limit, pagination.total)} of ${pagination.total} datasets`
-            : ""}
-      </div>
-
-      {/* Datasets List */}
-      <div className="space-y-4">
+      <div>
         {isLoading ? (
           <LoadingSkeleton variant="dataset-card" count={5} />
         ) : isError ? (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-            <p className="text-red-700">
-              Failed to load datasets. Please try again.
+          <div className="py-12" role="alert">
+            <p className="font-display font-bold text-lg text-negative-700">
+              Datasets didn’t load
             </p>
+            <p className="mt-1 text-neutral-700">
+              Check your connection and try again. If it keeps happening, tell
+              us on GitHub.
+            </p>
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="btn-secondary mt-4"
+            >
+              Reload the page
+            </button>
           </div>
         ) : datasets.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-            <Frown className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-neutral-900 mb-2">
+          <div className="py-12">
+            <p className="font-display font-bold text-lg text-ink">
               No datasets found
-            </h3>
-            <p className="text-neutral-600 mb-4">
-              Try adjusting your filters or search terms.
+            </p>
+            <p className="mt-1 text-neutral-600">
+              Try fewer filters or a different keyword.
             </p>
             <button
               onClick={resetFilters}
-              className="text-primary-600 hover:text-primary-700 font-medium"
-              type={"button"}
+              className="btn-secondary mt-4"
+              type="button"
             >
               Clear all filters
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4">
-            {datasets.map((dataset) => (
-              <DatasetCard
-                key={dataset.id}
-                id={dataset.id}
-                name={dataset.name}
-                description={dataset.description || ""}
-                publisher={dataset.publisher?.name || "Unknown Publisher"}
-                category={dataset.category?.name || "Unknown Category"}
-                resourceCount={dataset.resource_count}
-                sizeBytes={dataset.size_bytes}
-                latestVersionDate={dataset.latest_version_date || ""}
-              />
-            ))}
-          </div>
+          datasets.map((dataset) => (
+            <DatasetCard
+              key={dataset.id}
+              id={dataset.id}
+              name={dataset.name}
+              description={dataset.description || ""}
+              publisher={dataset.publisher?.name || "Unknown publisher"}
+              category={dataset.category?.name || "Uncategorized"}
+              resourceCount={dataset.resource_count}
+              sizeBytes={dataset.size_bytes}
+              latestVersionDate={dataset.latest_version_date || ""}
+            />
+          ))
         )}
       </div>
 
       {pagination && pagination.total > 0 && (
-        <div className="mt-6 flex items-center justify-center gap-3">
+        <nav
+          aria-label="Pagination"
+          className="mt-6 flex items-center justify-between gap-3"
+        >
           <button
             onClick={() => goToPage(currentPage - 1)}
             disabled={pagination.offset === 0}
-            className="px-4 py-2 border border-neutral-300 rounded-md text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
-            type={"button"}
+            className="btn-secondary"
+            type="button"
           >
             Previous
           </button>
-          <span className="text-sm text-neutral-600">
+          <span className="meta">
             Page {currentPage} of {totalPages.toLocaleString()}
           </span>
           <button
             onClick={() => goToPage(currentPage + 1)}
             disabled={!pagination.has_more}
-            className="px-4 py-2 border border-neutral-300 rounded-md text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
-            type={"button"}
+            className="btn-secondary"
+            type="button"
           >
             Next
           </button>
-        </div>
+        </nav>
       )}
     </div>
   )

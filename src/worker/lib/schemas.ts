@@ -141,25 +141,84 @@ export const DatasetDetailSchema = DatasetApiSchema.extend({
   category: CategorySchema,
 }).openapi("DatasetDetail")
 
+export const IdParamSchema = z.object({
+  id: z.coerce.number().int().positive().describe("Numeric record id"),
+})
+
 export const PaginationQuerySchema = z.object({
-  limit: z.coerce.number().int().min(10).max(100).optional().default(10),
-  offset: z.coerce.number().int().min(0).optional().default(0),
+  limit: z.coerce
+    .number()
+    .int()
+    .min(10)
+    .max(100)
+    .optional()
+    .default(10)
+    .describe("Number of items per page (10-100)"),
+  offset: z.coerce
+    .number()
+    .int()
+    .min(0)
+    .optional()
+    .default(0)
+    .describe("Number of items to skip"),
 })
 
 export const DatasetListQuerySchema = PaginationQuerySchema.extend({
-  search: z.string().optional(),
-  category_id: z.coerce.number().int().positive().optional(),
-  publisher_id: z.coerce.number().int().positive().optional(),
-  format: z.string().optional(),
+  search: z
+    .string()
+    .optional()
+    .describe("Full-text search over dataset names, descriptions and tags"),
+  category_id: z.coerce
+    .number()
+    .int()
+    .positive()
+    .optional()
+    .describe("Only datasets in this category"),
+  publisher_id: z.coerce
+    .number()
+    .int()
+    .positive()
+    .optional()
+    .describe("Only datasets from this publisher"),
+  format: z
+    .string()
+    .optional()
+    .describe(
+      "Only datasets with a resource whose MIME type contains this text, e.g. 'csv' or 'spreadsheet'",
+    ),
   sort: z
     .enum(["name", "latest_version_date", "size_bytes"])
     .optional()
-    .default("latest_version_date"),
-  dir: z.enum(["asc", "desc"]).optional().default("desc"),
+    .default("latest_version_date")
+    .describe("Field to sort by"),
+  dir: z
+    .enum(["asc", "desc"])
+    .optional()
+    .default("desc")
+    .describe("Sort direction"),
 })
 
 export const PublisherListQuerySchema = PaginationQuerySchema.extend({
-  search: z.string().optional(),
+  search: z.string().optional().describe("Match against publisher names"),
+})
+
+export const CategoryListQuerySchema = z.object({
+  search: z.string().optional().describe("Match against category names"),
+})
+
+export const ResourceListQuerySchema = PaginationQuerySchema.extend({
+  dataset_id: z.coerce
+    .number()
+    .int()
+    .positive()
+    .describe("Dataset ID to filter resources (required)"),
+  limit: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .max(100)
+    .default(10)
+    .describe("Number of items per page (1-100)"),
 })
 
 export const PaginationInfoSchema = z
@@ -259,3 +318,7 @@ export const parseAttribution = (
 }
 
 export type AttributionAuthor = z.infer<typeof AttributionAuthorSchema>
+export type DatasetListQuery = z.infer<typeof DatasetListQuerySchema>
+export type PublisherListQuery = z.infer<typeof PublisherListQuerySchema>
+export type CategoryListQuery = z.infer<typeof CategoryListQuerySchema>
+export type ResourceListQuery = z.infer<typeof ResourceListQuerySchema>
