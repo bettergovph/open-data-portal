@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 interface AttributionAuthor {
-  author: string;
+  authors: string[];
   source_url?: string | null;
   attribution_text?: string | null;
   license?: string | null;

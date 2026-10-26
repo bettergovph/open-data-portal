@@ -412,11 +412,14 @@ export const DatasetDetailPage = () => {
             </div>
             {attribution.map((author, _) => (
               <div
-                key={author.author}
+                key={author.authors.join("|")}
                 className="p-3 bg-gray-50 rounded border border-gray-200"
               >
                 <div className="text-sm text-gray-700">
-                  <span className="font-semibold">Author:</span> {author.author}
+                  <span className="font-semibold">
+                    {author.authors.length === 1 ? "Author" : "Authors"}:
+                  </span>{" "}
+                  {author.authors.join(", ")}
                   {author.source_url && (
                     <>
                       <span className="mx-2 text-gray-400">•</span>

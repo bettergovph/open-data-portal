@@ -2,10 +2,10 @@ import { z } from "zod"
 
 export const AttributionAuthorSchema = z
   .object({
-    author: z
-      .string()
+    authors: z
+      .array(z.string().min(1))
       .min(1)
-      .openapi({ example: "Ateneo School of Government" }),
+      .openapi({ example: ["Ateneo School of Government"] }),
     source_url: z.string().url().nullable().openapi({
       example: "https://www.inclusivedemocracy.ph/data-and-infographics",
     }),
@@ -102,7 +102,7 @@ export const DatasetApiSchema = z
         description: "Array of attribution authors with their details",
         example: [
           {
-            author: "Ateneo School of Government",
+            authors: ["Ateneo School of Government"],
             source_url:
               "https://www.inclusivedemocracy.ph/data-and-infographics",
             attribution_text:

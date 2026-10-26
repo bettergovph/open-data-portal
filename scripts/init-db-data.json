@@ -78,7 +78,7 @@
       "license_url": null,
       "attribution": [
         {
-          "author": "BetterGov.PH",
+          "authors": ["BetterGov.PH"],
           "source_url": "https://bettergov.ph",
           "attribution_text": "Budget data compiled and maintained by BetterGov.PH volunteers from official DBM sources.",
           "license": "Public Domain",

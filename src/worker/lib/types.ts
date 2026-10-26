@@ -1,5 +1,5 @@
 export interface AttributionAuthor {
-  author: string
+  authors: string[]
   source_url: string | null
   attribution_text: string | null
   license: string | null
