@@ -1,5 +1,5 @@
 import { AlertCircle, Download, ExternalLink, Info } from "lucide-react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router"
 import { useDataset } from "../hooks/useDataset.ts"
 import { useResource } from "../hooks/useResource.ts"
 import { formatBytes, getMimeTypeDisplay } from "../lib/utils.ts"

@@ -1,6 +1,6 @@
 import { ArrowRight, Search } from "lucide-react"
 import { type FormEvent, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router"
 import { DatasetCard } from "../components/DatasetCard.tsx"
 import { LoadingSkeleton } from "../components/LoadingSkeleton.tsx"
 import { StatCard } from "../components/StatCard.tsx"

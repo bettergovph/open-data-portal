@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, Download, ExternalLink, Info, Scale, Users } from "lucide-react"
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router"
 import { useDataset } from "../hooks/useDataset.ts"
 import { useResources } from "../hooks/useResources.ts"
 import { formatBytes, formatDate, getMimeTypeDisplay, parseTags } from "../lib/utils.ts"

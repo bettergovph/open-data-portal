@@ -1,5 +1,5 @@
 import { type FormEvent, useState } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router"
 import { DatasetCard } from "../components/DatasetCard.tsx"
 import { LoadingSkeleton } from "../components/LoadingSkeleton.tsx"
 import { useCategories } from "../hooks/useCategories.ts"

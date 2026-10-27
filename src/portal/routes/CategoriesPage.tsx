@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router"
 import { useCategories } from "../hooks/useCategories.ts"
 
 const PageHead = () => (

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router"
 import { formatBytes, formatDate } from "../lib/utils.ts"
 
 export interface DatasetCardProps {
