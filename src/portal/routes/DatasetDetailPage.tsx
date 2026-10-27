@@ -1,22 +1,9 @@
-import {
-  ChevronLeft,
-  ChevronRight,
-  Download,
-  ExternalLink,
-  Info,
-  Scale,
-  Users,
-} from "lucide-react"
+import { ChevronLeft, ChevronRight, Download, ExternalLink, Info, Scale, Users } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useDataset } from "../hooks/useDataset.ts"
 import { useResources } from "../hooks/useResources.ts"
-import {
-  formatBytes,
-  formatDate,
-  getMimeTypeDisplay,
-  parseTags,
-} from "../lib/utils.ts"
+import { formatBytes, formatDate, getMimeTypeDisplay, parseTags } from "../lib/utils.ts"
 
 export const DatasetDetailPage = () => {
   const { id } = useParams<{ id: string }>()
@@ -27,11 +14,7 @@ export const DatasetDetailPage = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  const {
-    dataset,
-    isLoading: datasetLoading,
-    isError: datasetError,
-  } = useDataset(id)
+  const { dataset, isLoading: datasetLoading, isError: datasetError } = useDataset(id)
 
   const {
     resources,
@@ -51,9 +34,7 @@ export const DatasetDetailPage = () => {
   const currentResourcePage = resourcesPagination
     ? Math.floor(resourcesPagination.offset / resourcesPagination.limit) + 1
     : 1
-  const totalResourcePages = resourcesPagination
-    ? Math.ceil(resourcesPagination.total / resourcesPagination.limit)
-    : 1
+  const totalResourcePages = resourcesPagination ? Math.ceil(resourcesPagination.total / resourcesPagination.limit) : 1
 
   if (datasetLoading) {
     return (
@@ -77,16 +58,9 @@ export const DatasetDetailPage = () => {
       <div className="container-custom pt-4 pb-8">
         <div className="text-center py-12">
           <div className="w-16 h-16 text-gray-400 mx-auto mb-4">😞</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Dataset Not Found
-          </h2>
-          <p className="text-gray-600 mb-6">
-            The dataset you're looking for doesn't exist or has been removed.
-          </p>
-          <Link
-            to="/datasets"
-            className="text-primary-600 hover:text-primary-700 font-medium"
-          >
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Dataset Not Found</h2>
+          <p className="text-gray-600 mb-6">The dataset you're looking for doesn't exist or has been removed.</p>
+          <Link to="/datasets" className="text-primary-600 hover:text-primary-700 font-medium">
             Browse all datasets →
           </Link>
         </div>
@@ -100,44 +74,32 @@ export const DatasetDetailPage = () => {
   return (
     <div className="container-custom pt-4 pb-8">
       <div className="bg-white border border-neutral-200 rounded-lg shadow-sm p-8 mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          {dataset.name}
-        </h1>
-        <p className="text-gray-700 mb-6">
-          {dataset.description || "No description available"}
-        </p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">{dataset.name}</h1>
+        <p className="text-gray-700 mb-6">{dataset.description || "No description available"}</p>
 
         <div className="flex flex-col gap-2 mb-6">
           {dataset.publisher?.name && (
             <div className="flex items-center gap-2">
               <span className="text-gray-600 font-medium">Publisher:</span>
-              <span className="inline-flex items-center font-medium">
-                {dataset.publisher.name}
-              </span>
+              <span className="inline-flex items-center font-medium">{dataset.publisher.name}</span>
             </div>
           )}
 
           {dataset.category?.name && (
             <div className="flex items-center gap-2">
               <span className="text-gray-600 font-medium">Category:</span>
-              <span className="inline-flex items-center font-medium">
-                {dataset.category.name}
-              </span>
+              <span className="inline-flex items-center font-medium">{dataset.category.name}</span>
             </div>
           )}
 
           <div className="flex items-center gap-2">
             <span className="text-gray-600 font-medium">Resources:</span>
-            <span className="inline-flex items-center font-medium">
-              {resourcesPagination?.total || 0}
-            </span>
+            <span className="inline-flex items-center font-medium">{resourcesPagination?.total || 0}</span>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-gray-600 font-medium">Total Size:</span>
-            <span className="inline-flex items-center font-medium">
-              {formatBytes(dataset.size_bytes || 0)}
-            </span>
+            <span className="inline-flex items-center font-medium">{formatBytes(dataset.size_bytes || 0)}</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -226,10 +188,7 @@ export const DatasetDetailPage = () => {
             <Info className="w-5 h-5 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-blue-700">
               New to these file formats?{" "}
-              <Link
-                to="/working-with-datasets"
-                className="font-medium underline hover:text-blue-800"
-              >
+              <Link to="/working-with-datasets" className="font-medium underline hover:text-blue-800">
                 We have guides to help you get started
               </Link>
               .
@@ -239,22 +198,17 @@ export const DatasetDetailPage = () => {
 
         <div id="resources-container" className="overflow-x-auto relative">
           {resources.length === 0 && !resourcesLoading ? (
-            <p className="text-gray-500 text-center py-8">
-              No resources available for this dataset
-            </p>
+            <p className="text-gray-500 text-center py-8">No resources available for this dataset</p>
           ) : (
             <>
-              {(resourcesValidating || resourcesLoading) &&
-                resources.length > 0 && (
-                  <div className="absolute inset-0 bg-white/60 backdrop-blur-sm flex items-center justify-center z-10 rounded-lg">
-                    <div className="flex flex-col items-center gap-3">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-                      <span className="text-sm text-neutral-600 font-medium">
-                        Loading resources...
-                      </span>
-                    </div>
+              {(resourcesValidating || resourcesLoading) && resources.length > 0 && (
+                <div className="absolute inset-0 bg-white/60 backdrop-blur-sm flex items-center justify-center z-10 rounded-lg">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+                    <span className="text-sm text-neutral-600 font-medium">Loading resources...</span>
                   </div>
-                )}
+                </div>
+              )}
               <table
                 className={`min-w-full divide-y divide-gray-200 transition-opacity duration-200 ${resourcesValidating && !resourcesLoading ? "opacity-50" : "opacity-100"}`}
               >
@@ -289,10 +243,7 @@ export const DatasetDetailPage = () => {
                         </Link>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span
-                          className="text-sm text-gray-900"
-                          title={resource.mime_type}
-                        >
+                        <span className="text-sm text-gray-900" title={resource.mime_type}>
                           {getMimeTypeDisplay(resource.mime_type)}
                         </span>
                       </td>
@@ -407,18 +358,12 @@ export const DatasetDetailPage = () => {
 
           <div className="space-y-2">
             <div className="font-semibold text-sm text-gray-700">
-              {attribution.length === 1 ? "Source" : "Sources"} (
-              {attribution.length})
+              {attribution.length === 1 ? "Source" : "Sources"} ({attribution.length})
             </div>
             {attribution.map((author, _) => (
-              <div
-                key={author.authors.join("|")}
-                className="p-3 bg-gray-50 rounded border border-gray-200"
-              >
+              <div key={author.authors.join("|")} className="p-3 bg-gray-50 rounded border border-gray-200">
                 <div className="text-sm text-gray-700">
-                  <span className="font-semibold">
-                    {author.authors.length === 1 ? "Author" : "Authors"}:
-                  </span>{" "}
+                  <span className="font-semibold">{author.authors.length === 1 ? "Author" : "Authors"}:</span>{" "}
                   {author.authors.join(", ")}
                   {author.source_url && (
                     <>
@@ -456,11 +401,7 @@ export const DatasetDetailPage = () => {
                   )}
                 </div>
 
-                {author.attribution_text && (
-                  <div className="mt-3 text-sm text-gray-700">
-                    {author.attribution_text}
-                  </div>
-                )}
+                {author.attribution_text && <div className="mt-3 text-sm text-gray-700">{author.attribution_text}</div>}
               </div>
             ))}
           </div>
@@ -471,25 +412,18 @@ export const DatasetDetailPage = () => {
         <div className="flex items-start gap-3">
           <Info className="w-6 h-6 text-blue-700 flex-shrink-0 mt-0.5" />
           <div>
-            <h3 className="text-blue-900 font-bold text-base mb-2">
-              Content Notice
-            </h3>
+            <h3 className="text-blue-900 font-bold text-base mb-2">Content Notice</h3>
             <p className="text-blue-800 text-sm leading-relaxed mb-3">
-              This website and all its content are in the public domain and
-              operated entirely by volunteers. All information, data, documents,
-              and materials provided on this website are in the public domain
-              unless otherwise noted. Public domain content may be freely used,
-              copied, distributed, and modified without permission or
-              attribution, though attribution is appreciated.
+              This website and all its content are in the public domain and operated entirely by volunteers. All
+              information, data, documents, and materials provided on this website are in the public domain unless
+              otherwise noted. Public domain content may be freely used, copied, distributed, and modified without
+              permission or attribution, though attribution is appreciated.
             </p>
             <p className="text-blue-800 text-sm leading-relaxed mb-3">
-              As a volunteer-operated resource, we encourage users to conduct
-              their own independent research and verification of information.
+              As a volunteer-operated resource, we encourage users to conduct their own independent research and
+              verification of information.
             </p>
-            <Link
-              to="/terms-of-service"
-              className="text-blue-700 hover:text-blue-900 font-semibold text-sm underline"
-            >
+            <Link to="/terms-of-service" className="text-blue-700 hover:text-blue-900 font-semibold text-sm underline">
               View Terms of Service
             </Link>
           </div>

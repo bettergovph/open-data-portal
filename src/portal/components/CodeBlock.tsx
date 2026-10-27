@@ -30,7 +30,7 @@ export const CodeBlock = ({ code, label }: CodeBlockProps) => {
       <section
         className="overflow-x-auto py-3 pl-4 pr-14"
         // Scrollable regions must be reachable by keyboard.
-        // biome-ignore lint/a11y/noNoninteractiveTabindex: keyboard scroll for long commands
+        // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- keyboard scroll for long commands
         tabIndex={0}
         aria-label={label}
       >

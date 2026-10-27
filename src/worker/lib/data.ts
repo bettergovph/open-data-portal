@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: any is acceptable for raw D1 rows */
+/* oxlint-disable typescript/no-explicit-any -- any is acceptable for raw D1 rows */
 import { query, queryOne } from "./db.ts"
 import {
   type CategoryListQuery,
@@ -60,9 +60,7 @@ export const listDatasets = async ({
   if (search) {
     const sanitizedSearch = sanitizeFTSQuery(search)
     if (sanitizedSearch) {
-      conditions.push(
-        "d.id IN (SELECT rowid FROM datasets_fts WHERE datasets_fts MATCH ?)",
-      )
+      conditions.push("d.id IN (SELECT rowid FROM datasets_fts WHERE datasets_fts MATCH ?)")
       params.push(sanitizedSearch)
     }
   }
@@ -78,9 +76,7 @@ export const listDatasets = async ({
   }
 
   if (format) {
-    conditions.push(
-      "EXISTS (SELECT 1 FROM resources r WHERE r.dataset_id = d.id AND r.mime_type LIKE ?)",
-    )
+    conditions.push("EXISTS (SELECT 1 FROM resources r WHERE r.dataset_id = d.id AND r.mime_type LIKE ?)")
     params.push(`%${format}%`)
   }
 
@@ -174,11 +170,7 @@ export const getDataset = async (id: number): Promise<DatasetDetail | null> => {
   }
 }
 
-export const listPublishers = async ({
-  search,
-  limit,
-  offset,
-}: PublisherListQuery): Promise<Page<Publisher>> => {
+export const listPublishers = async ({ search, limit, offset }: PublisherListQuery): Promise<Page<Publisher>> => {
   const params: any[] = []
   let whereClause = "1=1"
 
@@ -205,9 +197,7 @@ export const listPublishers = async ({
   return { data, pagination: calculatePagination(total, limit, offset) }
 }
 
-export const listCategories = async ({
-  search,
-}: CategoryListQuery): Promise<CategoryListItem[]> => {
+export const listCategories = async ({ search }: CategoryListQuery): Promise<CategoryListItem[]> => {
   const params: any[] = []
   let whereClause = "1=1"
 
@@ -231,11 +221,7 @@ export const listCategories = async ({
   return query<CategoryListItem>(dataSql, params)
 }
 
-export const listResources = async ({
-  dataset_id,
-  limit,
-  offset,
-}: ResourceListQuery): Promise<Page<Resource>> => {
+export const listResources = async ({ dataset_id, limit, offset }: ResourceListQuery): Promise<Page<Resource>> => {
   const countSql = `
     SELECT COUNT(*) as total
     FROM resources

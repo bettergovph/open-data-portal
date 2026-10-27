@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: any is acceptable in Hono routes */
+/* oxlint-disable typescript/no-explicit-any -- any is acceptable in Hono routes */
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi"
 import { RATE_LIMIT_CONFIG } from "../../lib/config/rate-limit.ts"
 import { listPublishers } from "../../lib/data.ts"
@@ -19,8 +19,7 @@ const listPublishersRoute = createRoute({
   path: "/",
   tags: ["Publishers"],
   summary: "List all publishers",
-  description:
-    "Get a paginated list of publishers. Rate limit: 60 requests per minute.",
+  description: "Get a paginated list of publishers. Rate limit: 60 requests per minute.",
   request: {
     query: PublisherListQuerySchema,
   },

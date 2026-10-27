@@ -7,8 +7,7 @@ interface PublishersResponse {
 }
 
 export const usePublishers = () => {
-  const { data, error, isLoading, mutate } =
-    useSWR<PublishersResponse>("/publishers")
+  const { data, error, isLoading, mutate } = useSWR<PublishersResponse>("/publishers")
 
   return {
     publishers: data?.data || [],

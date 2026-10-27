@@ -76,22 +76,10 @@ export const HomePage = () => {
                 <LoadingSkeleton variant="stat-card" count={4} />
               ) : stats ? (
                 <>
-                  <StatCard
-                    label="Datasets"
-                    value={stats.total_datasets || 0}
-                  />
-                  <StatCard
-                    label="Downloadable files"
-                    value={stats.total_resources || 0}
-                  />
-                  <StatCard
-                    label="Publishers"
-                    value={stats.total_publishers || 0}
-                  />
-                  <StatCard
-                    label="Combined size"
-                    value={formatBytes(stats.total_size_bytes || 0)}
-                  />
+                  <StatCard label="Datasets" value={stats.total_datasets || 0} />
+                  <StatCard label="Downloadable files" value={stats.total_resources || 0} />
+                  <StatCard label="Publishers" value={stats.total_publishers || 0} />
+                  <StatCard label="Combined size" value={formatBytes(stats.total_size_bytes || 0)} />
                 </>
               ) : null}
             </div>
@@ -103,9 +91,7 @@ export const HomePage = () => {
         <div className="flex items-end justify-between gap-4 border-b border-ink pb-3">
           <div>
             <h2 className="text-2xl md:text-3xl">Recently updated</h2>
-            <p className="mt-1 text-sm text-neutral-600">
-              The newest versions added to the portal
-            </p>
+            <p className="mt-1 text-sm text-neutral-600">The newest versions added to the portal</p>
           </div>
           <Link
             to="/datasets"
@@ -121,15 +107,10 @@ export const HomePage = () => {
             <LoadingSkeleton variant="dataset-card" count={6} />
           ) : recentDatasets.length === 0 ? (
             <div className="py-12">
-              <p className="font-display font-bold text-lg text-ink">
-                No datasets yet
-              </p>
+              <p className="font-display font-bold text-lg text-ink">No datasets yet</p>
               <p className="mt-1 text-neutral-600">
                 Be the first to share one.{" "}
-                <Link
-                  to="/contribute"
-                  className="font-semibold text-primary-600 hover:text-primary-700"
-                >
+                <Link to="/contribute" className="font-semibold text-primary-600 hover:text-primary-700">
                   Learn how to contribute
                 </Link>
               </p>
@@ -158,14 +139,11 @@ export const HomePage = () => {
         <div className="bg-paper-2 border border-rule rounded-sm p-6 md:p-8 max-w-4xl">
           <h2 className="text-lg md:text-xl">About this content</h2>
           <p className="mt-2 text-sm text-neutral-700 leading-relaxed">
-            This site is run entirely by volunteers. Content is in the public
-            domain unless a dataset page says otherwise, so you may copy,
-            distribute and modify it without permission. Attribution is
-            appreciated.
+            This site is run entirely by volunteers. Content is in the public domain unless a dataset page says
+            otherwise, so you may copy, distribute and modify it without permission. Attribution is appreciated.
           </p>
           <p className="mt-2 text-sm text-neutral-700 leading-relaxed">
-            Please check figures against the original source before relying on
-            them.
+            Please check figures against the original source before relying on them.
           </p>
           <Link
             to="/terms-of-service"

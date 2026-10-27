@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: any is acceptable in Hono routes */
+/* oxlint-disable typescript/no-explicit-any -- any is acceptable in Hono routes */
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi"
 import { RATE_LIMIT_CONFIG } from "../../lib/config/rate-limit.ts"
 import { listCategories } from "../../lib/data.ts"
@@ -19,8 +19,7 @@ const listCategoriesRoute = createRoute({
   path: "/",
   tags: ["Categories"],
   summary: "List all categories",
-  description:
-    "Get a list of all categories. Rate limit: 60 requests per minute.",
+  description: "Get a list of all categories. Rate limit: 60 requests per minute.",
   request: {
     query: CategoryListQuerySchema,
   },

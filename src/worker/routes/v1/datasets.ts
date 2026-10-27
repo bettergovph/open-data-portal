@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: any is acceptable in Hono routes */
+/* oxlint-disable typescript/no-explicit-any -- any is acceptable in Hono routes */
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi"
 import { RATE_LIMIT_CONFIG } from "../../lib/config/rate-limit.ts"
 import { getDataset, listDatasets } from "../../lib/data.ts"
@@ -33,11 +33,9 @@ const listDatasetsRoute = createRoute({
       description: "Successful response",
       content: {
         "application/json": {
-          schema: createApiResponseSchema(DatasetListItemSchema.array()).extend(
-            {
-              pagination: PaginationInfoSchema,
-            },
-          ),
+          schema: createApiResponseSchema(DatasetListItemSchema.array()).extend({
+            pagination: PaginationInfoSchema,
+          }),
         },
       },
     },
@@ -85,8 +83,7 @@ const getDatasetRoute = createRoute({
   path: "/{id}",
   tags: ["Datasets"],
   summary: "Get dataset details",
-  description:
-    "Get full details of a specific dataset. Rate limit: 100 requests per minute.",
+  description: "Get full details of a specific dataset. Rate limit: 100 requests per minute.",
   request: {
     params: IdParamSchema,
   },

@@ -1,14 +1,7 @@
 import { MCP_RATE_LIMIT_PER_MINUTE } from "../../../../shared/mcp-tools.ts"
 import type { RateLimitConfig } from "../rate-limiter.ts"
 
-export type RateLimitTier =
-  | "search"
-  | "list"
-  | "stats"
-  | "detail"
-  | "ping"
-  | "mcp"
-  | "default"
+export type RateLimitTier = "search" | "list" | "stats" | "detail" | "ping" | "mcp" | "default"
 
 export const RATE_LIMIT_CONFIG: Record<RateLimitTier, RateLimitConfig> = {
   search: {

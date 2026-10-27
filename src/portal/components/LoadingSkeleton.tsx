@@ -5,21 +5,14 @@ export interface LoadingSkeletonProps {
   count?: number
 }
 
-export const LoadingSkeleton = ({
-  variant,
-  count = 1,
-}: LoadingSkeletonProps) => {
+export const LoadingSkeleton = ({ variant, count = 1 }: LoadingSkeletonProps) => {
   const skeletons = Array.from({ length: count }, (_, i) => `${variant}-${i}`)
 
   if (variant === "stat-card") {
     return (
       <>
         {skeletons.map((id) => (
-          <div
-            key={id}
-            className={`${statCellClass} animate-pulse`}
-            aria-hidden="true"
-          >
+          <div key={id} className={`${statCellClass} animate-pulse`} aria-hidden="true">
             <div className="h-7 bg-neutral-200 rounded-sm w-10"></div>
             <div className="h-4 bg-neutral-200 rounded-sm w-20"></div>
           </div>
@@ -32,11 +25,7 @@ export const LoadingSkeleton = ({
     return (
       <>
         {skeletons.map((id) => (
-          <div
-            key={id}
-            className="py-5 border-b border-rule-soft animate-pulse"
-            aria-hidden="true"
-          >
+          <div key={id} className="py-5 border-b border-rule-soft animate-pulse" aria-hidden="true">
             <div className="h-6 bg-neutral-200 rounded-sm w-2/5 mb-3"></div>
             <div className="h-4 bg-neutral-200 rounded-sm w-3/4 mb-2"></div>
             <div className="h-4 bg-neutral-200 rounded-sm w-1/4"></div>
@@ -75,11 +64,7 @@ export const LoadingSkeleton = ({
   return (
     <>
       {skeletons.map((id) => (
-        <div
-          key={id}
-          className="border border-rule rounded-sm p-6 animate-pulse"
-          aria-hidden="true"
-        >
+        <div key={id} className="border border-rule rounded-sm p-6 animate-pulse" aria-hidden="true">
           <div className="space-y-4">
             <div className="h-6 bg-neutral-200 rounded-sm w-3/4"></div>
             <div className="h-4 bg-neutral-200 rounded-sm w-full"></div>

@@ -58,8 +58,7 @@ export const ResourceSchema = z
         "The Ateneo Policy Center Political Dynasties Dataset tracks leadership patterns at the local government level in the Philippines.",
     }),
     mime_type: z.string().min(1).openapi({
-      example:
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      example: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     }),
     size_bytes: z.number().int().min(0).openapi({ example: 4300000 }),
     download_url: z.string().url().openapi({
@@ -85,8 +84,7 @@ export const DatasetApiSchema = z
     publisher_id: z.number().int().positive().openapi({ example: 1 }),
     category_id: z.number().int().positive().openapi({ example: 7 }),
     tags: z.string().nullable().openapi({
-      example:
-        '["political dynasties","local government","politicians","research"]',
+      example: '["political dynasties","local government","politicians","research"]',
       description: "JSON array of tag strings",
     }),
     size_bytes: z.number().int().min(0).openapi({ example: 4300000 }),
@@ -103,8 +101,7 @@ export const DatasetApiSchema = z
         example: [
           {
             authors: ["Ateneo School of Government"],
-            source_url:
-              "https://www.inclusivedemocracy.ph/data-and-infographics",
+            source_url: "https://www.inclusivedemocracy.ph/data-and-infographics",
             attribution_text:
               "This dataset has been made public to encourage academics, development practitioners, leaders and the youth to examine and engage in our democracy.",
             license: null,
@@ -113,8 +110,7 @@ export const DatasetApiSchema = z
         ],
       }),
     license: z.string().nullable().openapi({
-      description:
-        "Dataset-level license information (e.g., 'Public Domain', 'CC-BY-4.0')",
+      description: "Dataset-level license information (e.g., 'Public Domain', 'CC-BY-4.0')",
       example: null,
     }),
     license_url: z.string().url().nullable().openapi({
@@ -146,56 +142,24 @@ export const IdParamSchema = z.object({
 })
 
 export const PaginationQuerySchema = z.object({
-  limit: z.coerce
-    .number()
-    .int()
-    .min(10)
-    .max(100)
-    .optional()
-    .default(10)
-    .describe("Number of items per page (10-100)"),
-  offset: z.coerce
-    .number()
-    .int()
-    .min(0)
-    .optional()
-    .default(0)
-    .describe("Number of items to skip"),
+  limit: z.coerce.number().int().min(10).max(100).optional().default(10).describe("Number of items per page (10-100)"),
+  offset: z.coerce.number().int().min(0).optional().default(0).describe("Number of items to skip"),
 })
 
 export const DatasetListQuerySchema = PaginationQuerySchema.extend({
-  search: z
-    .string()
-    .optional()
-    .describe("Full-text search over dataset names, descriptions and tags"),
-  category_id: z.coerce
-    .number()
-    .int()
-    .positive()
-    .optional()
-    .describe("Only datasets in this category"),
-  publisher_id: z.coerce
-    .number()
-    .int()
-    .positive()
-    .optional()
-    .describe("Only datasets from this publisher"),
+  search: z.string().optional().describe("Full-text search over dataset names, descriptions and tags"),
+  category_id: z.coerce.number().int().positive().optional().describe("Only datasets in this category"),
+  publisher_id: z.coerce.number().int().positive().optional().describe("Only datasets from this publisher"),
   format: z
     .string()
     .optional()
-    .describe(
-      "Only datasets with a resource whose MIME type contains this text, e.g. 'csv' or 'spreadsheet'",
-    ),
+    .describe("Only datasets with a resource whose MIME type contains this text, e.g. 'csv' or 'spreadsheet'"),
   sort: z
     .enum(["name", "latest_version_date", "size_bytes"])
     .optional()
     .default("latest_version_date")
     .describe("Field to sort by"),
-  dir: z
-    .enum(["asc", "desc"])
-    .optional()
-    .default("desc")
-    .describe("Sort direction"),
+  dir: z.enum(["asc", "desc"]).optional().default("desc").describe("Sort direction"),
 })
 
 export const PublisherListQuerySchema = PaginationQuerySchema.extend({
@@ -207,18 +171,8 @@ export const CategoryListQuerySchema = z.object({
 })
 
 export const ResourceListQuerySchema = PaginationQuerySchema.extend({
-  dataset_id: z.coerce
-    .number()
-    .int()
-    .positive()
-    .describe("Dataset ID to filter resources (required)"),
-  limit: z.coerce
-    .number()
-    .int()
-    .min(1)
-    .max(100)
-    .default(10)
-    .describe("Number of items per page (1-100)"),
+  dataset_id: z.coerce.number().int().positive().describe("Dataset ID to filter resources (required)"),
+  limit: z.coerce.number().int().min(1).max(100).default(10).describe("Number of items per page (1-100)"),
 })
 
 export const PaginationInfoSchema = z
@@ -295,9 +249,7 @@ export const RateLimitErrorResponseSchema = z
   })
   .openapi("RateLimitErrorResponse")
 
-export const createApiResponseSchema = <T extends z.ZodTypeAny>(
-  dataSchema: T,
-) =>
+export const createApiResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =>
   z.object({
     success: z.boolean(),
     data: dataSchema.optional(),
@@ -305,9 +257,7 @@ export const createApiResponseSchema = <T extends z.ZodTypeAny>(
     error: ErrorSchema.optional(),
   })
 
-export const parseAttribution = (
-  attribution: string | null,
-): AttributionAuthor[] => {
+export const parseAttribution = (attribution: string | null): AttributionAuthor[] => {
   if (!attribution) return []
   try {
     const parsed = JSON.parse(attribution)

@@ -94,13 +94,9 @@
   --color-green-900: #1d361d;
 
   /* Type */
-  --font-sans:
-    "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
-    sans-serif;
-  --font-display:
-    "Figtree", "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono:
-    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Figtree", "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* Near-square corners and no drop shadows, as on the sibling sites */
   --radius-xs: 1px;
@@ -319,13 +315,13 @@
   *,
   *::before,
   *::after {
-    /* biome-ignore lint/complexity/noImportantStyles: must beat utility-class durations */
+    /* must beat utility-class durations */
     animation-duration: 0.01ms !important;
-    /* biome-ignore lint/complexity/noImportantStyles: must beat utility-class durations */
+    /* must beat utility-class durations */
     animation-iteration-count: 1 !important;
-    /* biome-ignore lint/complexity/noImportantStyles: must beat utility-class durations */
+    /* must beat utility-class durations */
     transition-duration: 0.01ms !important;
-    /* biome-ignore lint/complexity/noImportantStyles: must beat utility-class durations */
+    /* must beat utility-class durations */
     scroll-behavior: auto !important;
   }
 }

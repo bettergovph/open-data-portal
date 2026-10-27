@@ -73,10 +73,7 @@ class InMemoryRateLimiter {
     const staleThreshold = now - windowMs * 2
 
     for (const [key, entry] of this.store.entries()) {
-      if (
-        entry.timestamps.length === 0 ||
-        entry.timestamps[entry.timestamps.length - 1] < staleThreshold
-      ) {
+      if (entry.timestamps.length === 0 || entry.timestamps[entry.timestamps.length - 1] < staleThreshold) {
         this.store.delete(key)
       }
     }

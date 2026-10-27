@@ -16,12 +16,7 @@
  */
 
 import { z } from "@hono/zod-openapi"
-import {
-  MCP_PROTOCOL_VERSIONS,
-  MCP_SERVER_NAME,
-  type McpToolName,
-  mcpToolMeta,
-} from "../../shared/mcp-tools.ts"
+import { MCP_PROTOCOL_VERSIONS, MCP_SERVER_NAME, type McpToolName, mcpToolMeta } from "../../shared/mcp-tools.ts"
 import {
   getDataset,
   getResource,
@@ -159,11 +154,7 @@ const rpcResult = (id: number | string, result: unknown) => ({
   result,
 })
 
-const rpcError = (
-  id: number | string | null,
-  code: number,
-  message: string,
-) => ({
+const rpcError = (id: number | string | null, code: number, message: string) => ({
   jsonrpc: "2.0" as const,
   id,
   error: { code, message },
@@ -171,9 +162,7 @@ const rpcError = (
 
 const describeError = (e: unknown): string => {
   if (e instanceof z.ZodError) {
-    const issues = e.issues
-      .map((i) => `${i.path.join(".") || "arguments"}: ${i.message}`)
-      .join("; ")
+    const issues = e.issues.map((i) => `${i.path.join(".") || "arguments"}: ${i.message}`).join("; ")
     return `Invalid arguments — ${issues}`
   }
   if (e instanceof ToolError) return e.message
@@ -206,11 +195,8 @@ const handleMessage = async (msg: RpcMessage): Promise<object | null> => {
 
   switch (msg.method) {
     case "initialize": {
-      const requested =
-        typeof params.protocolVersion === "string" ? params.protocolVersion : ""
-      const protocolVersion = MCP_PROTOCOL_VERSIONS.includes(requested)
-        ? requested
-        : LATEST_PROTOCOL
+      const requested = typeof params.protocolVersion === "string" ? params.protocolVersion : ""
+      const protocolVersion = MCP_PROTOCOL_VERSIONS.includes(requested) ? requested : LATEST_PROTOCOL
       return rpcResult(id, {
         protocolVersion,
         capabilities: { tools: { listChanged: false } },
@@ -254,44 +240,28 @@ export const handleMcp = async (request: Request): Promise<Response> => {
   if (request.method !== "POST") {
     // Stateless server: no SSE stream to open (GET) and no session to end
     // (DELETE). 405 with Allow is what the Streamable HTTP spec prescribes.
-    return Response.json(
-      rpcError(
-        null,
-        -32000,
-        "This MCP server is stateless — send JSON-RPC messages via POST",
-      ),
-      { status: 405, headers: { Allow: "POST, OPTIONS" } },
-    )
+    return Response.json(rpcError(null, -32000, "This MCP server is stateless — send JSON-RPC messages via POST"), {
+      status: 405,
+      headers: { Allow: "POST, OPTIONS" },
+    })
   }
 
   let body: unknown
   try {
     body = await request.json()
   } catch {
-    return Response.json(
-      rpcError(null, -32700, "Parse error: body is not valid JSON"),
-      { status: 400 },
-    )
+    return Response.json(rpcError(null, -32700, "Parse error: body is not valid JSON"), { status: 400 })
   }
 
   // Older protocol revisions allow JSON-RPC batches; answer them too.
-  const messages: RpcMessage[] = Array.isArray(body)
-    ? body
-    : [body as RpcMessage]
+  const messages: RpcMessage[] = Array.isArray(body) ? body : [body as RpcMessage]
   if (messages.length === 0 || messages.length > MAX_BATCH_SIZE) {
-    return Response.json(
-      rpcError(
-        null,
-        -32600,
-        `Invalid Request: batch must contain 1-${MAX_BATCH_SIZE} messages`,
-      ),
-      { status: 400 },
-    )
+    return Response.json(rpcError(null, -32600, `Invalid Request: batch must contain 1-${MAX_BATCH_SIZE} messages`), {
+      status: 400,
+    })
   }
 
-  const responses = (await Promise.all(messages.map(handleMessage))).filter(
-    (r): r is object => r !== null,
-  )
+  const responses = (await Promise.all(messages.map(handleMessage))).filter((r): r is object => r !== null)
 
   // Notifications only — acknowledge with 202 and no body.
   if (responses.length === 0) return new Response(null, { status: 202 })

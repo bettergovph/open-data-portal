@@ -1,12 +1,4 @@
-import {
-  Code,
-  Code2,
-  Database,
-  FlaskConical,
-  Newspaper,
-  Search,
-  Users,
-} from "lucide-react"
+import { Code, Code2, Database, FlaskConical, Newspaper, Search, Users } from "lucide-react"
 
 const whatWeDo = [
   {
@@ -33,8 +25,7 @@ const whoBenefits = [
   {
     icon: Users,
     title: "Citizens & Communities",
-    description:
-      "Access information to make informed decisions about your community, health, education, and more.",
+    description: "Access information to make informed decisions about your community, health, education, and more.",
   },
   {
     icon: FlaskConical,
@@ -45,14 +36,12 @@ const whoBenefits = [
   {
     icon: Newspaper,
     title: "Journalists & Media",
-    description:
-      "Access verified public data to support investigative reporting and fact-based journalism.",
+    description: "Access verified public data to support investigative reporting and fact-based journalism.",
   },
   {
     icon: Code2,
     title: "Developers & Curious minds",
-    description:
-      "Build applications, visualizations, and services using our API and freely available datasets.",
+    description: "Build applications, visualizations, and services using our API and freely available datasets.",
   },
 ]
 
@@ -62,20 +51,15 @@ export const AboutPage = () => {
       <h1 className="page-title mb-8">About</h1>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold text-neutral-900 mb-6">
-          Open Data Portal
-        </h2>
+        <h2 className="text-2xl font-bold text-neutral-900 mb-6">Open Data Portal</h2>
         <div className="bg-white border border-neutral-200 rounded-lg p-8 shadow-sm">
           <p className="text-neutral-700 mb-6">
-            Open Data Portal is a community-run portal for exploring publicly
-            available datasets.
+            Open Data Portal is a community-run portal for exploring publicly available datasets.
           </p>
           <p className="text-neutral-700">
-            We believe that open data is essential for transparency,
-            accountability, and innovation. By making datasets easily
-            discoverable and accessible, we enable researchers, journalists,
-            developers, students, and citizens to make informed decisions,
-            create innovative solutions, and hold institutions accountable.
+            We believe that open data is essential for transparency, accountability, and innovation. By making datasets
+            easily discoverable and accessible, we enable researchers, journalists, developers, students, and citizens
+            to make informed decisions, create innovative solutions, and hold institutions accountable.
           </p>
         </div>
       </div>
@@ -90,9 +74,7 @@ export const AboutPage = () => {
                   <Icon className="w-10 h-10" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-neutral-900 mb-2">
-                    {title}
-                  </h3>
+                  <h3 className="text-lg font-semibold text-neutral-900 mb-2">{title}</h3>
                   <p className="text-neutral-700">{description}</p>
                 </div>
               </div>
@@ -102,9 +84,7 @@ export const AboutPage = () => {
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold text-neutral-900 mb-6">
-          Who Benefits?
-        </h2>
+        <h2 className="text-2xl font-bold text-neutral-900 mb-6">Who Benefits?</h2>
         <div className="bg-white border border-neutral-200 rounded-lg p-8 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {whoBenefits.map(({ icon: Icon, title, description }) => (
@@ -113,9 +93,7 @@ export const AboutPage = () => {
                   <Icon className="w-6 h-6" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-bold text-neutral-900 mb-1">
-                    {title}
-                  </h3>
+                  <h3 className="text-lg font-bold text-neutral-900 mb-1">{title}</h3>
                   <p className="text-sm text-neutral-600">{description}</p>
                 </div>
               </div>

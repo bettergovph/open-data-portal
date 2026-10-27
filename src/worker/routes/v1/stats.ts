@@ -1,13 +1,9 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: any is acceptable in Hono routes */
+/* oxlint-disable typescript/no-explicit-any -- any is acceptable in Hono routes */
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi"
 import { RATE_LIMIT_CONFIG } from "../../lib/config/rate-limit.ts"
 import { getStats } from "../../lib/data.ts"
 import { rateLimit } from "../../lib/middleware/rate-limit.ts"
-import {
-  ErrorSchema,
-  RateLimitErrorResponseSchema,
-  StatsSchema,
-} from "../../lib/schemas.ts"
+import { ErrorSchema, RateLimitErrorResponseSchema, StatsSchema } from "../../lib/schemas.ts"
 
 const app = new OpenAPIHono()
 app.use("/", rateLimit({ config: RATE_LIMIT_CONFIG.stats }))
@@ -17,8 +13,7 @@ const getStatsRoute = createRoute({
   path: "/",
   tags: ["Statistics"],
   summary: "Get platform statistics",
-  description:
-    "Retrieve platform-wide statistics including counts and totals. Rate limit: 30 requests per minute.",
+  description: "Retrieve platform-wide statistics including counts and totals. Rate limit: 30 requests per minute.",
   responses: {
     200: {
       description: "Successful response",

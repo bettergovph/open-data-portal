@@ -1,4 +1,3 @@
 {
-  "src/**/*.{js,jsx,ts,tsx,css,scss,html}": "biome check --write"
-} 
-
+  "src/**/*.{ts,tsx,css}": ["vp fmt --write", "vp lint --fix"]
+}

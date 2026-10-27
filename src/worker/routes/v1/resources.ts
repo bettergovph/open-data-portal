@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: any is acceptable in Hono routes */
+/* oxlint-disable typescript/no-explicit-any -- any is acceptable in Hono routes */
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi"
 import { RATE_LIMIT_CONFIG } from "../../lib/config/rate-limit.ts"
 import { getResource, listResources } from "../../lib/data.ts"
@@ -22,8 +22,7 @@ const listResourcesRoute = createRoute({
   path: "/",
   tags: ["Resources"],
   summary: "List resources for a dataset",
-  description:
-    "Get a paginated list of resources for a specific dataset. Rate limit: 60 requests per minute.",
+  description: "Get a paginated list of resources for a specific dataset. Rate limit: 60 requests per minute.",
   request: {
     query: ResourceListQuerySchema,
   },
@@ -81,8 +80,7 @@ const getResourceRoute = createRoute({
   path: "/{id}",
   tags: ["Resources"],
   summary: "Get resource details",
-  description:
-    "Get full details of a specific resource. Rate limit: 100 requests per minute.",
+  description: "Get full details of a specific resource. Rate limit: 100 requests per minute.",
   request: {
     params: IdParamSchema,
   },

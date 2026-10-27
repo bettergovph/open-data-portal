@@ -40,8 +40,7 @@ export const getMimeTypeDisplay = (mimeType: string): string => {
   const map: Record<string, string> = {
     "application/zip": "ZIP",
     "application/json": "JSON",
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-      "Excel (XLSX)",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "Excel (XLSX)",
     "application/vnd.apache.parquet": "Parquet",
     "application/pdf": "PDF",
     "text/csv": "CSV",

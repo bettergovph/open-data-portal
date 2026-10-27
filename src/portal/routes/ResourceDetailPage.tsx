@@ -9,11 +9,7 @@ export const ResourceDetailPage = () => {
     resourceId: string
   }>()
 
-  const {
-    resource,
-    isLoading: resourceLoading,
-    isError: resourceError,
-  } = useResource(resourceId)
+  const { resource, isLoading: resourceLoading, isError: resourceError } = useResource(resourceId)
 
   // Fetch parent dataset details (use resource.dataset_id once loaded)
   const { dataset, isLoading: datasetLoading } = useDataset(
@@ -37,16 +33,9 @@ export const ResourceDetailPage = () => {
       <div className="container-custom pt-4 pb-8">
         <div className="text-center py-12">
           <AlertCircle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Resource Not Found
-          </h2>
-          <p className="text-gray-600 mb-6">
-            The resource you're looking for doesn't exist.
-          </p>
-          <Link
-            to="/datasets"
-            className="text-primary-600 hover:text-primary-700 font-medium"
-          >
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Resource Not Found</h2>
+          <p className="text-gray-600 mb-6">The resource you're looking for doesn't exist.</p>
+          <Link to="/datasets" className="text-primary-600 hover:text-primary-700 font-medium">
             Browse all datasets →
           </Link>
         </div>
@@ -57,9 +46,7 @@ export const ResourceDetailPage = () => {
   return (
     <div className="container-custom pt-4 pb-8">
       <div className="bg-white border border-neutral-200 rounded-lg p-8 mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          {resource.name}
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">{resource.name}</h1>
 
         {dataset && (
           <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
@@ -67,10 +54,7 @@ export const ResourceDetailPage = () => {
               <Info className="w-5 h-5 text-blue-500 mr-2" />
               <p className="text-sm text-blue-700">
                 Part of dataset:{" "}
-                <Link
-                  to={`/datasets/${dataset.id}`}
-                  className="font-medium underline hover:text-blue-800"
-                >
+                <Link to={`/datasets/${dataset.id}`} className="font-medium underline hover:text-blue-800">
                   {dataset.name}
                 </Link>
               </p>
@@ -78,22 +62,16 @@ export const ResourceDetailPage = () => {
           </div>
         )}
 
-        <p className="text-gray-700 mb-6">
-          {resource.description || "No description available"}
-        </p>
+        <p className="text-gray-700 mb-6">{resource.description || "No description available"}</p>
 
         <div className="flex items-center gap-2">
           <span className="text-gray-600 font-medium">Format:</span>
-          <span className="inline-flex items-center">
-            {getMimeTypeDisplay(resource.mime_type)}
-          </span>
+          <span className="inline-flex items-center">{getMimeTypeDisplay(resource.mime_type)}</span>
         </div>
 
         <div className="flex items-center gap-2">
           <span className="text-gray-600 font-medium">Total Size:</span>
-          <span className="inline-flex items-center">
-            {formatBytes(resource.size_bytes)}
-          </span>
+          <span className="inline-flex items-center">{formatBytes(resource.size_bytes)}</span>
         </div>
 
         <div className="flex flex-wrap gap-3 mt-6">

@@ -1,11 +1,4 @@
-import {
-  ArrowRight,
-  ExternalLink,
-  Facebook,
-  Github,
-  Mail,
-  MessageCircle,
-} from "lucide-react"
+import { ArrowRight, ExternalLink, Facebook, Github, Mail, MessageCircle } from "lucide-react"
 
 export const ContributePage = () => {
   return (
@@ -13,9 +6,7 @@ export const ContributePage = () => {
       <h1 className="page-title mb-8">Contribute</h1>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold text-neutral-900 mb-6">
-          How to Contribute Datasets
-        </h2>
+        <h2 className="text-2xl font-bold text-neutral-900 mb-6">How to Contribute Datasets</h2>
         <div className="bg-white border border-neutral-200 rounded-lg p-8 shadow-sm">
           <div className="space-y-6">
             <div className="flex items-start space-x-4">
@@ -23,13 +14,10 @@ export const ContributePage = () => {
                 1
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-2">
-                  Identify & Collate Data Sources
-                </h3>
+                <h3 className="text-lg font-semibold text-neutral-900 mb-2">Identify & Collate Data Sources</h3>
                 <p className="text-neutral-700">
-                  You can either upload your own dataset or link to publicly
-                  available data from government agencies, research
-                  institutions, or other publishers.
+                  You can either upload your own dataset or link to publicly available data from government agencies,
+                  research institutions, or other publishers.
                 </p>
               </div>
             </div>
@@ -39,15 +27,11 @@ export const ContributePage = () => {
                 2
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-2">
-                  Provide Metadata
-                </h3>
+                <h3 className="text-lg font-semibold text-neutral-900 mb-2">Provide Metadata</h3>
                 <p className="text-neutral-700">
-                  Include comprehensive metadata: dataset title, description,
-                  source URL (if linking to external data), original
-                  publisher/organization, latest publish date, and any relevant
-                  tags. Clear documentation helps users understand and use the
-                  data effectively.
+                  Include comprehensive metadata: dataset title, description, source URL (if linking to external data),
+                  original publisher/organization, latest publish date, and any relevant tags. Clear documentation helps
+                  users understand and use the data effectively.
                 </p>
               </div>
             </div>
@@ -57,14 +41,11 @@ export const ContributePage = () => {
                 3
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-2">
-                  Submit Your Contribution
-                </h3>
+                <h3 className="text-lg font-semibold text-neutral-900 mb-2">Submit Your Contribution</h3>
                 <p className="text-neutral-700">
-                  Contact us through one of the channels below with your dataset
-                  files or links to external datasets, along with all
-                  documentation and metadata. Our team will review your
-                  submission and add it to the portal.
+                  Contact us through one of the channels below with your dataset files or links to external datasets,
+                  along with all documentation and metadata. Our team will review your submission and add it to the
+                  portal.
                 </p>
               </div>
             </div>
@@ -73,13 +54,9 @@ export const ContributePage = () => {
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold text-neutral-900 mb-6">
-          Get in Touch
-        </h2>
+        <h2 className="text-2xl font-bold text-neutral-900 mb-6">Get in Touch</h2>
         <div className="bg-white border border-neutral-200 rounded-lg p-8 shadow-sm">
-          <p className="text-neutral-700 mb-6">
-            Choose your preferred channel to submit datasets or ask questions:
-          </p>
+          <p className="text-neutral-700 mb-6">Choose your preferred channel to submit datasets or ask questions:</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* GitHub */}
             <a
@@ -97,8 +74,7 @@ export const ContributePage = () => {
                   <ExternalLink className="w-4 h-4 ml-2 text-primary-600" />
                 </h3>
                 <p className="text-sm text-neutral-600">
-                  Submit datasets by creating a pull request or open an issue
-                  with your dataset proposal.
+                  Submit datasets by creating a pull request or open an issue with your dataset proposal.
                 </p>
               </div>
             </a>
@@ -116,8 +92,7 @@ export const ContributePage = () => {
                   <ArrowRight className="w-4 h-4 ml-2 text-primary-600" />
                 </h3>
                 <p className="text-sm text-neutral-600">
-                  Contact us directly with your dataset and relevant
-                  information.
+                  Contact us directly with your dataset and relevant information.
                 </p>
               </div>
             </a>
@@ -137,8 +112,7 @@ export const ContributePage = () => {
                   <ExternalLink className="w-4 h-4 ml-2 text-primary-600" />
                 </h3>
                 <p className="text-sm text-neutral-600">
-                  Join our community discussions and collaborate with other data
-                  contributors.
+                  Join our community discussions and collaborate with other data contributors.
                 </p>
               </div>
             </a>
@@ -157,9 +131,7 @@ export const ContributePage = () => {
                   Facebook
                   <ExternalLink className="w-4 h-4 ml-2 text-primary-600" />
                 </h3>
-                <p className="text-sm text-neutral-600">
-                  Send us a message on Facebook and follow us for updates.
-                </p>
+                <p className="text-sm text-neutral-600">Send us a message on Facebook and follow us for updates.</p>
               </div>
             </a>
           </div>

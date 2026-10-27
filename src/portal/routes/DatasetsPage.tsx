@@ -10,18 +10,10 @@ export const DatasetsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const [search, setSearch] = useState(searchParams.get("search") || "")
-  const [categoryId, setCategoryId] = useState(
-    searchParams.get("category_id") || "",
-  )
-  const [publisherId, setPublisherId] = useState(
-    searchParams.get("publisher_id") || "",
-  )
-  const [sortValue, setSortValue] = useState(
-    searchParams.get("sort") || "name_asc",
-  )
-  const [limit, setLimit] = useState(
-    parseInt(searchParams.get("limit") || "10", 10),
-  )
+  const [categoryId, setCategoryId] = useState(searchParams.get("category_id") || "")
+  const [publisherId, setPublisherId] = useState(searchParams.get("publisher_id") || "")
+  const [sortValue, setSortValue] = useState(searchParams.get("sort") || "name_asc")
+  const [limit, setLimit] = useState(parseInt(searchParams.get("limit") || "10", 10))
 
   const { categories } = useCategories()
   const { publishers } = usePublishers()
@@ -91,12 +83,8 @@ export const DatasetsPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  const currentPage = pagination
-    ? Math.floor(pagination.offset / pagination.limit) + 1
-    : 1
-  const totalPages = pagination
-    ? Math.ceil(pagination.total / pagination.limit)
-    : 1
+  const currentPage = pagination ? Math.floor(pagination.offset / pagination.limit) + 1 : 1
+  const totalPages = pagination ? Math.ceil(pagination.total / pagination.limit) : 1
 
   const resultSummary = isLoading
     ? "Loading datasets"
@@ -110,9 +98,7 @@ export const DatasetsPage = () => {
     <div className="container-custom pt-8 md:pt-10">
       <div className="page-head">
         <h1 className="page-title">Browse datasets</h1>
-        <p className="page-dek">
-          Search by keyword, then narrow by category or publisher.
-        </p>
+        <p className="page-dek">Search by keyword, then narrow by category or publisher.</p>
       </div>
 
       <form
@@ -177,12 +163,7 @@ export const DatasetsPage = () => {
             <label htmlFor="sort" className="field-label">
               Sort by
             </label>
-            <select
-              id="sort"
-              value={sortValue}
-              onChange={(e) => setSortValue(e.target.value)}
-              className="field"
-            >
+            <select id="sort" value={sortValue} onChange={(e) => setSortValue(e.target.value)} className="field">
               <option value="name_asc">Name (A–Z)</option>
               <option value="name_desc">Name (Z–A)</option>
               <option value="latest_version_date_desc">Recently updated</option>
@@ -197,20 +178,14 @@ export const DatasetsPage = () => {
           <button type="submit" className="btn-primary">
             Apply filters
           </button>
-          <button
-            type="button"
-            onClick={resetFilters}
-            className="btn-secondary"
-          >
+          <button type="button" onClick={resetFilters} className="btn-secondary">
             Reset
           </button>
         </div>
       </form>
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-b border-ink pb-3">
-        <output className="text-sm font-semibold text-ink">
-          {resultSummary}
-        </output>
+        <output className="text-sm font-semibold text-ink">{resultSummary}</output>
         <div className="flex items-center gap-2">
           <label htmlFor="per-page" className="text-sm text-neutral-600">
             Per page
@@ -240,34 +215,19 @@ export const DatasetsPage = () => {
           <LoadingSkeleton variant="dataset-card" count={5} />
         ) : isError ? (
           <div className="py-12" role="alert">
-            <p className="font-display font-bold text-lg text-negative-700">
-              Datasets didn’t load
-            </p>
+            <p className="font-display font-bold text-lg text-negative-700">Datasets didn’t load</p>
             <p className="mt-1 text-neutral-700">
-              Check your connection and try again. If it keeps happening, tell
-              us on GitHub.
+              Check your connection and try again. If it keeps happening, tell us on GitHub.
             </p>
-            <button
-              type="button"
-              onClick={() => window.location.reload()}
-              className="btn-secondary mt-4"
-            >
+            <button type="button" onClick={() => window.location.reload()} className="btn-secondary mt-4">
               Reload the page
             </button>
           </div>
         ) : datasets.length === 0 ? (
           <div className="py-12">
-            <p className="font-display font-bold text-lg text-ink">
-              No datasets found
-            </p>
-            <p className="mt-1 text-neutral-600">
-              Try fewer filters or a different keyword.
-            </p>
-            <button
-              onClick={resetFilters}
-              className="btn-secondary mt-4"
-              type="button"
-            >
+            <p className="font-display font-bold text-lg text-ink">No datasets found</p>
+            <p className="mt-1 text-neutral-600">Try fewer filters or a different keyword.</p>
+            <button onClick={resetFilters} className="btn-secondary mt-4" type="button">
               Clear all filters
             </button>
           </div>
@@ -289,10 +249,7 @@ export const DatasetsPage = () => {
       </div>
 
       {pagination && pagination.total > 0 && (
-        <nav
-          aria-label="Pagination"
-          className="mt-6 flex items-center justify-between gap-3"
-        >
+        <nav aria-label="Pagination" className="mt-6 flex items-center justify-between gap-3">
           <button
             onClick={() => goToPage(currentPage - 1)}
             disabled={pagination.offset === 0}

@@ -11,8 +11,7 @@ const pingRoute = createRoute({
   path: "/",
   tags: ["Health"],
   summary: "Health check",
-  description:
-    "Check if the API is running. Rate limit: 1000 requests per minute.",
+  description: "Check if the API is running. Rate limit: 1000 requests per minute.",
   responses: {
     200: {
       description: "API is healthy",

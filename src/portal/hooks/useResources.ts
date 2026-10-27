@@ -14,10 +14,7 @@ interface ResourcesResponse {
   pagination?: PaginationInfo
 }
 
-export const useResources = (
-  datasetId: string | undefined,
-  filters: ResourcesFilters = {},
-) => {
+export const useResources = (datasetId: string | undefined, filters: ResourcesFilters = {}) => {
   const params = new URLSearchParams()
   Object.entries(filters).forEach(([key, value]) => {
     if (value !== undefined && value !== "") {
@@ -25,13 +22,10 @@ export const useResources = (
     }
   })
 
-  const key = datasetId
-    ? `/resources?dataset_id=${datasetId}&${params.toString()}`
-    : null
-  const { data, error, isLoading, isValidating, mutate } =
-    useSWR<ResourcesResponse>(key, {
-      keepPreviousData: true,
-    })
+  const key = datasetId ? `/resources?dataset_id=${datasetId}&${params.toString()}` : null
+  const { data, error, isLoading, isValidating, mutate } = useSWR<ResourcesResponse>(key, {
+    keepPreviousData: true,
+  })
 
   return {
     resources: data?.data || [],

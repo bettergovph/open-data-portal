@@ -25,9 +25,7 @@ interface RateLimitMiddlewareOptions {
  * }))
  * ```
  */
-export const rateLimit = (
-  options: RateLimitMiddlewareOptions,
-): MiddlewareHandler => {
+export const rateLimit = (options: RateLimitMiddlewareOptions): MiddlewareHandler => {
   const { config, keyGenerator = defaultKeyGenerator } = options
 
   return async (c, next) => {
@@ -43,10 +41,7 @@ export const rateLimit = (
 
       c.header("x-ratelimit-limit", result.limit.toString())
       c.header("x-ratelimit-remaining", result.remaining.toString())
-      c.header(
-        "x-ratelimit-reset",
-        Math.ceil(result.resetTime / 1000).toString(),
-      )
+      c.header("x-ratelimit-reset", Math.ceil(result.resetTime / 1000).toString())
 
       if (!result.allowed) {
         const retryAfter = Math.ceil((result.resetTime - Date.now()) / 1000)
@@ -83,7 +78,7 @@ const defaultKeyGenerator = (c: Context): string => {
     return `ip:${cfConnectingIp}`
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: CF object types are not exposed in Hono
+  // oxlint-disable-next-line typescript/no-explicit-any -- CF object types are not exposed in Hono
   const cf = (c.req.raw as any).cf
   if (cf?.connectingIP) {
     return `ip:${cf.connectingIP}`

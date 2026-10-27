@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vite-plus/test"
 import { mcpToolMeta } from "../../../shared/mcp-tools.ts"
 import app from "../index.ts"
 
@@ -34,7 +34,6 @@ describe("llms.txt", () => {
 
   it("lists every MCP tool", async () => {
     const text = await (await get()).text()
-    for (const name of Object.keys(mcpToolMeta))
-      expect(text).toContain(`\`${name}\``)
+    for (const name of Object.keys(mcpToolMeta)) expect(text).toContain(`\`${name}\``)
   })
 })

@@ -31,3 +31,4 @@ npm-debug.log*
 
 # Local database
 .mf/
+.vitest/

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vite-plus/test"
 import app from "../index.ts"
 
 const dataset = {
@@ -65,7 +65,7 @@ const post = (body: unknown, testEnv: object = env) =>
     testEnv,
   )
 
-// biome-ignore lint/suspicious/noExplicitAny: test response body structure
+// oxlint-disable-next-line typescript/no-explicit-any -- test response body structure
 const json = async (res: Response) => (await res.json()) as any
 
 const call = async (name: string, args: unknown = {}, testEnv?: object) => {
@@ -110,9 +110,7 @@ describe("MCP server", () => {
       "get_resource",
     ])
 
-    const search = result.tools.find(
-      (t: { name: string }) => t.name === "search_datasets",
-    )
+    const search = result.tools.find((t: { name: string }) => t.name === "search_datasets")
     expect(search.inputSchema.$schema).toBeUndefined()
     expect(search.inputSchema.type).toBe("object")
     expect(search.inputSchema.properties.limit.type).toBe("integer")
@@ -126,18 +124,13 @@ describe("MCP server", () => {
 
     const rest = await json(await app.request("/api/v1/datasets", {}, env))
     expect(mcp).toEqual({ data: rest.data, pagination: rest.pagination })
-    expect(mcp.data[0].attribution[0].authors).toEqual([
-      "Ateneo School of Government",
-      "BetterGov.PH",
-    ])
+    expect(mcp.data[0].attribution[0].authors).toEqual(["Ateneo School of Government", "BetterGov.PH"])
   })
 
   it("coerces numeric string arguments like the REST API", async () => {
     const body = await call("get_dataset", { id: "1" })
     expect(body.result.isError).toBeUndefined()
-    expect(JSON.parse(body.result.content[0].text).name).toBe(
-      "Political Dynasties",
-    )
+    expect(JSON.parse(body.result.content[0].text).name).toBe("Political Dynasties")
   })
 
   it("reports a missing record as a tool error", async () => {
@@ -202,11 +195,7 @@ describe("MCP server", () => {
   })
 
   it("rejects malformed JSON and non-POST methods", async () => {
-    const bad = await app.request(
-      "/mcp",
-      { method: "POST", body: "{nope" },
-      env,
-    )
+    const bad = await app.request("/mcp", { method: "POST", body: "{nope" }, env)
     expect(bad.status).toBe(400)
     expect((await json(bad)).error.code).toBe(-32700)
 
@@ -230,25 +219,15 @@ describe("MCP server", () => {
     )
     expect(res.status).toBe(204)
     expect(res.headers.get("access-control-allow-origin")).toBe("*")
-    expect(res.headers.get("access-control-allow-headers")).toContain(
-      "mcp-protocol-version",
-    )
+    expect(res.headers.get("access-control-allow-headers")).toContain("mcp-protocol-version")
   })
 
   it("serves the setup page to browsers and the server to MCP clients", async () => {
-    const page = await app.request(
-      "/mcp",
-      { headers: { accept: "text/html,application/xhtml+xml" } },
-      env,
-    )
+    const page = await app.request("/mcp", { headers: { accept: "text/html,application/xhtml+xml" } }, env)
     expect(page.status).toBe(200)
     expect(await page.text()).toContain("app shell")
 
-    const stream = await app.request(
-      "/mcp",
-      { headers: { accept: "text/event-stream" } },
-      env,
-    )
+    const stream = await app.request("/mcp", { headers: { accept: "text/event-stream" } }, env)
     expect(stream.status).toBe(405)
   })
 })

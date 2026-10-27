@@ -1,5 +1,5 @@
 import { OpenAPIHono } from "@hono/zod-openapi"
-import { beforeEach, describe, expect, it } from "vitest"
+import { beforeEach, describe, expect, it } from "vite-plus/test"
 import { rateLimit } from "../middleware/rate-limit.ts"
 import { rateLimiter } from "../rate-limiter.ts"
 
@@ -12,10 +12,7 @@ describe("Rate Limit Middleware", () => {
     it("should allow requests under the limit", async () => {
       const app = new OpenAPIHono()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60_000, maxRequests: 5 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60_000, maxRequests: 5 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       for (let i = 0; i < 5; i++) {
@@ -23,7 +20,7 @@ describe("Rate Limit Middleware", () => {
           headers: { "cf-connecting-ip": "1.2.3.4" },
         })
         expect(res.status).toBe(200)
-        // biome-ignore lint/suspicious/noExplicitAny: test response body structure
+        // oxlint-disable-next-line typescript/no-explicit-any -- test response body structure
         const body = (await res.json()) as any
         expect(body).toEqual({ message: "success" })
       }
@@ -32,10 +29,7 @@ describe("Rate Limit Middleware", () => {
     it("should block requests over the limit with 429", async () => {
       const app = new OpenAPIHono()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60_000, maxRequests: 3 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60_000, maxRequests: 3 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       for (let i = 0; i < 3; i++) {
@@ -51,7 +45,7 @@ describe("Rate Limit Middleware", () => {
 
       expect(res.status).toBe(429)
 
-      // biome-ignore lint/suspicious/noExplicitAny: test response body structure
+      // oxlint-disable-next-line typescript/no-explicit-any -- test response body structure
       const body = (await res.json()) as any
       expect(body).toMatchObject({
         success: false,
@@ -67,10 +61,7 @@ describe("Rate Limit Middleware", () => {
     it("should include rate limit headers in successful responses", async () => {
       const app = new OpenAPIHono()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60_000, maxRequests: 10 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60_000, maxRequests: 10 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       const res = await app.request("/test", {
@@ -78,9 +69,9 @@ describe("Rate Limit Middleware", () => {
       })
 
       expect(res.status).toBe(200)
-      // biome-ignore lint/style/noNonNullAssertion: header is guaranteed to exist in successful rate limit response
+      // oxlint-disable-next-line typescript/no-non-null-assertion -- header is guaranteed to exist in successful rate limit response
       expect(res.headers.get("x-ratelimit-limit")!).toBe("10")
-      // biome-ignore lint/style/noNonNullAssertion: header is guaranteed to exist in successful rate limit response
+      // oxlint-disable-next-line typescript/no-non-null-assertion -- header is guaranteed to exist in successful rate limit response
       expect(res.headers.get("x-ratelimit-remaining")!).toBe("9")
       expect(res.headers.get("x-ratelimit-reset")).toBeTruthy()
     })
@@ -88,10 +79,7 @@ describe("Rate Limit Middleware", () => {
     it("should include retry-after header when rate limited", async () => {
       const app = new OpenAPIHono()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60_000, maxRequests: 2 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60_000, maxRequests: 2 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       // Exhaust the limit
@@ -104,16 +92,13 @@ describe("Rate Limit Middleware", () => {
       })
 
       expect(res.status).toBe(429)
-      // biome-ignore lint/style/noNonNullAssertion: header is guaranteed to exist in rate limit response
+      // oxlint-disable-next-line typescript/no-non-null-assertion -- header is guaranteed to exist in rate limit response
       expect(res.headers.get("x-ratelimit-limit")!).toBe("2")
-      // biome-ignore lint/style/noNonNullAssertion: header is guaranteed to exist in rate limit response
+      // oxlint-disable-next-line typescript/no-non-null-assertion -- header is guaranteed to exist in rate limit response
       expect(res.headers.get("x-ratelimit-remaining")!).toBe("0")
       expect(res.headers.get("retry-after")).toBeTruthy()
 
-      const retryAfter = Number.parseInt(
-        res.headers.get("retry-after") || "0",
-        10,
-      )
+      const retryAfter = Number.parseInt(res.headers.get("retry-after") || "0", 10)
       expect(retryAfter).toBeGreaterThan(0)
       expect(retryAfter).toBeLessThanOrEqual(60)
     })
@@ -121,28 +106,25 @@ describe("Rate Limit Middleware", () => {
     it("should update remaining count correctly", async () => {
       const app = new OpenAPIHono()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60_000, maxRequests: 5 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60_000, maxRequests: 5 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       const res1 = await app.request("/test", {
         headers: { "cf-connecting-ip": "1.2.3.4" },
       })
-      // biome-ignore lint/style/noNonNullAssertion: header is guaranteed to exist in rate limit response
+      // oxlint-disable-next-line typescript/no-non-null-assertion -- header is guaranteed to exist in rate limit response
       expect(res1.headers.get("x-ratelimit-remaining")!).toBe("4")
 
       const res2 = await app.request("/test", {
         headers: { "cf-connecting-ip": "1.2.3.4" },
       })
-      // biome-ignore lint/style/noNonNullAssertion: header is guaranteed to exist in rate limit response
+      // oxlint-disable-next-line typescript/no-non-null-assertion -- header is guaranteed to exist in rate limit response
       expect(res2.headers.get("x-ratelimit-remaining")!).toBe("3")
 
       const res3 = await app.request("/test", {
         headers: { "cf-connecting-ip": "1.2.3.4" },
       })
-      // biome-ignore lint/style/noNonNullAssertion: header is guaranteed to exist in rate limit response
+      // oxlint-disable-next-line typescript/no-non-null-assertion -- header is guaranteed to exist in rate limit response
       expect(res3.headers.get("x-ratelimit-remaining")!).toBe("2")
     })
   })
@@ -151,10 +133,7 @@ describe("Rate Limit Middleware", () => {
     it("should use cf-connecting-ip header", async () => {
       const app = new OpenAPIHono()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60_000, maxRequests: 2 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60_000, maxRequests: 2 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       await app.request("/test", { headers: { "cf-connecting-ip": "1.2.3.4" } })
@@ -174,10 +153,7 @@ describe("Rate Limit Middleware", () => {
     it("should handle requests without IP header", async () => {
       const app = new OpenAPIHono()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60_000, maxRequests: 5 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60_000, maxRequests: 5 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       const res = await app.request("/test")
@@ -189,10 +165,7 @@ describe("Rate Limit Middleware", () => {
     it("should return standardized error format", async () => {
       const app = new OpenAPIHono()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60_000, maxRequests: 1 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60_000, maxRequests: 1 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       await app.request("/test", { headers: { "cf-connecting-ip": "1.2.3.4" } })
@@ -203,7 +176,7 @@ describe("Rate Limit Middleware", () => {
 
       expect(res.status).toBe(429)
 
-      // biome-ignore lint/suspicious/noExplicitAny: test response body structure
+      // oxlint-disable-next-line typescript/no-explicit-any -- test response body structure
       const body = (await res.json()) as any
       expect(body).toHaveProperty("success", false)
       expect(body).toHaveProperty("error")
@@ -220,10 +193,7 @@ describe("Rate Limit Middleware", () => {
     it("should handle concurrent requests correctly", async () => {
       const app = new OpenAPIHono()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60000, maxRequests: 5 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60000, maxRequests: 5 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       const promises = Array.from({ length: 10 }).map(() =>
@@ -246,10 +216,7 @@ describe("Rate Limit Middleware", () => {
         Bindings: { ENVIRONMENT: string }
       }>()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60_000, maxRequests: 2 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60_000, maxRequests: 2 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       const devEnv = { ENVIRONMENT: "development" }
@@ -268,10 +235,7 @@ describe("Rate Limit Middleware", () => {
         Bindings: { ENVIRONMENT: string }
       }>()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 60_000, maxRequests: 2 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 60_000, maxRequests: 2 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       const prodEnv = { ENVIRONMENT: "production" }
@@ -299,10 +263,7 @@ describe("Rate Limit Middleware", () => {
     it("should clean up stale entries", async () => {
       const app = new OpenAPIHono()
 
-      app.use(
-        "/test",
-        rateLimit({ config: { windowMs: 1_000, maxRequests: 5 } }),
-      )
+      app.use("/test", rateLimit({ config: { windowMs: 1_000, maxRequests: 5 } }))
       app.get("/test", (c) => c.json({ message: "success" }))
 
       await app.request("/test", { headers: { "cf-connecting-ip": "1.2.3.4" } })

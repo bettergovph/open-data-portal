@@ -14,9 +14,7 @@ import { ResourceDetailPage } from "./routes/ResourceDetailPage.tsx"
 import { TermsOfServicePage } from "./routes/TermsOfServicePage.tsx"
 import { WorkingWithDatasetsPage } from "./routes/WorkingWithDatasetsPage.tsx"
 
-const API_BASE_URL = import.meta.env.DEV
-  ? "http://localhost:5173/api/v1"
-  : "/api/v1"
+const API_BASE_URL = import.meta.env.DEV ? "http://localhost:5173/api/v1" : "/api/v1"
 
 const fetcher = async <T,>(url: string): Promise<T> => {
   const fullUrl = url.startsWith("http") ? url : `${API_BASE_URL}${url}`
@@ -44,18 +42,12 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/datasets" element={<DatasetsPage />} />
             <Route path="/datasets/:id" element={<DatasetDetailPage />} />
-            <Route
-              path="/datasets/:datasetId/resources/:resourceId"
-              element={<ResourceDetailPage />}
-            />
+            <Route path="/datasets/:datasetId/resources/:resourceId" element={<ResourceDetailPage />} />
             <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/mcp" element={<McpPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contribute" element={<ContributePage />} />
-            <Route
-              path="/working-with-datasets"
-              element={<WorkingWithDatasetsPage />}
-            />
+            <Route path="/working-with-datasets" element={<WorkingWithDatasetsPage />} />
             <Route path="/terms-of-service" element={<TermsOfServicePage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>

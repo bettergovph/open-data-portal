@@ -45,8 +45,7 @@ app.doc("/openapi/v1.json", (c) => ({
   info: {
     title: "Open Data Portal API",
     version: "1.0.0",
-    description:
-      "Public API for accessing open datasets with search, filtering, and pagination capabilities.",
+    description: "Public API for accessing open datasets with search, filtering, and pagination capabilities.",
   },
   servers: [
     {
@@ -61,8 +60,7 @@ app.doc("/openapi.json", (c) => ({
   info: {
     title: "Open Data Portal API",
     version: "1.0.0",
-    description:
-      "Public API for accessing open datasets with search, filtering, and pagination capabilities.",
+    description: "Public API for accessing open datasets with search, filtering, and pagination capabilities.",
   },
   servers: [
     {
@@ -78,11 +76,7 @@ app.get("/docs", swaggerUI({ url: "/openapi.json" }))
 app.get("*", async (c) => {
   const path = c.req.path
   // Only serve assets for non-API/docs routes
-  if (
-    !path.startsWith("/api/") &&
-    !path.startsWith("/docs") &&
-    !path.startsWith("/openapi")
-  ) {
+  if (!path.startsWith("/api/") && !path.startsWith("/docs") && !path.startsWith("/openapi")) {
     return c.env.ASSETS.fetch(c.req.raw)
   }
   // Let API/docs routes that don't match continue to notFound handler

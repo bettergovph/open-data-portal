@@ -7,8 +7,7 @@ interface CategoriesResponse {
 }
 
 export const useCategories = () => {
-  const { data, error, isLoading, mutate } =
-    useSWR<CategoriesResponse>("/categories")
+  const { data, error, isLoading, mutate } = useSWR<CategoriesResponse>("/categories")
 
   return {
     categories: data?.data || [],

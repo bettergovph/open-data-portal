@@ -11,11 +11,7 @@ export const sanitizeFTSQuery = (query: string): string => {
     .join(" ")
 }
 
-export const calculatePagination = (
-  total: number,
-  limit: number,
-  offset: number,
-) => {
+export const calculatePagination = (total: number, limit: number, offset: number) => {
   const currentPage = Math.floor(offset / limit) + 1
   const totalPages = Math.ceil(total / limit)
   const hasMore = offset + limit < total

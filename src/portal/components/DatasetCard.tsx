@@ -32,11 +32,7 @@ export const DatasetCard = ({
         <h3 className="font-display font-bold text-lg text-ink leading-snug group-hover:text-primary-600 transition-colors">
           {name}
         </h3>
-        {description && (
-          <p className="mt-1 text-sm text-neutral-600 line-clamp-2 max-w-[75ch]">
-            {description}
-          </p>
-        )}
+        {description && <p className="mt-1 text-sm text-neutral-600 line-clamp-2 max-w-[75ch]">{description}</p>}
         <p className="mt-2 text-sm text-neutral-600">
           <span className="font-semibold text-neutral-700">{publisher}</span>
           <span className="mx-2 text-neutral-400" aria-hidden="true">
