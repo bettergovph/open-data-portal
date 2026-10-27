@@ -40,13 +40,16 @@ const pingRoute = createRoute({
 })
 
 app.openapi(pingRoute, async (c) => {
-  return c.json({
-    success: true,
-    data: {
-      status: "ok",
-      timestamp: new Date().toISOString(),
+  return c.json(
+    {
+      success: true,
+      data: {
+        status: "ok",
+        timestamp: new Date().toISOString(),
+      },
     },
-  })
+    200,
+  )
 })
 
 export default app
