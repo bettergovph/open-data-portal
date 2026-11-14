@@ -3,10 +3,10 @@ allowBuilds:
   sharp: true
   workerd: true
 catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@1.4.0
-  vitest: 5.0.5
-  vite-plus: 1.4.0
-  "@vitest/ui": 5.0.5
+  vite: npm:@voidzero-dev/vite-plus-core@1.5.0
+  vitest: 5.1.0
+  vite-plus: 1.5.0
+  "@vitest/ui": 5.1.0
 overrides:
   vite@*: "catalog:"
   vitest@*: "catalog:"

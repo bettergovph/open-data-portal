@@ -4,14 +4,12 @@ import { cloudflare } from "@cloudflare/vite-plugin"
 
 export default defineConfig({
   fmt: {
-    // Only src/ is formatted: ignore everything at the root except src
     ignorePatterns: ["/*", "!/src"],
     printWidth: 120,
     semi: false,
     sortImports: { newlinesBetween: false },
   },
   lint: {
-    // Only src/ is linted: ignore everything at the root except src
     ignorePatterns: ["/*", "!/src"],
     plugins: ["typescript", "unicorn", "oxc", "react", "jsx-a11y"],
     categories: { correctness: "error" },
@@ -23,7 +21,6 @@ export default defineConfig({
       "react/rules-of-hooks": "error", // correctness/useHookAtTopLevel
       "jsx-a11y/no-noninteractive-tabindex": "error", // a11y/noNoninteractiveTabindex
       "typescript/no-non-null-assertion": "error", // style/noNonNullAssertion
-      // Biome ignores unused variables and parameters prefixed with an underscore
       "no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
       // The project uses the automatic JSX runtime
       "react/react-in-jsx-scope": "off",
@@ -35,6 +32,9 @@ export default defineConfig({
       "typescript/await-thenable": "off",
     },
     options: { typeAware: true, typeCheck: true },
+  },
+  staged: {
+    "src/**/*.{ts,tsx,css}": ["vp fmt --write", "vp lint --fix"],
   },
   test: {
     globals: true,

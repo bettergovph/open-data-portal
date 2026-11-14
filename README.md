@@ -6,34 +6,34 @@ A community-run portal (and API) for exploring publicly available datasets.
 
 1. **Install dependencies:**
    ```bash
-   pnpm install
+   vp install
    ```
 
 2. **Login to Cloudflare:**
    ```bash
-   pnpx wrangler login
+   vpx wrangler login
    ```
 
 3. **Create D1 database:**
    ```bash
-   pnpx wrangler d1 create open-data-db
+   vpx wrangler d1 create open-data-db
    ```
 
    Copy the `database_id` from the output and update `wrangler.toml`.
 
 4. **Run migrations (local):**
    ```bash
-   pnpm run db:migrate:local
+   vp run db:migrate:local
    ```
 
 5. **Initialize the database (local):**
    ```bash
-   pnpx run db:init:local
+   vp run db:init:local
    ```
 
 6. Start the local development server:
    ```bash
-   pnpm run dev
+   vp run dev
    ```
 
 ## API

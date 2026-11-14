@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "Open Data Portal and API for exploring public datasets",
   "type": "module",
-  "packageManager": "pnpm@11.2.2",
   "scripts": {
     "dev": "vp dev",
     "build": "vp build",
     "preview": "vp preview",
-    "deploy": "pnpm run build && wrangler deploy",
+    "deploy": "vp run build && wrangler deploy",
     "lint": "vp check",
     "test": "vp test run",
     "test:watch": "vp test",
@@ -16,38 +15,48 @@
     "db:migrate:remote": "wrangler d1 migrations apply open-data-db --remote",
     "db:migrate:local": "wrangler d1 migrations apply open-data-db --local",
     "db:init": "vpx scripts/init-db.ts",
-    "db:init:local": "pnpm run db:init && wrangler d1 execute open-data-db --local --file=./scripts/init.sql",
-    "db:init:remote": "pnpm run db:init && wrangler d1 execute open-data-db --remote --file=./scripts/init.sql",
-    "prepare": "husky"
+    "db:init:local": "vp run db:init && wrangler d1 execute open-data-db --local --file=./scripts/init.sql",
+    "db:init:remote": "vp run db:init && wrangler d1 execute open-data-db --remote --file=./scripts/init.sql",
+    "prepare": "vp config"
   },
   "dependencies": {
-    "@hono/swagger-ui": "^0.6.1",
+    "@hono/swagger-ui": "^0.6.2",
     "@hono/zod-openapi": "^1.6.3",
-    "@tailwindcss/postcss": "^4.3.3",
-    "axios": "^1.20.0",
-    "hono": "^4.13.14",
+    "@tailwindcss/postcss": "^4.3.4",
+    "axios": "^1.21.0",
+    "hono": "^4.13.16",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-router": "^8.5.0",
+    "react-router": "^8.5.1",
     "swr": "^2.5.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.65.0",
-    "@types/node": "^22.20.5",
+    "@cloudflare/vite-plugin": "^1.67.0",
+    "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "@vitejs/plugin-react": "^6.1.2",
+    "@vitejs/plugin-react": "^6.2.1",
     "@vitest/ui": "catalog:",
-    "husky": "^9.1.7",
-    "lint-staged": "^17.6.0",
     "lucide-react": "^0.577.0",
-    "postcss": "^8.5.31",
-    "tailwindcss": "^4.3.3",
+    "postcss": "^8.5.32",
+    "tailwindcss": "^4.3.4",
     "typescript": "^7.0.2",
     "vite": "catalog:",
     "vite-plus": "catalog:",
     "vitest": "catalog:",
-    "wrangler": "4.153.0"
+    "wrangler": "4.157.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "24.22.2",
+      "onFail": "download"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.2.2",
+      "onFail": "download"
+    }
   }
 }
